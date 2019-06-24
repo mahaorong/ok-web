@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>客服模块</title>
+</head>
+<body>
+
+<section class="right_popup" th:fragment="service">
+    <ul class="right_popup_ul">
+        <li class="hover_popup">
+            <a href="tencent://message/?uin=46885145" th:href="@{tencent://message/(uin=${customer?.tencent1})}">
+                <div class="hide_popup">
+                    <img src="/images/ll04.png" alt="">
+                </div>
+                <img class="hide_img_popup" src="/images/download.png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="tencent://message/?uin=46885145" th:href="@{tencent://message/(uin=${customer?.tencent2})}">
+                <div class="hide_popup">
+                    <img src="/images/ll04.png" alt="">
+                </div>
+                <img class="hide_img_popup" src="/images/download.png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="javascript:void(0)">
+                <div class="hide_popup">
+                    <img src="/images/weixin.jpg" class="wenxin_popup" th:href="@{${customer?.wechat}}">
+                </div>
+                <img class="hide_img_popup" src="/images/l02 (1).png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="https://amos.alicdn.com/getcid.aw?spm=a2615.2177701.0.0.6fd07b0bZcoYxj&v=3&uid=hkenroo&site=cnalichn&groupid=0&s=1&charset=utf-8&fromid=hkenroo"
+               th:href="@{${customer?.alibaba}}">
+                <div class="hide_popup">
+                    <img src="/images/ll07.png" alt="">
+                </div>
+                <img class="hide_img_popup" src="/images/ll08.png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="mailto:enroo@enroo.com" th:href="@{${customer?.email}}">
+                <div class="hide_popup">
+                    <div class="df_popup">
+                        <img src="/images/l14.png" alt="">
+                        <div class="right_pupop_back">
+                            <span>enroo@enroo.com</span>
+                        </div>
+                    </div>
+                </div>
+                <img class="hide_img_popup" src="/images/ll14.png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="javascript:void(0)">
+                <div class="hide_popup">
+                    <div class="df_popup">
+                        <img src="/images/l14.png" alt="">
+                        <div class="right_pupop_back">
+                            <span th:text="${customer?.phone}">4007-888-234</span>
+                        </div>
+                    </div>
+                </div>
+                <img class="hide_img_popup" src="/images/l05.png" alt="">
+            </a>
+        </li>
+        <li class="hover_popup">
+            <a href="#">
+                <div class="hide_popup">
+                    <img src="/images/ll06.png" alt="">
+                </div>
+                <img class="hide_img_popup" src="/images/l06.png" alt="">
+            </a>
+        </li>
+    </ul>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 产品管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+</head>
+
+<body>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" method="get" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="addProductFile">
+                    <input hidden="hidden" type="text" name="id" th:value="${wid}">
+                    <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main">
+            <div class="file_container">
+                <div class="file_mange">
+                    <nav aria-label="breadcrumb" class="">
+                        <ol class="breadcrumb breadcrumb_ol model_form">
+                            <li class="breadcrumb-item"><a th:href="@{/product/findWorktable}">产品</a></li>
+                            <li class="breadcrumb-item"><a href="#" th:href="@{/admin/findProductDetail(wid=${wid})}" th:text="|${worktable?.fileName}|"></a></li>
+                            <li class="breadcrumb-item active" aria-current="page" th:text="|${product?.name}|">产品列表</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="table_box">
+                    <table class="table table-bordered" style="margin-top: 10px">
+                        <a class="btn btn-default" style="color: black;background: #E0E0E0;" th:href="@{/admin/findProductDetail(wid=${wid})}">返回</a>
+                            <a class="btn btn-default" style="background: #E0E0E0;" onclick="window.location.reload();">刷新</a>
+                        <thead style="margin-top: 15px">
+                            <tr>
+                                <th class="" style="padding-right:0px">
+                                    <input type="checkbox" id="checkbox" th:checked="${check}"  class="icheckbox_square-blue">
+                                </th>
+                                <th scope="col">文件名称</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <form action="/product/addPackageData" method="post">
+                                <input name="id" id="id" type="hidden" th:value="${id}">
+                                <tr th:each="file:${filePage?.items}">
+                                    <div th:if="${ids != null}">
+                                        <td th:if="${#sets.contains(ids,file?.id)}">
+                                            <input th:id="${file?.id}" th:onclick="'javascript:checkAndSubmit(\''+${file?.id}+'\')'"
+                                                name="files" th:checked="true" th:value="${file?.id}" type="checkbox">
+                                        </td>
+                                        <td th:if="${! #sets.contains(ids,file?.id)}">
+                                            <input th:id="${file?.id}" th:onclick="'javascript:checkAndSubmit(\''+${file?.id}+'\')'"
+                                                name="files" th:value="${file?.id}" type="checkbox">
+                                        </td>
+                                    </div>
+                                    <div th:if="${ids == null}">
+                                        <td><input th:id="${file?.id}" th:onclick="'javascript:checkAndSubmit(\''+${file?.id}+'\')'"
+                                                name="files" th:value="${file?.id}" type="checkbox"></td>
+                                    </div>
+                                    <td scope="row" th:text="${file?.name}"></td>
+                                </tr>
+
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${filePage?.getPre()}&keyword=${keyword}&type=${type}|:(${categoryId}?|?page=${filePage?.getPre()}&categoryId=${categoryId}&id=${id}&wid=${wid}|:|?page=${filePage?.getPre()}&id=${id}&wid=${wid}|)"
+                                aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:class="${page == filePage?.getPage()}?'page-item active':'page-item'" th:each="page:${filePage?.getPages()}"><a class="page-link" href="?page=1"
+                                th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${categoryId}?|?page=${page}&id=${id}&categoryId=${categoryId}&wid=${wid}|:|?page=${page}&id=${id}&wid=${wid}|)">[[${page}]]</a></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="${keyword}?|?page=${filePage?.getNext()}&keyword=${keyword}&type=${type}|:(${categoryId}?|?page=${filePage?.getNext()}&id=${id}&categoryId=${categoryId}&wid=${wid}|:|?page=${filePage?.getNext()}&id=${id}&wid=${wid}|)"
+                                aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <script th:inline="javascript">
+        $("#checkbox").click(function () {
+            var id = $("#id").val();
+            var fileId = [[${fileIds}]];
+            var fileIdString = JSON.stringify(fileId);
+            var flag = null;
+            if ($("#checkbox").prop('checked')) {
+                flag = "save";
+            } else {
+            }
+            $.ajax({
+                url: "/product/addPackageDatas",
+                type: "POST",
+                data: {
+                    "fileId": fileIdString,
+                    proId: id,
+                    flag: flag
+                },
+                success: function (data) {
+                    window.location.reload();
+                }
+
+            });
+        })
+
+    </script>
+    <script>
+        checkAndSubmit = function (fileId) {
+            var id = $("#id").val();
+            if ($("#" + fileId + "").prop('checked')) {
+                $.ajax({
+                    url: "/product/addPackageData",
+                    type: "POST",
+                    data: {
+                        fileId: fileId,
+                        ids: id,
+                        flag: "save"
+                    },
+                    success: function (data) {
+                        iziToast.success({
+                            position: 'topRight',
+                            title: '添加成功',
+                            message: 'Successfully!',
+                        });
+                    }
+
+                });
+            } else {
+                $.ajax({
+                    url: "/product/addPackageData",
+                    type: "POST",
+                    data: {
+                        fileId: fileId,
+                        ids: id,
+                        flag: "delete"
+                    },
+                    success: function (data) {
+                        iziToast.success({
+                            position: 'topRight',
+                            title: '删除成功',
+                            message: 'Successfully!',
+                        });
+                    }
+
+                });
+            }
+        };
+    </script>
+
+    <script th:inline="javascript">
+        $(function () {
+
+            var defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/product/findProductFile?id="+[[${id}]]+"&categoryId="+data.id+"&wid="+[[${wid}]]
+                },
+            });
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+        })
+    </script>
+</body>
+
+</html>

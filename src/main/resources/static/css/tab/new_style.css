@@ -1,0 +1,234 @@
+aside {
+    /* position: relative; */
+    margin-bottom: 30px;
+    /* bottom: 191px; */
+}
+
+aside section {
+    /* border: 1px solid #ddd; */
+}
+
+aside section h2 {
+    /* padding: 0 20px; */
+    /* height: 60px; */
+    /* border-bottom: 1px solid #ddd; */
+    font-size: 18px;
+    line-height: 60px;
+}
+
+aside .met_aside_list {
+    padding: 10px 0;
+}
+
+aside .met_aside dl dt.on {
+    background: #efefef;
+    border-left: 4px solid #e9280c;
+}
+
+aside .met_aside dl dt {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+}
+
+aside .met_aside dl dt a {
+    display: block;
+    padding: 10px 0;
+    color: #333;
+}
+
+aside .met_aside dl dt a {
+    color: #333;
+}
+
+aside .met_aside dl dt a span {
+    color: #333;
+    font-size: 14px;
+}
+
+aside .met_aside dl dt a:hover {
+    background: #efefef;
+}
+
+#content {
+    background: #ffffff;
+    font-size: 11px;
+    overflow: hidden;
+}
+
+#content h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #535353;
+}
+
+#content img {
+    padding: 5px;
+    background: #f7f7f7;
+    border: solid 1px #464646;
+    margin: 2px;
+}
+
+.menu ul li {
+    display: block;
+    padding-top: 2px;
+    /* background: url(../../images/ias_zakladka.png) top left no-repeat; */
+    background-size: 100%;
+    list-style: none;
+    overflow: visible;
+}
+
+.menu ul li a {
+    display: block;
+    /* height: 45px; */
+    /* margin-top: 0px; */
+    /* width: 93%; */
+    /* padding-top: 13px; */
+    padding-left: 13px;
+    font-size: 12px;
+    color: #333333;
+    outline: none;
+}
+
+.menu ul li .active {
+    background: url(../../images/ias_on.png)no-repeat;
+    background-position: 91% 20px;
+    padding: 13px 11px;
+    color: #fff !important;
+    border-bottom: 1px dashed #bdbdbd;
+    margin-bottom: 13px;
+}
+.mgl_0_p .active{
+    background: none !important;
+    background-position: unset !important;
+    padding: 0 !important;
+    padding-left: 7px !important;
+    color: unset !important;
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+}
+
+
+.menu ul li .inactive {
+    background: url(../../images/ias_off.png)no-repeat;
+    background-position: 91% 20px;
+    padding: 13px 11px;
+    color: #333743 !important;
+    margin-bottom: 5px;
+}
+
+.menu ul li ul {
+    display: none;
+    margin-top: -4px;
+    margin-bottom: 20px;
+}
+
+.menu ul li ul li ul {
+    margin-bottom: 5px;
+}
+
+.menu ul li ul li {
+    display: block;
+    background: none;
+    font-size: 12px;
+    list-style: circle;
+    color: #8b8a8a;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 1px;
+    margin-left: 10px;
+    position: relative;
+    padding-left: 7px;
+}
+
+.menu ul li ul li a {
+    background: none;
+    font-size: 12px;
+    /* height: 39px; */
+    margin-left: 16px;
+    color: #8b8a8a;
+    padding-left: 0px;
+    /* border-bottom: 1px dashed #d1d1d1; */
+    min-height: 35px;
+    line-height: 35px;
+}
+
+.menu ul li ul li ul li {
+    display: block;
+    background: none;
+    font-size: 12px;
+    list-style: circle;
+    color: #8b8a8a;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 1px;
+    margin-left: 10px;
+    width: 200px;
+    background: url(../images/li_dian.jpg) left center no-repeat;
+    padding-left: 5px;
+}
+
+.menu ul li ul li ul li a {
+    background: none;
+    font-size: 12px;
+    height: 24px;
+    color: #8b8a8a;
+    padding-left: 0px;
+    border-bottom: 0px;
+}
+
+.menu ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+
+.product_css {
+    padding: 15px 10px;
+    padding-bottom: 40px;
+}
+
+.product_css .product_text {
+    width: 395px;
+    font-size: .7rem;
+    color: #a4a4a4;
+    line-height: 1.2rem;
+    margin-top: 15px;
+}
+
+.menu>ul>li>a {
+    /* background-color: #eee !important; */
+}
+.menu ul li .inactive:last-child {
+    /* margin-bottom: 0px; */
+}
+.menu ul li .active:last-child {
+    margin-bottom: 0px;
+}
+.change_active{
+    transition: all 0.3s;
+}
+.change_active:hover, .change_active::before{
+    content: "";   
+}
+.menu > ul > li.active > a{
+    color: #e60012!important;
+}
+.go_home{
+    margin-right: 5px;
+}
+.mgl_0{
+    margin-left:0;
+}
+[data-new]{
+    border-bottom: 1px dashed #bdbdbd;
+}
+.mgl_0_p{
+    margin-top: 15px !important;
+}
+.mgl_0_p > li{
+    margin-left: 0 !important;
+}

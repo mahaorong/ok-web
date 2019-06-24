@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}"
+          content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}" th:content="${blogDetail?.description}"
+          content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|">enroo-关于我们</title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <title th:if="${id != null && title == null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}|">enroo-关于我们</title>
+    <title th:if="${id != null && title != null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/new_style.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="/css/enroo_about_new.css">
+    <link rel="stylesheet" href="/css/about_left.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <link rel="stylesheet" href="/css/download.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="/css/support.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?8083cb1adbb369706ff28a9ae676a63e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?c23efae75302ca7f789c8827d97ed39a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+</head>
+
+<body>
+
+<section th:replace="/zh_CN/service::service"></section>
+
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+        <div class="container new_container">
+            <div class="row a-center flex_header">
+                <div class="d_f left_header">
+                    <div class="logo">
+                        <a href="#">
+                            <!-- style="width: 472px !important;" -->
+                            <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="right_header">
+                    <div class="right_div_2">
+                        <div class="input_search">
+                            <div id="search-form"></div>
+                            <a href="#" class="full_icon_search">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="call_me">
+                            <span>技术热线：</span>
+                            <span>4007-888-234</span>
+                        </div>
+                    </div>
+                    <div class="right_div_1">
+                        <div class="enroo_lan_div">
+                            <div>
+                                <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                            </div>
+                            <div>
+                                <a href="" th:href="@{/(lang='en_US')}">English</a>
+                            </div>
+                        </div>
+                        <!-- <div class="enroo_keyword">
+                            <div>单片机集成方案全方位解决服务商</div>
+                            <div>优质智能电子产品"芯"方案提供商</div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+
+<section class="about_banner carousel_margin_top" style="background-image: url('/images/about_banner.png');">
+    <div class="container">
+        <div class="banner_title">
+            <small>about us</small>
+            <h2>关于我们</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_t_30_80">
+    <div class="bread_bac">
+        <div class="new_Ipage_container">
+            <div class="row justify-content-end">
+                <div class="new_md_9">
+                    <div class="bread_df">
+                        <div class="bread_nav_title">
+                            <h4 th:text="${default_cate?.text}">企业简介</h4>
+                        </div>
+                        <div class="bread_nav">
+                            <ul class="bread_nav_ul">
+                                <li class="nav_link_bread">
+                                    <a href="#" class="go_home" th:href="@{/}"><i class="fa fa-home"></i></a>
+                                    <a href="#" th:href="@{/}">单片机</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a href="#" class="bread_actie" th:href="@{/abouts_c_new/qyjj/category2}">关于我们</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a href="#" class="bread_actie" th:text="${default_cate?.text}">产品中心</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3 pa_191">
+                <aside>
+                    <section class="met_aside">
+                        <div class="new_about_tab_title ">
+                            <h2>关于<br>我们</h2>
+                            <div class="new_about_tab_small">
+                                <small>about us</small>
+                            </div>
+                        </div>
+                        <div id="content">
+                            <div class="menu">
+                                <ul class="">
+                                    <li class="active" th:each="category : ${category2_cate1}" th:class="${category?.id == default_cate?.id || default_cate?.id == null && category?.text =='企业简介' } ? 'active':''">
+                                        <a href="#" class="inactive" th:if="${category?.text != '资质荣誉' && category?.text != '员工活动' && category?.text != '招贤纳士'}"
+                                           th:text="${category?.text}" th:href="${category?.outlink == null || category?.outlink == ''} ? |@{/abouts_c_new/}${category?.initials(category?.text)}/${key2}| : @{${category?.outlink}}" th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'">企业简介</a>
+                                        <a href="#" class="inactive" th:if="${category?.text == '资质荣誉'}" th:text="${category?.text}"
+                                           th:href="|@{/about_honor_new/}${category?.initials(category?.text)}/${key2}|" th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'">资质荣誉</a>
+                                        <a href="#" class="inactive" th:if="${category?.text == '员工活动'}" th:text="${category?.text}"
+                                           th:href="|@{/about_activities_new/}${category?.initials(category?.text)}/${key2}|" th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'">员工活动</a>
+                                        <a href="#" class="inactive" th:if="${category?.text == '招贤纳士'}" th:text="${category?.text}"
+                                           th:href="|@{/about_Recruit_new/}${category?.initials(category?.text)}/${key2}|" th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'">招贤纳士</a>
+                                    </li>
+                                    <li>
+                                        <a class="inactive" data-new >新闻中心</a>
+                                        <ul style="display: block" class="mgl_0_p">
+                                            <li class="change_active flex_box_space" th:each="cate : ${category1_cate1}"
+                                                th:class="${cate?.id == default_cate?.id || default_cate?.id == null} ? 'change_active flex_box_space menu_li_active':'change_active flex_box_space'">
+                                                <a th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'"
+                                                   th:text="${cate?.text}" th:href="${cate?.outlink == '' || cate?.outlink == null} ? |@{/about_notice_new/}${cate?.initials(cate?.text)}/${key1}| : @{${cate?.outlink}}">原厂咨询</a>
+
+                                                <!--<a th:if="${cate?.text == '企业公告'}" href="about_consultation.html" th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'"
+                                                    th:text="${cate?.text}" th:href="|@{/about_notice_new/}qygg/${key1}|">原厂咨询</a>-->
+                                                <i class="fa fa-long-arrow-right"></i>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <div th:replace="zh_CN/new_left::left2"></div>
+                <div th:replace="zh_CN/new_left::left3"></div>
+            </div>
+
+            <div class="new_md_9">
+                <div class="limited_about">
+                    <div class="about_content about_content_border about_main" th:each="blog : ${category2_blog2?.items}"
+                         th:if="${default_cate?.text != '发展历程' && default_cate?.text != '组织架构' && category2_blog2?.items?.size() == 1}">
+                        <div class="about_title text-center">
+                            <h2 th:text="${blog?.title}">深圳市英锐恩科技有限公司</h2>
+                        </div>
+
+
+                        <div class="about_content_body" th:utext="${blog?.htmlContent}">
+                            <!-- <p class="about_content_body_p">英锐恩科技服务热线:4007-888-234 Mail：Enroo@Enroo.com</p> -->
+                        </div>
+
+                    </div>
+
+                    <div class="download_content" th:if="${default_cate?.text != '发展历程' && default_cate?.text != '组织架构' && category2_blog2?.items?.size() > 1}">
+                        <div class="support_content">
+                            <ul>
+                                <li th:each="blog : ${category2_blog2?.items}">
+                                    <a href="#" th:text="${blog?.title}" th:href="|@{/about_Recruit_new/}${cateName}/${key2}/${blog?.id}/${currentPage}|">单片机芯片制程工艺对芯片良率的影响</a>
+                                    <span th:text="|[${#strings.substring(blog?.createTime,0,10)}]|">[2018-11-03]</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="nav_page">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getPre()}|">
+                                            << </a> </li> <li class="page-item actives" th:each="page : ${category2_blog2?.getPages()}"
+                                                              th:class="${page == category2_blog2?.page} ? 'page-item actives' : 'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}|">1</a>
+                                </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getNext()}|">>></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+                    <div class="about_content_border about_content border_e8 container_md_8 about_main" th:each="blog : ${category2_blog2?.items}"
+                         th:if="${default_cate?.text == '发展历程'}" th:utext="${blog?.content}">
+                    </div>
+
+                    <div class="about_content_border about_content" th:each="blog : ${category2_blog2?.items}"
+                         th:if="${default_cate?.text == '组织架构'}">
+                        <div class="row">
+                            <div class="title_organization text-center">
+                                <h2 th:text="${blog?.summary}">深圳市英锐恩科技有限公司</h2>
+                                <p th:utext="${blog?.htmlContent}">Enroo (ShenZhen) Co., Ltd</p>
+                            </div>
+                            <!--<div class="col-md-12">
+                                <img src="/images/organization.png" alt="" th:src="${blog?.imageUrl}" th:alt="${blog?.title}"
+                                     class="img-fluid">
+                            </div>-->
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <section  th:replace="zh_CN/absorbed::top"></section> -->
+<!-- <section  th:replace="/zh_CN/absorbed::top"></section> -->
+<footer class="mar_top_40" th:replace="/zh_CN/footer::footer"></footer>
+
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+        $("[data-new]").on("click", function () {
+            $(".slider_down_text").slideDown();
+        });
+        $(document).on("click", ".full_icon_search", function () {
+            var keyword = $("input[name='query']").val();
+            console.log("keyword=" + keyword);
+            window.location.href = "/searchAll?keyword="+ keyword +"&type=all";
+        });
+    });
+</script>
+</body>
+
+</html>

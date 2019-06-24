@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片管理</title>
+
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/dropzone.css" th:href="@{/css/new_css/dropzone.css}">
+    <link rel="stylesheet" href="../../../static/css/image_admin.css" th:href="@{/css/image_admin.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/dropzone/dropzone.js" th:src="@{/js/dropzone/dropzone.js}"></script>
+    <script src="../../../static/js/dropzone_image.js" th:src="@{/js/dropzone_image.js}"></script>
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="../../../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/js/admin/image.js" th:src="@{/js/admin/image.js}"></script>
+
+
+
+</head>
+
+<body>
+<!--    <div class="img_sort_a display">
+        <div class="sort">
+            <div class="sort_top">
+                <h3>选择分类</h3>
+                <i class="material-icons sort_close">close</i>
+            </div>
+            <div class="sort_content">
+                <div class="sort_checkbox" th:each="cate : ${category?.tree}">
+                    <input type="checkbox" class="sort_top_checbox" name="cateids" th:value="${cate?.id}">
+                    [[|${cate?.tag}${cate?.text}|]]
+                </div>
+            </div>
+            <div class="sort_footer">
+                <button type="button" id="addCategory" class="btn btn-success sort_btn">确定</button>
+            </div>
+        </div>
+    </div>-->
+
+    <!-- Modal -->
+    <div class="modal fade" style="margin: 40px 0;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">选择分类</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal_overflow">
+                    <div th:each="cate : ${category?.tree}">
+                        <input type="checkbox" class="sort_top_checbox" name="cateids" th:value="${cate?.id}">
+                        [[|${cate?.tag}${cate?.text}|]]
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="button" id="addCategory" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home_add" id="dropzone_btn">
+        <i class="material-icons">add</i>
+    </div>
+    <div class="enroo_img_top">
+        <div class="close_sort">
+            <a href="javascript:void(0)">
+                <i class="material-icons close_icon">close</i>
+            </a>
+        </div>
+        <div>
+            <a href="javascript:void(0)"  data-toggle="modal" data-target="#exampleModal">加入分类</a>
+            <span>|</span>
+            <a href="javascript:void(0)" data-delete>删除勾选</a>
+        </div>
+
+    </div>
+    </div>
+    <div th:replace="admin/new_web/navigation_bar::top2"></div>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="image_admin">
+                    <input name="keyword" th:value="${keyword}" class="form-control mr-sm-2" type="search" placeholder="请输入..."
+                        aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">文件</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">图片管理</li>
+                </ol>
+            </nav>
+            <hr>
+            <!-- <input type="file" title="上传图片" name="file" onchange="uploadFile()"> -->
+            <div class="dropzone" id="dropzone">
+                <!-- strat -->
+                <div class="dz-default dz-message">
+                    <span></span>
+                </div>
+
+                <!--   <div class="margin images-upload">
+        <div class="images-img">
+            <img src="../static/images/default-user.jpg" th:src="@{/images/default-user.jpg}" alt="">
+        </div>
+        <div class="datail">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                    <span class="sr-only">60% Complete</span>
+                </div>
+            </div>
+        </div>
+        <div class="name text-center">
+            <div class="fil-name">
+                <span>vericode.jpeg</span>
+            </div>
+            <div class="name-size">
+                <span>
+                    <strong>0.1</strong>
+                    MB
+                </span>
+            </div>
+        </div>
+    </div> -->
+                <!-- end -->
+            </div>
+            <div class="img_container">
+                <div class="img_box" th:each="image:${imagePage?.items}">
+                    <div class="img_div">
+                        <a href="javascript:void(0)">
+                            <img class="img_sort" src="../../../static/images/14.png" th:src="@{${image?.imageUrl}}"
+                                alt="">
+                        </a>
+                    </div>
+                    <div class="input_div">
+                        <div class="checkbox">
+                            <input type="checkbox" class="checkboxs" name="imageIds" th:value="${image?.id}">
+                        </div>
+                        <div class="dropdown p_a_dropdown">
+                            <div class="enroo_dropdown_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </div>
+                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" id="update_name">修改图片</a>
+                                <a class="dropdown-item" href="#" id="img_url">图片路径</a>
+                                <a class="dropdown-item" href="#" id="href_url">跳转路径</a>
+                                <a class="dropdown-item" href="#" id="img_description">图片描述</a>
+                                <a class="dropdown-item" href="#" th:href="@{/image/delete(id=${image?.id})}">删除</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="img_name">
+                        <a href="javascript:void(0)" th:text="${image?.imageName}">图片</a>
+                    </div>
+
+                    <div class="updata_name display" >
+                        <form class="form-inline" action="/image/editName" method="post">
+                            <div class="form_group_updateName">
+                                <input type="text" class="form-control update_name_input" name="name" id="inputPassword2"
+                                    th:value="${image?.imageName}">
+                                <input type="hidden" name="id" th:value="${image?.id}">
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="img_description display" >
+                        <form class="form-inline" action="/image/editDescription" method="post">
+                            <div class="form_group_updateName">
+                                <input placeholder="请输入图片描述" type="text" class="form-control img_description_input" name="description" id="inputPassword4"
+                                       th:value="${image?.description}">
+                                <input type="hidden" name="id" th:value="${image?.id}">
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div class="img_hrefUrl display">
+                        <form class="form-inline" action="/image/editHref" method="post">
+                            <div class="form_group_updateName">
+                                <input placeholder="请输入图片跳转链接" type="text" class="form-control img_hrefUrl_input" name="hrefUrl" id="inputPassword4"
+                                       th:value="${image?.hrefUrl}">
+                                <input type="hidden" name="id" th:value="${image?.id}">
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="image_url display">
+                            <div class="form_group_updateName">
+                                <input type="text" class="form-control image_url_input" name="name" id="inputPassword3"
+                                       th:value="${image?.imageUrl}">
+                            </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&id=${id}|:|?page=1|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${imagePage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.getPre()}&id=${id}|:|?page=${imagePage?.getPre()}|)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:class="${page == imagePage?.getPage()}?'page-item active':'page-item'" th:each="page:${imagePage?.getPages()}"><a class="page-link" href="?page=1"
+                            th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&id=${id}|:|?page=${page}|)">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${imagePage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.getNext()}&id=${id}|:|?page=${imagePage?.getNext()}|)"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${imagePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.pagecount}&id=${id}|:|?page=${imagePage?.pagecount}|)">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${imagePage?.page}]]/[[${imagePage?.pagecount}]]页  共[[${imagePage?.totalcount}]]条记录 每页[[${imagePage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+
+    <script src="../../../static/js/dropzone_image.js" th:src="@{/js/dropzone_image.js}"></script>
+
+    <script th:inline="javascript">
+        $(function () {
+
+        var defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+            onNodeSelected: function(event, data) {
+                console.log(data.id);
+                window.location.href="/image/categoryImage?id="+data.id
+            },
+        });
+        $('#treeview3').treeview('collapseAll', { silent: true });
+    })
+</script>
+
+    <script id="tpl" type="text/plain">
+
+
+        <figure class="figure" data-id="{ id }" data-new="{ name }">
+           <div class="btn-group">
+               <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    class="kx_figure_dropdown">
+                   <i class="material-icons">more_vert</i>
+               </div>
+               <div class="dropdown-menu dropdown-menu-right">
+                   <button class="dropdown-item" type="button" name="reset_name" id="reset"
+                           th:data-id="${item?.id}">重命名
+                   </button>
+                   <button class="dropdown-item file_delete" type="button" name="delete_album_file"
+                           th:data-id="${item?.id}">删除
+                   </button>
+               </div>
+               <div class="kx_figure_checkbox"  name="{ date }checkbox" data-date="{ date }">
+                   <label class="kx_figure_label">
+                       <input type="checkbox" name="fileids" value="{ id }">
+                   </label>
+               </div>
+           </div>
+           <a th:href="@{/photo/{id}(id=${item?.id})}">
+               <div class="image_height">
+                   <img src="/photo/{ id }" th:src="@{/photo/{id}}">
+               </div>
+           </a>
+           <figcaption class="figure-caption text">{ name }
+           </figcaption>
+           <form action="/file/{ id }/update" method="post">
+               <div class="figure_btn hide" name="reset_form">
+                   <input class="form-control name_class" value="{ name }" data-id="{ id }"
+                          placeholder="请输入名字">
+                   <input type="hidden" class="form-control id_class" th:value="${item?.id}" name="id">
+                   <button class="btn btn-primary" type="button" id="update_file" value="修改">确定</button>
+               </div>
+           </form>
+       </figure>
+<!--img-box end-->
+
+
+
+
+
+</script>
+
+    <script id="tpl2" type="text/plain">
+        <div name="">
+
+       <div class="kx_photo_time">
+           <input type="checkbox" class="kx_photo_chexbox" id="checkboxBox0" data-date="{ date }">
+           <span class="kx_photo_data" text="{ date }">{ date }</span>
+       </div>
+
+
+<div class="lightbox clearfix">
+<div class="img-box" data-id="{ id }" data-new="{ name }">
+            <figure class="figure" data-id="{ id }" data-new="{ name }">
+           <div class="btn-group">
+               <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    class="kx_figure_dropdown">
+                   <i class="material-icons">more_vert</i>
+               </div>
+               <div class="dropdown-menu dropdown-menu-right">
+                   <button class="dropdown-item" type="button" name="reset_name" id="reset"
+                           th:data-id="${item?.id}">重命名
+                   </button>
+                   <button class="dropdown-item file_delete" type="button" name="delete_album_file"
+                           th:data-id="${item?.id}">删除
+                   </button>
+               </div>
+               <div class="kx_figure_checkbox"  name="{ date }checkbox" data-date="{ date }">
+                   <label class="kx_figure_label">
+                       <input type="checkbox" name="fileids" value="{ id }">
+                   </label>
+               </div>
+           </div>
+           <a th:href="@{/photo/{id}(id=${item?.id})}">
+               <div class="image_height">
+                   <img src="/photo/{ id }" th:src="@{/photo/{id}}">
+               </div>
+           </a>
+           <figcaption class="figure-caption text">{ name }
+           </figcaption>
+           <form action="/file/{ id }/update" method="post">
+               <div class="figure_btn hide" name="reset_form">
+                   <input class="form-control name_class" value="{ name }" data-id="{ id }"
+                          placeholder="请输入名字">
+                   <input type="hidden" class="form-control id_class" th:value="${item?.id}" name="id">
+                   <button class="btn btn-primary" type="button" id="update_file" value="修改">确定</button>
+               </div>
+           </form>
+       </figure>
+<!--img-box end-->
+</div>
+<!--lightbox end-->
+</div>
+
+
+
+</script>
+
+<script>
+
+       $(function () {
+           imagePath  = function (id) {
+               $(".updata_name").hide();
+               $("#"+id+"").show();
+           }
+       })
+
+
+</script>
+
+</body>
+
+</html>

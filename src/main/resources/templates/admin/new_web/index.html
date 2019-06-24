@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>信息分类</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../../static/css/iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bundle2.js" th:src="@{/bootstrap/bootstrapTreeview/js/bundle2.js}"></script>
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/js/blog/category.js" th:src="@{/js/blog/category.js}"></script>
+
+</head>
+
+<body>
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销
+        </button>
+    </nav>
+</section>
+<div class="flex_box">
+    <div class="number_dir">
+        <button class="btn btn-success" style="width: 100%;" onclick="javascript:window.location.href='/admin/index'">
+            创建
+        </button>
+        <div id="treeview3" class=""></div>
+    </div>
+    <div class="enroo_main p_r">
+        <div class="row">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                    <ol class="breadcrumb breadcrumb_ol">
+                        <li class="breadcrumb-item">通用</li>
+                        <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                        <li class="breadcrumb-item active" aria-current="page">信息分类</li>
+                    </ol>
+                </nav>
+                <div class="back_sort">
+                    <form id="cateForm">
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">分类名称</label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="请输入分类名称" name="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">title</label>
+                            <input type="text" class="form-control" placeholder="请输入title" name="title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">description</label>
+                            <input type="text" class="form-control" placeholder="请输入description" name="description">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">keywords</label>
+                            <input type="text" class="form-control" placeholder="请输入keywords" name="keywords">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">外部超链接</label>
+                            <input type="text" class="form-control" placeholder="请输入超链接" name="outlink">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">选择分类</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="pid">
+                                <!--<option selected="selected"  value=""  th:text="${cateitem?.text == null}?'请选择':${cateitem?.text}" th:value="${cateitem?.id}">请选择</option>-->
+                                <option selected="selected" value="">请选择</option>
+                                <option th:each="cate : ${category?.tree}" th:selected="${cateitem?.text == cate?.text}"
+                                        th:text="|${cate?.tag}${cate?.text}|" th:value="${cate?.id}">主页
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="btn btn-success" id="cateSubmit" value="确定"></input>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">修改名称</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" class="form-control" id="id" data-id>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">分类名称</label>
+                    <input type="text" class="form-control" id="text" placeholder="请输入分类名称" data-text>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">title</label>
+                    <input type="text" class="form-control" id="title" placeholder="请输入title" data-title>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">description</label>
+                    <input type="text" class="form-control" id="description" placeholder="请输入description"
+                           data-description>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">keywords</label>
+                    <input type="text" class="form-control" id="keywords" placeholder="请输入keywords" data-keywords>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">外部超链接</label>
+                    <input type="text" class="form-control" id="outlink" placeholder="请输入超链接" data-link>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-update-title>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    $(function () {
+        window.defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+            list: true,
+            type: false,
+            // showCheckbox: true,
+            /*onNodeChecked: function (event, data) {
+                checkbox_arr.push(data.id);
+                console.log(data);
+            },
+            onNodeUnchecked: function (event, data) {
+                let new_arr = [];
+                for (var i in checkbox_arr) {
+                    if (checkbox_arr[i] != data.id) {
+                        new_arr.push(checkbox_arr[i]);
+                    }
+                }
+                checkbox_arr = new_arr;
+                console.log(checkbox_arr);
+            },*/
+            del: function (a) {
+                let con = confirm("确认要删除吗？");
+                if (con) {
+                    let id = $(a).parents("li").data("id");
+                    ajax("/admin/deletecategory?id=" + id, "get")
+                        .then(function (mes) {
+                            window.location.reload();
+                        }, function (err) {
+                            //错误返回
+                        });
+                }
+            },
+            upd: function (a) {
+                let id = $(a).parents("li").data("id");
+                $.get("/admin/findCategoryName?id=" + id, function (result) {
+                    console.log("【数据】" + result);
+                    $("#text").val(result.text);
+                    $("#title").val(result.title);
+                    $("#description").val(result.description);
+                    $("#keywords").val(result.keywords);
+                    $("#outlink").val(result.outlink);
+                    $("#id").val(result.id);
+                    return;
+                });
+                $("[data-update-title]").on("click", function () {
+                    let formdata = new FormData();
+                    var text = $(this).parents(".modal-content").find("[data-text]").val();
+                    if (text.indexOf("/") != -1) {
+                        // alert("存在")
+                        iziToast.error({
+                            position: 'topRight',
+                            title: '修改分类失败',
+                            message: 'Failure!不能含有 / 符号',
+                        });
+                    } else {
+                        formdata.append("pid", $(a).parents("li").data("pid"));
+                        // formdata.append("id", $(a).parents("li").data("id"));
+                        formdata.append("id", $(this).parents(".modal-content").find("[data-id]").val());
+
+                        // alert($(this).parents(".modal-content").find("[data-id]").val());
+                        formdata.append("text", text);
+                        formdata.append("title", $(this).parents(".modal-content").find("[data-title]").val());
+                        formdata.append("description", $(this).parents(".modal-content").find("[data-description]").val());
+                        formdata.append("keywords", $(this).parents(".modal-content").find("[data-keywords]").val());
+                        formdata.append("outlink", $(this).parents(".modal-content").find("[data-link]").val());
+                        ajax("/admin/category/change", "post", formdata)
+                            .then(function (mes) {
+                                window.location.reload();
+                            });
+                    }
+
+                });
+            },
+            cre: function (a) {
+                let id = $(a).parents("li").data("id");
+                window.location.href = "/admin/index?id=" + id;
+            },
+        });
+        $('#treeview3').treeview('collapseAll', {
+            silent: true
+        });
+    })
+</script>
+
+<script type="text/javascript">
+    var websocket = null;
+    if ('WebSocket' in window) {
+        websocket = new WebSocket('ws://localhost/webSocket');
+    } else {
+        alert('该浏览器不支持订单提醒!');
+    }
+
+    websocket.onopen = function (event) {
+        console.log('建立连接');
+    }
+
+    websocket.onclose = function (event) {
+        console.log('连接关闭');
+    }
+
+    websocket.onmessage = function (event) {
+        console.log('收到消息:' + event.data)
+
+        iziToast.show({
+            class: 'test',
+            color: 'dark',
+            icon: 'icon-contacts',
+            title: '新表单提醒！！！',
+            message: '请到表单管理中进行查收',
+            position: 'topCenter',
+            transitionIn: 'flipInX',
+            transitionOut: 'flipOutX',
+            progressBarColor: 'rgb(0, 255, 184)',
+            image: '/images/form-icon.png',
+            imageWidth: 70,
+            layout: 2,
+            timeout: 1000 * 60 * 60,
+            onClose: function () {
+                console.info('onClose');
+            },
+            iconColor: 'rgb(0, 255, 184)'
+        });
+        /*document.addEventListener('iziToast-open', function (data) {
+            if (data.detail.class == 'test') {
+                console.log('test open');
+            }
+        });*/
+    }
+
+    websocket.onerror = function () {
+        alert('websocket通信发生错误！');
+    }
+
+    window.onbeforeunload = function () {
+        websocket.close();
+    }
+
+</script>
+
+
+</body>
+
+</html>

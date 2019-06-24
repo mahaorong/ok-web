@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件回收站</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/recycle.css" th:href="@{/css/new_css/recycle.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0" onclick="window.location.reload()">
+                    <input hidden="hidden" type="text" name="type" value="recycle_file">
+                    <input hidden="hidden" type="text" name="shape" value="3">
+                    <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main p_r">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">回收站</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">文件</li>
+                </ol>
+            </nav>
+            <hr>
+            <a class="btn btn-default" onclick="window.location.reload();">刷新</a>
+            <a class="btn btn-default" data-restore>恢复勾选</a>
+            <a class="btn btn-default" data-delete>删除勾选</a>
+            <table class="table table-bordered article_review_table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="checkId"></th>
+                        <th scope="col">文件名称</th>
+                        <th scope="col">文件类型</th>
+                        <th scope="col">发布时间</th>
+                        <th scope="col">文件大小</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="file:${filePage?.items}">
+                        <th><input type="checkbox" class="checkbox1" th:id="${file?.id}" data-class th:value="${file?.id}"></th>
+                        <th scope="row" th:text="${file?.name}">1</th>
+                        <td th:text="${file?.extname}">Mark</td>
+                        <td th:text="${#strings.substring(file?.createTime,0,10)}">Mark</td>
+                        <td th:text="${file?.formatSize(file.size)}">Otto</td>
+                        <td class="d_flex">
+                            <a class="table_btn btn btn-primary" th:href="@{/file/fileDownload(fileUrl=${file.downloadFileName},fileName=${file.fileName})}">下载</a>
+                            <a class="table_btn btn btn-primary" th:href="@{/recovery/restore(type='recycle_file',id=${file?.id})}">恢复</a>
+                            <a class="table_btn btn btn-danger" id="delete" th:href="@{/recovery/delete(type='recycle_file',id=${file?.id})}">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&type=recycle_file&id=${id}|:|?page=1&type=recycle_file|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${filePage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${filePage?.getPre()}&type=recycle_file&id=${id}|:|?page=${filePage?.getPre()}&type=recycle_file|)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${filePage?.getPages()}" th:class="${page == filePage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                            th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&type=recycle_file&id=${id}|:|?page=${page}&type=recycle_file|)">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${filePage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${filePage?.getNext()}&type=recycle_file&id=${id}|:|?page=${filePage?.getNext()}&type=recycle_file|)"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${filePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${filePage?.pagecount}&type=recycle_file&id=${id}|:|?page=${filePage?.pagecount}&type=recycle_file|)">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${filePage?.page}]]/[[${filePage?.pagecount}]]页  共[[${filePage?.totalcount}]]条记录 每页[[${filePage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+
+</body>
+<script th:inline="javascript">
+    $(function () {
+        var defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+            onNodeSelected: function (event, data) {
+                console.log(data.id);
+                window.location.href = "/recovery/findAll?type=recycle_file&id=" + data.id
+            },
+        });
+        $('#treeview3').treeview('collapseAll', {
+            silent: true
+        });
+    })
+    var fileIds = [];
+    $("#checkId").click(function () {
+        if ($(this).prop("checked") == true){
+            fileIds = [[${fileIds}]];
+            $(".checkbox1").attr("checked", "true");
+        } else {
+            fileIds = [];
+            $(".checkbox1").removeAttr("checked");
+        }
+        console.log(fileIds);
+    });
+
+    $("[data-class]").on("click",function () {
+        var id = $(this).val();
+        if ($(this).prop("checked")){
+            fileIds.push(id)
+        } else {
+            let new_arr = [];
+            for (var i in fileIds) {
+                if (fileIds[i] != id) {
+                    new_arr.push(fileIds[i]);
+                }
+            }
+            fileIds = new_arr;
+        }
+        console.log(fileIds);
+    })
+
+    $("[data-delete]").on("click",function () {
+        $.get("/recovery/batchDelete?type=recycle_file&ids=" + fileIds, function (data) {
+            if (data == "success"){
+                window.location.reload();
+            }
+        });
+    })
+
+    $("[data-restore]").on("click",function () {
+        $.get("/recovery/batchRestore?type=recycle_file&ids=" + fileIds, function (data) {
+            if (data == "success") {
+                window.location.reload();
+            }
+        });
+    })
+</script>
+
+</html>

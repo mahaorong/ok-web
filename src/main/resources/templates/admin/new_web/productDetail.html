@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 产品管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/js/ajax.js}"></script>
+    <script th:src="@{/js/admin/product.js}"></script>
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                <input hidden="hidden" type="text" name="type" value="productDetail">
+                <input hidden="hidden" type="text" name="id" th:value="${id}">
+                <input hidden="hidden" type="text" name="productName" th:value="${productName}">
+                <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+<div class="flex_box" th:class="${flag == 'recovert'}?'flex_box no_left_list':'flex_box'">
+    <div class="number_dir" th:if="${flag != 'recovert'}">
+        <div id="treeview3" class=""></div>
+    </div>
+    <div class="enroo_main">
+        <div class="file_container">
+            <div class="file_mange">
+                <nav aria-label="breadcrumb" class="">
+                    <ol class="breadcrumb breadcrumb_ol model_form">
+                        <li class="breadcrumb-item"><a th:href="@{/product/findWorktable}">产品</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="|${worktable?.fileName}|">产品列表</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="file_upload">
+                <div class="file_btn">
+                    <a class="btn btn-default" style="color: black;background: #E0E0E0;" th:if="${flag != 'recovert'}" th:href="@{/product/findWorktable}">返回</a>
+                    <a class="btn btn-default" style="color: black;background: #E0E0E0;" th:if="${flag == 'recovert'}" th:href="@{/recovery/findAll(type='recycle_product')}">返回</a>
+                    <a class="btn btn-default" style="background: #E0E0E0;" onclick="window.location.reload();">刷新</a>
+                </div>
+            </div>
+            <div class="table_box">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">产品名称</th>
+                        <th class="sorting" th:each="productName:${productName}" th:text="${productName}"></th>
+                        <th scope="col">发布时间</th>
+                        <th scope="col">修改时间</th>
+                        <th scope="col" th:if="${flag != 'recovert'}">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="allProduct:${proPage?.items}">
+                        <td th:if="${flag != 'recovert'}" th:id="${allProduct?.id}" contenteditable="true" th:text="${allProduct?.name}"
+                            th:onclick="'javascript:findName(\''+${allProduct?.id}+'\');'"  th:onblur="'javascript:saveName(\''+${allProduct?.id}+'\');'"></td>
+                        <td th:if="${flag == 'recovert'}" th:text="${allProduct?.name}"></td>
+                        <td th:if="${flag != 'recovert'}" th:id="|${json?.id}|" th:onclick="'javascript:checkJson(\''+${json?.id}+'\');'" th:onblur="'javascript:saveJson(\''+${allProduct?.id}+'\',\''+${json?.id}+'\');'" contenteditable="true" th:each="json,jsonStatus: ${allProduct.json}" value="666" th:text="${json.productMsg}"></td>
+                        <td th:if="${flag == 'recovert'}" th:each="json,jsonStatus: ${allProduct.json}" value="666" th:text="${json.productMsg}"></td>
+                        <td th:text="${#strings.substring(allProduct?.createTime,0,10)}"></td>
+                        <td th:text="${#strings.substring(allProduct?.updateTime,0,10)}"></td>
+                        <td class="d_flex" th:if="${flag != 'recovert'}" >
+                            <a class="table_btn btn btn-warning" th:href="@{/product/findProductImage(id=${allProduct?.id})}">轮播图片</a>
+                            <a class="table_btn btn btn-success" th:href="@{/product/findProductDevImage(id=${allProduct?.id})}">研发工具</a>
+                            <a class="table_btn btn btn-primary" th:href="@{/product/findProductBlog(id=${allProduct?.id},wid = ${wid})}">文章列表</a>
+                            <a class="table_btn btn btn-primary" th:href="@{/product/findProductFile(id=${allProduct?.id},wid = ${wid})}">文件列表</a>
+                            <a class="table_btn btn btn-primary" href="#" th:onclick="'javascript:checkLang(\''+${allProduct?.id}+'\');'" data-lang th:id="${form?.id}" data-toggle="modal" data-target="#exampleModal">语言</a>
+                            <button class="table_btn btn btn-danger" id="delete" th:onclick="'javascript:deleteById(\''+${allProduct.id}+'\',\''+${wid}+'\');'">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <nav th:if="${flag != 'recovert'}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&wid=${wid}&id=${id}|:|?page=1&wid=${wid}|)">首页</a></li>
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${proPage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${proPage?.getPre()}&wid=${wid}&id=${id}|:|?page=${proPage?.getPre()}&wid=${wid}|)"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page:${proPage?.getPages()}" th:class="${page == proPage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                                                                                                                                                          th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&wid=${wid}&id=${id}|:|?page=${page}&wid=${wid}&id=${id}|)">[[${page}]]</a></li>
+                <li class="page-item">
+                    <a class="page-link" th:href="${keyword}?|?page=${proPage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${proPage?.getNext()}&wid=${wid}&id=${id}|:|?page=${proPage?.getNext()}&wid=${wid}|)"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${proPage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${proPage?.pagecount}&wid=${wid}&id=${id}|:|?page=${proPage?.pagecount}&wid=${wid}|)">尾页</a></li>
+            </ul>
+            <span class="pageInfo">当前第[[${proPage?.page}]]页  共[[${proPage?.totalcount}]]条记录 每页[[${proPage?.pagesize}]]条</span>
+        </nav>
+        <nav th:if="${flag == 'recovert'}">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#" th:href="|?page=1&wid=${wid}&id=${id}&flag=${flag}|" >首页</a></li>
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" th:href="|?page=${proPage?.getPre()}&wid=${wid}&id=${id}&flag=${flag}|"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page:${proPage?.getPages()}" th:class="${page == proPage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                                                                                                                                                          th:href="|?page=${page}&wid=${wid}&id=${id}&flag=${flag}|">[[${page}]]</a></li>
+                <li class="page-item">
+                    <a class="page-link" th:href="|?page=${proPage?.getNext()}&wid=${wid}&flag=${flag}|" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+
+                <li class="page-item"><a class="page-link" href="#" th:href="|?page=${proPage?.pagecount}&wid=${wid}&id=${id}&flag=${flag}|">尾页</a></li>
+            </ul>
+            <span class="pageInfoDetail">当前第[[${proPage?.page}]]页  共[[${proPage?.totalcount}]]条记录 每页[[${proPage?.pagesize}]]条</span>
+        </nav>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">内容</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" id="remove1">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/product/saveLang" method="get" id="saveOption">
+                            <table class="table table-bordered article_review_table" id="optionSort">
+                                <tbody>
+                                <input hidden="hidden" type="text" name="proId" id="proId" class="form-control" placeholder="请输入表单的名字">
+                                <tr>
+                                    <th scope='row'>
+                                        <input name='lang' class="zh_CN" value="zh_CN" type="radio">
+                                    </th>
+                                    <td class='table_fun'>
+                                        简体中文
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>
+                                        <input name='lang' class="zh_TW" value="zh_TW" type="radio">
+                                    </th>
+                                    <td class='table_fun'>
+                                        繁体中文
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope='row'>
+                                        <input name='lang' class="en_US" value="en-US" type="radio">
+                                    </th>
+                                    <td class='table_fun'>
+                                        英文
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="remove">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="document:saveOption.submit()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:inline="javascript">
+    $(function () {
+        var flag = [[${flag}]]
+        if (flag != "recovert"){
+            var defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/admin/categoryProduct?id=" + data.id
+                },
+            });
+
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+
+        }
+    })
+</script>
+<script>
+    $(function () {
+        checkLang = function (proId) {
+            $.get("/product/findByLang?proId=" + proId, function (data) {
+                $("#proId").val(proId);
+                $("." + data).attr("checked", "checked");
+            });
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}"  content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}"  content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}" th:content="${blogDetail?.description}" content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|" >enroo-产品中心</title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <title th:if="${id != null && title == null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}|">enroo-产品中心</title>
+    <title th:if="${id != null && title != null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about.css">
+    <link rel="stylesheet" href="/css/download.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="/css/support.css">
+    <link rel="stylesheet" href="/css/enroo_about_culture.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+</head>
+
+<body>
+<section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+        <div class="container new_container">
+            <div class="row a-center flex_header">
+                <div class="d_f left_header">
+                    <div class="logo">
+                        <a href="#">
+                            <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="right_header">
+                    <div class="right_div_2">
+                        <div class="input_search">
+                            <div id="search-form"></div>
+                            <a href="#" class="full_icon_search">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="call_me">
+                            <span>技术热线：</span>
+                            <span>4007-888-234</span>
+                        </div>
+                    </div>
+                    <div class="right_div_1">
+                        <div class="enroo_lan_div">
+                            <div>
+                                <a href="" th:href="@{/index(lang='zh_CN')}">中文</a>
+                            </div>
+                            <div>
+                                <a href="" th:href="@{/index(lang='en_US')}">English</a>
+                            </div>
+                        </div>
+                        <!-- <div class="enroo_keyword">
+                                <div>单片机集成方案全方位解决服务商</div>
+                                <div>优质智能电子产品"芯"方案提供商</div>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>Products</small>
+            <h2>产品中心</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_tb_30_80">
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3">
+                <aside>
+                    <section class="met_aside">
+                        <div class="about_tab_title">
+                            <small>product center</small>
+                            <h2>产品中心</h2>
+                        </div>
+                        <div id="content">
+                            <div class="menu">
+                                <ul>
+                                    <li th:each="category : ${category1_cate1}" th:if="${category?.tag == '-'}">
+                                        <a class="active" th:text="${category?.text}" th:if="${category?.tag == '-'}">EN全系列产品</a>
+                                        <ul>
+                                            <li th:each="cate2 : ${category?.nodes}" th:if="${cate2?.tag == '--'}"><a th:text="${cate2?.text}" th:href="@{/products_list(cid=${cate2?.id},key=${key})}">EN系列微控制器</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+                <div th:replace="zh_CN/LeftNavigation::top"></div>
+                <div th:replace="zh_CN/LeftNavigation::top1"></div>
+            </div>
+            <div class="new_md_9">
+                <!-- b_fff product_detail_border -->
+                <div class="bread">
+                    <div class="bread_nav_title">
+                        <h4>产品中心</h4>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="download_content" >
+                    <div class="support_detail_title">
+                        <h1 th:text="${blog?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                        <div class="display_f">
+                            <span th:text="|更新时间: ${#strings.substring(blog?.createTime,0,10)}|">更新时间: 2018-10-30</span>
+                        </div>
+                    </div>
+                    <div class="support_detail_body p_r_0">
+                        <div class="effect_title">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="square red_square"></div>
+                                    <span class="span_effect">效果图展示</span>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <p th:text="${productJson?.name}">EN8F202</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect">
+                            <div class="row m_0">
+                                <div class="col-md-6">
+                                    <div class="product_detail_img">
+                                        <img src="images/enheng.png" th:src="@{${blog?.imageUrl}}" alt="" class="img_100 img_border">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="product_title">
+                                        <div class="product_attribute" th:each="product:${productJson?.json}" >
+                                            [[${product?.proauctName}]]： <span th:text="${product?.productMsg}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="list-group product_detail_list" id="list-tab" role="tablist">
+                            <a class="list_link active" id="list-home-list" data-toggle="list" href="#list-home"
+                               role="tab">详情介绍</a>
+                            <a class="list_link" id="list-profile-list" data-toggle="list" href="#list-profile"
+                               role="tab">引用案例</a>
+                            <a class="list_link" id="list-messages-list" data-toggle="list" href="#list-messages"
+                               role="tab">资料下载</a>
+                        </div>
+                        <div class="tab-content tab_content_p" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list" th:utext="${blog?.htmlContent}">aasdasd.</div>
+                            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                                <a href="" th:each="article : ${articlePage?.items}" th:text="${article?.title}"></a>
+                            </div>
+                            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                                <div th:each="file:${fileDetail?.items}">
+                                    <td scope="row">
+                                        <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.fileName})}"
+                                           class="td_title" th:text="${file?.name}"></a>
+                                    </td>
+                                    <td class="text-center" th:text="${file?.formatSize(file?.size)}">273KB</td>
+                                    <td class="text-center" th:text="${#strings.substring(file?.createTime,0,10)}">2018-04-23
+                                    </td>
+                                    <td class="text-center">
+                                        <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.fileName})}">下载</a>
+                                    </td>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div>
+                        <button class="btn btn-primary">下载PDF</button>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+    $(document).on("click",".full_icon_search",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+
+</body>
+
+</html>

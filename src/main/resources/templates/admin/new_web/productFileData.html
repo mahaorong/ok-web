@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 文件管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+
+
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" method="get" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="productFileData">
+                    <input hidden="hidden" type="text" name="id" th:value="${id}">
+                    <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main">
+            <div class="file_container padding_top_0">
+                <div class="file_mange">
+                    <nav aria-label="breadcrumb" class="">
+                        <ol class="breadcrumb breadcrumb_ol model_form">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Library</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="table_box">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">文件名称</th>
+                                <th scope="col">文件类型</th>
+                                <th scope="col">发布时间</th>
+                                <th scope="col">文件大小</th>
+                                <th scope="col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="file:${filePage}">
+                                <td th:text="${file?.name}">header</td>
+                                <td th:text="${file?.extname}">jpg</td>
+                                <td th:text="${#strings.substring(file?.createTime,0,10)}">2018-12-18</td>
+                                <td th:text="${file.formatSize(file.size)}">250.5kb</td>
+                                <td class="d_flex">
+                                    <a class="table_btn btn btn-primary" th:href="@{/file/fileDownload(fileUrl=${file.downloadFileName},fileName=${file.fileName})}">下载</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

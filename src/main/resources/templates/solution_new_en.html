@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}"
+        content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}" th:content="${blogDetail?.description}"
+        content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|">enroo-方案设计</title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <title th:if="${id != null && title == null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}|">enroo-方案设计</title>
+    <title th:if="${id != null && title != null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/new_style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about_new.css">
+    <link rel="stylesheet" href="/css/enroo_about_culture.css">
+    <link rel="stylesheet" href="/css/about_left.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/support.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style type="text/css">
+        .error {
+            color: red;
+            font-size: 11px;
+            text-align: center;
+            /*margin-left: 38px;
+            margin-top: -10px;*/
+        }
+
+        .articleLink {
+            color: #6e6e6e
+        }
+    </style>
+</head>
+
+<body>
+    <section th:replace="/zh_CN/service::service"></section>
+    <section class="enroo_p_f p_f_0 new_nav_inpage">
+        <section class="enroo_top">
+            <div class="container new_container">
+                <div class="row a-center flex_header">
+                    <div class="d_f left_header">
+                        <div class="logo">
+                            <a href="#">
+                                <!-- style="width: 472px !important;" -->
+                                <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right_header">
+                        <div class="right_div_2">
+                            <div class="input_search">
+                                <div id="search-form"></div>
+                                <a href="#" class="full_icon_search">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </div>
+                            <div class="call_me">
+                                <span>技术热线：</span>
+                                <span>4007-888-234</span>
+                            </div>
+                        </div>
+                        <div class="right_div_1">
+                            <div class="enroo_lan_div">
+                                <div>
+                                    <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                                </div>
+                                <div>
+                                    <a href="" th:href="@{/(lang='en_US')}">English</a>
+                                </div>
+                            </div>
+                            <!-- <div class="enroo_keyword">
+                                    <div>单片机集成方案全方位解决服务商</div>
+                                    <div>优质智能电子产品"芯"方案提供商</div>
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:replace="/en_US/fragment::top"></section>
+    </section>
+
+
+
+    <section class="about_banner carousel_margin_top">
+        <div class="container">
+            <div class="banner_title">
+                <small>CONCEPTUAL DESIGN</small>
+                <h2>方案设计</h2>
+                <div class="about_banner_p">
+                    <p>专业品质</p>
+                    <div class="about_circle"></div>
+                    <p>创立于2008年深圳</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about_body p_t_30_80">
+        <div class="bread_bac">
+            <div class="new_Ipage_container">
+                <div class="row justify-content-end">
+                    <div class="new_md_9">
+                        <div class="bread_df">
+                            <div class="bread_nav_title">
+                                <h4 th:text="${default_cate?.text}">企业简介</h4>
+                            </div>
+                            <div class="bread_nav">
+                                <ul class="bread_nav_ul">
+                                    <li class="nav_link_bread">
+                                        <a href="#" class="go_home" th:href="@{/}"><i class="fa fa-home"></i></a>
+                                        <a href="#" th:href="@{/}">单片机</a>
+                                    </li>
+                                    <li class="nav_link_bread">
+                                        <a href="#" th:href="@{/solution_new/xyfa/category1}">方案设计</a>
+                                    </li>
+                                    <li class="nav_link_bread">
+                                        <a th:href="|@{/solution_new/}${cateName}/category1|" th:text="${default_cate?.text}">行业方案</a>
+                                    </li>
+                                    <li class="nav_link_bread" th:if="${id != null}">
+                                        <a href="#" th:text="${blogDetail?.title}">正文</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new_Ipage_container">
+            <div class="row">
+                <div class="new_md_3 pa_191">
+                    <aside>
+                        <section class="met_aside">
+                            <div class="new_about_tab_title ">
+                                <h2>方案<br>设计</h2>
+                                <div class="new_about_tab_small">
+                                    <small>microcontrollers solution</small>
+                                </div>
+                            </div>
+                            <div id="content">
+                                <div class="menu">
+                                    <ul class="">
+                                         <li class="active" th:each="cate : ${category1_cate1}" th:class="${cate?.id} == ${default_cate?.id} ? 'active' : '' ">
+                                            <a th:style="${#lists.isEmpty(category?.nodes)} ? 'background:none !important' : 'background:@{/images/ias_off.png} no-repeat'" class="inactive" href="solution.html" th:text="${cate?.text}" th:href="${cate?.outlink == null || cate?.outlink == ''} ? |@{/solution_new/}${cate?.initials(cate?.text)}/${key1}| : @{${cate?.outlink}}">行业方案</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+
+                    <div th:replace="en_US/new_left::left2"></div>
+                    <div th:replace="en_US/new_left::left3"></div>
+                </div>
+                <div class="about_content about_content_border about_main new_md_9" th:if="${id} == null">
+                    <div class="solution_content" th:if="${default_cate?.text != '合作开发' && category1_blog1?.totalcount > 1}">
+                        <div class="solution_text_body" th:each="blog:${category1_blog1?.items}">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                    <div class="solution_img">
+                                        <img src="/images/small_2018072309594235888.png" th:src="@{${blog?.imageUrl}}"
+                                            th:alt="${blog?.title}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+                                    <div class="solution_text">
+                                        <a th:href="|@{/solution_new/}${cateName}/${key1}/${blog?.id}/${currentPage}|"
+                                            th:text="${blog?.title}">单片机应用行业方案</a>
+                                        <p th:text="${blog?.summary}">英锐恩于电子行业有着成熟的单片机开发经验，先后开发过汽车电子、仪表电源、通讯应用、健美仪器、安防监控、航模工控、智能家居、照明控制等行业产品。公司有专业的技术开发团队，具有十年单片...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav_page">
+                            <nav class="b4_pagination" aria-label="...">
+                                <ul class="pagination pag_new">
+                                    <li class="page-item pagination_num">
+                                        <span class="page-link" th:text="'共' + ${category1_blog1?.pagecount} + '页/' + ${category1_blog1?.totalcount} + '篇'">共2页/23篇</span>
+                                    </li>
+                                </ul>
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=1|">首页</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category1_blog1?.getPre()}|">上一页</a>
+                                    </li>
+                                    <li class="page-item actives" th:each="page : ${category1_blog1?.getPages()}"
+                                        th:class="${page == category1_blog1?.page} ? 'page-item actives' : 'page-item'">
+                                        <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}|">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category1_blog1?.getNext()}|">下一页</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category1_blog1?.pagecount}|">尾页</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+                    <div class="about_content about_content_border about_main" th:if="${default_cate?.text != '合作开发' && category1_blog1?.totalcount==1}"
+                        th:each="blog:${category1_blog1?.items}">
+                        <div class="support_detail_title">
+                            <h1 th:text="${blog?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                            <div class="display_f">
+                                <!-- <span>点击次数: 57次</span> -->
+                                <span th:text="|更新时间: ${#strings.substring(blog?.createTime,0,10)}|">更新时间:
+                                    2018-10-30</span>
+                                <div class="bdsharebuttonbox">
+                                    <a href="#" class="bds_more" data-cmd="more"></a>
+                                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                                    <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                                    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+                                    <span class="see_count" th:text="|阅读量：${blog?.readCount}|"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="support_detail_body">
+                            <p th:utext="${blog?.htmlContent}">
+                                深圳单片机开发方案公司英锐恩解答EN单片机芯片选型问题。英锐恩推出的单片机芯片没必要过度包装，以下是如实的解答。根据深圳单片机开发方案公司英锐恩的总结，客户对单片机芯片自带资源、可扩展资源、功耗、封装、芯片的可延续性及技术的可继承性、开发工具、价格及供货保证、还有技术支持等这是个方面比较在意，下边英锐恩为您解答。
+                            </p>
+                            <div class="dividingline"></div>
+                        
+                        </div>
+                    </div>
+
+
+                    <div class="about_content about_content_border about_main" th:if="${default_cate?.text}== '合作开发'">
+                        <img src="/images/solution_development.jpg" alt="" class="img-fluid">
+                        <p class="solution_deve_p">我们专业承接各类电子产品设计与开发,硬件设计,主芯片编程,全方位的电子方案</p>
+                        <p class="solution_deve_p">1.委托设计,合作开发项</p>
+                        <p class="solution_deve_p">根据客户的实际要求专门设计，开发成完整的方案交付客户生产，并提供完整的技术服务支持；</p>
+                        <p class="solution_deve_p">2.技术支持,应用指导</p>
+                        <p class="solution_deve_p">发挥各自的优势，合作开发完成和量产并提供完整的技术服务支持，促成客户开发成功或量</p>
+                        <p class="solution_deve_p">3.现有成熟方案提供,加快产品上市</p>
+                        <p class="solution_deve_p">提供现成已有方案，供客户选择，按需进行方案整改。</p>
+                        <p class="solution_deve_p">4.项目委托流程</p>
+                        <p class="solution_deve_p">传真要求：请将贵公司项目委托的具体要求或产品具体功能传真或E-Mail给本公司</p>
+                        <div class="form_solution">
+                            <p class="form_solution_p">项目合作开发意向表</p>
+                            <form id="addForm" action="/form/saveForm" method="post">
+                                <input hidden="hidden" type="text" name="formId" th:value="${formId}">
+                                <input hidden="hidden" name="codeToUp" id="verify">
+                                <input hidden="hidden" name="inputCode" id="inputCode">
+                                <div th:if="${formId != null}">
+                                    <input th:if="${!#lists.contains(allType,'text')&&!#lists.contains(allType,'select')&&!#lists.contains(allType,'textarea')}"
+                                        hidden="hidden" name="result" value="666">
+                                    <input th:if="${!#lists.contains(allType,'radio')}" hidden="hidden" type="radio"
+                                        name="radio[0]" value="7777" checked>
+                                    <input th:if="${!#lists.contains(allType,'checkbox')}" hidden="hidden" type="checkbox"
+                                        name="checkbox[0]" value="8888" checked>
+                                </div>
+                                <div th:each="form:${form2}">
+                                    <div class="form-group row" th:if="${form?.type == 'text'}">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                            th:text="${form?.name}">公司名称:</label>
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="result" id="staticEmail"
+                                                placeholder="">
+                                            <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row df_center" th:if="${form?.type == 'textarea'}">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                            th:text="${form?.name}">公司名称:</label>
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <div class="col-sm-10">
+                                            <textarea type="text" class="form-control" name="result" id="staticEmail"
+                                                placeholder=""></textarea>
+                                            <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" th:if="${form?.type == 'select'}">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                            th:text="${form?.name}">公司名称:</label>
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <div class="col-sm-10">
+                                            <select class="select" th:id="result+${form?.id}" name="result" style="width: 100%;">
+                                                <div th:if="${#lists.isEmpty(form?.option)}">
+                                                    <option th:text="无选项" th:value="无选项"></option>
+                                                </div>
+                                                <div th:if="${!#lists.isEmpty(form?.option)}">
+                                                    <option th:each="option:${form?.option}" th:text="${option}"
+                                                        th:value="${option}"></option>
+                                                </div>
+                                            </select>
+                                            <br>
+                                            <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row df_center" th:if="${form?.type == 'radio'}">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                            th:text="${form?.name}">公司名称:</label>
+                                        <input hidden="hidden" type="text" name="radioId" th:value="${form?.id}">
+                                        <div class="col-sm-10 form_solution_df">
+                                            <div class="form-check form-check-inline" th:each="option,optionStart:${form?.option}">
+                                                <input class="form-check-input" type="radio" th:name="|radio[${form?.keyValue}]|"
+                                                    th:value="${option}" id="inlineCheckbox1" value="option1">
+                                                <label th:text="${option}" class="form-check-label form_solution_label"
+                                                    for="inlineCheckbox1">制造</label>
+                                            </div>
+                                            <br>
+                                            <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row df_center" th:if="${form?.type == 'checkbox'}">
+                                        <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                            th:text="${form?.name}">公司名称:</label>
+                                        <span class="error" STYLE="color: red" th:id="result+${form?.keyValue}"></span>
+                                        <input hidden="hidden" type="text" name="ids" th:value="${form?.id}">
+                                        <div class="col-sm-10 form_solution_df">
+                                            <div class="form-check form-check-inline" th:each="option,optionStart:${form?.option}">
+                                                <input class="form-check-input" type="checkbox" th:name="|checkbox[${form?.keyValue}]|"
+                                                    th:value="${option}" id="inlineCheckbox1" value="option1">
+                                                <label th:text="${option}" class="form-check-label form_solution_label"
+                                                    for="inlineCheckbox1">制造</label>
+                                            </div>
+                                            <br>
+                                            <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form_soltution_btn">
+                                    <but ton type="button" id="updateFormItem" class="btn btn-success">确认提交</button>
+                                </div>  -->
+                                <div class="form_soltution_btn">
+                                    <div class="ddetails-con form_soltution_btn">
+                                        <div class="J_before form_soltution_btn">
+                                            <input type="button" value="确认提交" class="btn btn-success btn J_download">
+                                        </div>
+                                        <div class="J_after form_soltution_btn" style="display:none;">
+                                            <div class="checkcode form_soltution_btn">
+                                                <input type="text" style="border: none;" id="J_codetext" placeholder="验证码"
+                                                    maxlength="4">
+                                                <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">
+                                                    Your browser does not support the canvas element.
+                                                </canvas>
+                                            </div>
+                                            <input type="button" value="提交" class="btn btn-success btn-code" id="updateFormItem">
+                                            <input type="button" value="返回" class="btn btn-success btn-code btn-no">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <p class="solution_deve_p">我们专业承接各类电子产品设计与开发,硬件设计,主芯片编程,全方位的电子方案</p>
+                        <p class="solution_deve_p">1.委托设计,合作开发项</p>
+                        <p class="solution_deve_p">根据客户的实际要求专门设计，开发成完整的方案交付客户生产，并提供完整的技术服务支持；</p>
+                        <p class="solution_deve_p">2.技术支持,应用指导</p>
+                        <p class="solution_deve_p">发挥各自的优势，合作开发完成和量产并提供完整的技术服务支持，促成客户开发成功或量</p>
+                        <p class="solution_deve_p">3.现有成熟方案提供,加快产品上市</p>
+                        <p class="solution_deve_p">提供现成已有方案，供客户选择，按需进行方案整改。</p>
+                        <p class="solution_deve_p">4.项目委托流程</p>
+                        <p class="solution_deve_p">传真要求：请将贵公司项目委托的具体要求或产品具体功能传真或E-Mail给本公司</p>
+                        <p class="solution_deve_p">我们专业承接各类电子产品设计与开发,硬件设计,主芯片编程,全方位的电子方案</p>
+                        <p class="solution_deve_p">1.委托设计,合作开发项</p>
+                        <p class="solution_deve_p">根据客户的实际要求专门设计，开发成完整的方案交付客户生产，并提供完整的技术服务支持；</p>
+                        <p class="solution_deve_p">2.技术支持,应用指导</p>
+                        <p class="solution_deve_p">发挥各自的优势，合作开发完成和量产并提供完整的技术服务支持，促成客户开发成功或量</p>
+                        <p class="solution_deve_p">3.现有成熟方案提供,加快产品上市</p>
+                        <p class="solution_deve_p">提供现成已有方案，供客户选择，按需进行方案整改。</p>
+                        <p class="solution_deve_p">4.项目委托流程</p>
+                        <p class="solution_deve_p">传真要求：请将贵公司项目委托的具体要求或产品具体功能传真或E-Mail给本公司</p>
+                    </div>
+                </div>
+                <div class="about_content about_content_border about_main new_md_9" th:if="${id != null}">
+                    <div class="support_detail_title">
+                        <h1 th:text="${blogDetail?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                        <div class="display_f">
+                            <!-- <span>点击次数: 57次</span> -->
+                            <span th:text="|更新时间: ${#strings.substring(blogDetail?.createTime,0,10)}|">更新时间:
+                                2018-10-30</span>
+                            <div class="bdsharebuttonbox">
+                                <a href="#" class="bds_more" data-cmd="more"></a>
+                                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+                                <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+                                <span class="see_count" th:text="|阅读量：${blogDetail?.readCount}|"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="support_detail_body">
+                        <p th:utext="${blogDetail?.htmlContent}">
+                            深圳单片机开发方案公司英锐恩解答EN单片机芯片选型问题。英锐恩推出的单片机芯片没必要过度包装，以下是如实的解答。根据深圳单片机开发方案公司英锐恩的总结，客户对单片机芯片自带资源、可扩展资源、功耗、封装、芯片的可延续性及技术的可继承性、开发工具、价格及供货保证、还有技术支持等这是个方面比较在意，下边英锐恩为您解答。
+                        </p>
+                        <div class="dividingline"></div>
+                        <div class="pagination_enroo" >
+                            <div class="pagina_next">
+                                <a th:href="|@{/solution_new/}${cateName}/${key1}/${preId}/pre/${currentPage}|">
+                                    上一篇: <span th:text="${preTitle}">深圳单片机</span>
+                                </a>
+                            </div>
+                            <div class="pagina_pre">
+                                <a th:href="|@{/solution_new/}${cateName}/${key1}/${nextId}/next/${currentPage}|">
+                                    下一篇: <span th:text="${nextTitle}">开发公司</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <footer th:replace="/zh_CN/footer::footer"></footer>
+
+
+    <script src="/js/jquery-3.0.0.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+    <script src="/css/tab/jjs_menu_min.js"></script>
+    <script src="/js/verify.js" th:src="@{/js/verify.js}"></script>
+    <script src="/js/index.js" th:src="@{/js/saveUserFormData.js}"></script>
+    <script type="text/javascript" src="/dist/autocomplete.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/share.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".menu ul li").menu();
+        });
+    </script>
+    <script type="text/javascript">
+        var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+            'b1', 'b2', 'b3', 'b4', '?????'
+        ];
+        $(document).ready(function () {
+            $('#search-form').autocomplete({
+                hints: proposals,
+                width: 300,
+                height: 30,
+                placeholder: "全站搜索 / 产品搜索"
+                // onSubmit: function (text) {
+                //     $('#message').html('Selected: <b>' + text + '</b>');
+                // }
+            });
+        });
+
+        $(document).on("click", ".full_icon_search", function () {
+            var keyword = $("input[name='query']").val();
+            window.location.href = "/products_list?keyword=" + keyword;
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+.enroo_specialties {
+    height: 721px;
+}
+
+.wrap {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.list2 {
+    width: 100px;
+    margin-right: 19px;
+    float: left;
+}
+
+.list3 {
+    width: 900px;
+    height: 600px;
+    float: left;
+    position: relative;
+}
+
+.list4 {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+}
+
+.tras {
+    -webkit-transition: all 300ms ease 0s;
+    -moz-transition: all 300ms ease 0s;
+    -ms-transition: all 300ms ease 0s;
+    -o-transition: all 300ms ease 0s;
+    transition: all 300ms ease 0s;
+    outline: none;
+}
+
+.fl {
+    float: left;
+}
+
+.tirons1,
+.tirons2,
+.tirons3,
+.tirons4 {
+    border-left-color: #858585;
+    border-right-color: #858585;
+    z-index: 0;
+    *display: none;
+}
+
+.tirons1 {
+    border: none;
+    border-right: 100px solid  #fff;
+    border-top: 100px solid transparent;
+}
+
+.tirons2 {
+    border: none;
+    border-left: 100px solid #fff;
+    border-top: 100px solid transparent;
+}
+
+.tirons3 {
+    border: none;
+    border-right: 100px solid #fff;
+    border-bottom: 100px solid transparent;
+}
+
+.tirons4 {
+    border: none;
+    border-left: 100px solid #fff;
+    border-bottom: 100px solid transparent;
+}
+
+.fl {
+    float: left;
+}
+
+.list_a {
+    left: 34px;
+    top: -10px;
+    padding: 40px 0;
+    height: 147px;
+    width: 128px;
+    display: block;
+    position: absolute;
+    z-index: 4;
+    text-align: center;
+}
+
+.list_icon {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list4_a {
+    top: 0px;
+    left: 0px;
+}
+
+.list4_b {
+    top: 0;
+    left: 202px;
+}
+
+.list4_c {
+    top: 0;
+    left: 404px;
+}
+
+.list4_d {
+    top: 105px;
+    left: 101px;
+}
+
+.list4_e {
+    top: 105px;
+    left: 303px;
+}
+
+.list4_f {
+    top: 105px;
+    left: 506px;
+}
+
+.list4_g {
+    top: 0;
+    left: 608px;
+}
+
+.list4_h {
+    top: 105px;
+    left: 711px;
+}

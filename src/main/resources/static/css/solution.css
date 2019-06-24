@@ -1,0 +1,139 @@
+.pagination>.page-item>.page-link {
+    padding: .3rem 0.55rem;
+    font-size: 0.9rem;
+    color: #333743;
+}
+
+.pagination>.actives>a {
+    background-color: #c9161d;
+}
+
+.pagination>.actives>a {
+    color: #ffff !important;
+}
+
+.pagination>.page-item>a {
+    transition: all 0.3s;
+}
+
+.pagination>.page-item>a:hover {
+    background-color: #c9161d !important;
+    color: #fff;
+}
+
+.pagination .page-link:focus {
+    box-shadow: none !important;
+}
+.solution_deve_p{
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin: 10px;
+    color: #333743;
+}
+.form_solution{
+    border: 1px solid #a31200;
+    margin: 20px auto;
+    padding: 20px;
+}
+.form_solution_p{
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: #000;
+    margin-bottom: 13px;
+}
+.form_solution_label{
+    font-size: .8rem;
+    text-align: right;
+}
+.form_solution_label{
+    font-size: .8rem;
+    /* white-space: nowrap; */
+}
+.form_solution_df{
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    /* display: inline-flex; */
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.form_soltution_btn{
+    text-align: center;
+    /* margin-top: 40px; */
+    overflow: hidden;
+}
+.form_soltution_btn button{
+    width: 150px;
+}
+.solution_content_body{
+    border: 1px solid #dedddd;
+    padding: 20px;
+}
+.checkcode {
+    float: left;
+    margin-top: 10px;
+    width: 182px;
+    height: 42px;
+    border: 1px solid #008cff;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.btn-code {
+    margin-top: 10px;
+    display: block;
+    float: left;
+    width: 95px;
+    height: 42px;
+    margin-left: 20px;
+    background: #008cff;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.checkcode2 {
+    float: left;
+    margin-top: 10px;
+    width: 182px;
+    height: 42px;
+    border: 1px solid #008cff;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.btn-code2 {
+    margin-top: 10px;
+    display: block;
+    float: left;
+    width: 95px;
+    height: 42px;
+    margin-left: 20px;
+    background: #008cff;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.btn-no {
+    background: none;
+    border: 1px solid #008cff;
+    border-radius: 3px;
+    color: #008cff;
+}
+
+.checkcode input, .checkcode2 input {
+    float: left;
+    text-align: center;
+    width: 85px;
+    height: 36px;
+    padding: 3px;
+    color: #000;
+}
+
+.checkcode canvas, .checkcode2 canvas {
+    float: right;
+    width: 85px;
+    height: 36px;
+    padding: 3px;
+}

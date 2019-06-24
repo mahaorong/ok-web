@@ -1,0 +1,97 @@
+.contact_content{
+    padding: 15px 35px;
+}
+.box_contact h2{
+    font-size: 19px;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: .5px;
+}
+.small_title{
+    color: #999399;
+    font-size: 14px;
+    letter-spacing: .5px;
+    font-weight: 500;
+}
+.space_del{
+    justify-content: unset;
+}
+.p-l-40{
+    padding-left: 40px;
+}
+.contact_us ul{
+    padding-left: 0;
+    float: left;
+}
+.contact_us ul li{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333743;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+.contact_us ul li i{
+    border: 1px solid #a31200;
+    border-radius: 6px;
+    color: #a31200;
+    width: 29px;
+    height: 29px;
+    margin-right: 7px;
+    text-align: center;
+    line-height: 30px;
+}
+.contact_us{
+    overflow: hidden;
+}
+.contact_us div{
+    float: left;
+}
+.p-l-10{
+    padding-left: 30px;
+}
+.box_contact{
+    margin-top: 30px;
+    border-bottom: 1px solid #cccc;
+    padding-bottom: 15px;
+}
+.contact_place{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.contact_place>p>strong{
+    font-size: 20px !important;
+}
+.contact_place>p:first-child{
+    margin-bottom: 12px;
+}
+.contact_place>p {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    line-height: 24px;
+    margin-bottom: 4px;
+}
+.place_join_content .row .col-md-3{
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-top: 10px;
+}
+.place_join_content img{
+    width: 100%;
+}
+
+.about_img_honor img{
+    height: 260px;
+    width: 205px;
+}
+
+.place_join_content{
+    margin-bottom: 300px;
+}
+.contact_us{
+    display: flex;
+    justify-content: space-between;
+}

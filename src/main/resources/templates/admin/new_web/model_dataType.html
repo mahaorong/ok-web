@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 模板管理</title>
+
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/css/model_form.css" th:href="@{/css/model_form.css}">
+    <link rel="stylesheet" href="image_admin.css" th:href="@{/css/image_admin.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+
+
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+<div class="enroo_main no_left_list">
+    <nav aria-label="breadcrumb" class="breadcrumb_nav">
+        <ol class="breadcrumb breadcrumb_ol">
+            <li class="breadcrumb-item"><a th:href="@{/template/findAll}">栏目</a></li>
+            <!--<li class="breadcrumb-item"><a href="#">数据</a></li>-->
+            <li class="breadcrumb-item active" aria-current="page">数据</li>
+        </ol>
+    </nav>
+    <hr>
+    <div class="file_container model_tab">
+        <div id="list-example" class="df_center">
+            <a class="none_active_tab list_tab_link" href="#list-item-1">模板数据项</a>
+        </div>
+        <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example tab_nav_div">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">数据类型</th>
+                    <th scope="col">Key</th>
+                    <th scope="col">数据内容</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="data,itemStat:${dataList}">
+                    <td th:text="${data?.type}" th:title="${tdNames[data?.key]}">数据类型</td>
+                    <td th:text="${data?.key}">Key</td>
+                    <td>
+                        <a class="table_btn btn btn-primary" th:href="@{/template/templateData(templateId=${templateId},key=${data?.key},url='model_dataType_article')}">数据内容</a>
+                    </td>
+                    <td class="d_flex">
+                        <button type="button" th:onclick="'javascript:deleteData(\''+${templateId}+'\',\''+${data?.key}+'\')'" class="table_btn btn btn-danger">删除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="form-group m-t back_button">
+                <a  th:href="@{/template/templateData(templateId=${templateId},url='model_dataType_article')}" class="btn_width btn btn-primary">新增数据</a>
+                <a th:href="@{/template/findAll}"  class="btn_width btn btn-success">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    deleteData = function(templateId,key)  {
+        if (confirm("确认删除嘛！")) {
+            $.ajax({
+                url: "/template/deleteData",
+                type: "GET",
+                data: {"templateId":templateId,"key":key},
+                success: function (data) {
+                    /*  alert("删除成功");
+                      alert(data);*/
+                    iziToast.success({
+                        position: 'topRight',
+                        title: '删除成功',
+                        message: 'Successfully!',
+                    });
+                    window.location.href = "/template/showData?templateId="+data;
+                },
+                error: function (data) {
+                    iziToast.error({
+                        position: 'topRight',
+                        title: '删除失败',
+                        message: 'Illegal operation',
+                    });
+                    // alert("删除失败");
+                }
+            });
+        }
+
+    }
+</script>
+
+</body>
+
+</html>

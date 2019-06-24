@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}"
+        content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}" th:content="${blogDetail?.description}"
+        content="英瑞恩科技有限公司" />
+    <title>enroo-新闻中心</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material-icons.css">
+    <link rel="stylesheet" href="css/tab/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enroo_about.css">
+    <link rel="stylesheet" href="css/download.css">
+    <link rel="stylesheet" href="css/solution.css">
+    <link rel="stylesheet" href="css/support.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="css/enroo_about_culture.css">-->
+    <link rel="stylesheet" href="dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style type="text/css">
+        .articleLink {
+            color: #6e6e6e
+        }
+    </style>
+</head>
+
+<body>
+    <section class="right_popup">
+        <ul class="right_popup_ul">
+            <li class="hover_popup">
+                <a href="tencent://message/?uin=46885145" th:href="@{${customer?.tencent}}">
+                    <div class="hide_popup">
+                        <img src="images/ll04.png" alt="">
+                    </div>
+                    <img class="hide_img_popup" src="images/download.png" alt="">
+                </a>
+            </li>
+            <li class="hover_popup">
+                <a href="javascript:void(0)">
+                    <div class="hide_popup">
+                        <img src="images/weixin.jpg" class="wenxin_popup" th:href="@{${customer?.wechat}}">
+                    </div>
+                    <img class="hide_img_popup" src="images/l02 (1).png" alt="">
+                </a>
+            </li>
+            <li class="hover_popup">
+                <a href="https://amos.alicdn.com/getcid.aw?spm=a2615.2177701.0.0.6fd07b0bZcoYxj&v=3&uid=hkenroo&site=cnalichn&groupid=0&s=1&charset=utf-8&fromid=hkenroo"
+                    th:href="@{${customer?.alibaba}}">
+                    <div class="hide_popup">
+                        <img src="images/ll07.png" alt="">
+                    </div>
+                    <img class="hide_img_popup" src="images/ll08.png" alt="">
+                </a>
+            </li>
+            <li class="hover_popup">
+                <a href="mailto:enroo@enroo.com" th:href="@{${customer?.email}}">
+                    <div class="hide_popup">
+                        <div class="df_popup">
+                            <img src="images/l14.png" alt="">
+                            <div class="right_pupop_back">
+                                <span>enroo@enroo.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="hide_img_popup" src="images/ll14.png" alt="">
+                </a>
+            </li>
+            <li class="hover_popup">
+                <a href="javascript:void(0)">
+                    <div class="hide_popup">
+                        <div class="df_popup">
+                            <img src="images/l14.png" alt="">
+                            <div class="right_pupop_back">
+                                <span th:text="${customer?.phone}">4007-888-234</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="hide_img_popup" src="images/l05.png" alt="">
+                </a>
+            </li>
+            <li class="hover_popup">
+                <a href="javascript:void(0)">
+                    <div class="hide_popup">
+                        <img src="images/ll06.png" alt="">
+                    </div>
+                    <img class="hide_img_popup" src="images/l06.png" alt="">
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section class="enroo_p_f p_f_0">
+        <section class="enroo_top">
+            <div class="container new_container">
+                <div class="row a-center flex_header">
+                    <div class="d_f left_header">
+                        <div class="logo">
+                            <a href="#">
+                                <img src="images/logo2.png" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right_header">
+                        <div class="right_div_2">
+                            <div class="input_search">
+                                <div id="search-form"></div>
+                                <a href="#" class="full_icon_search">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </div>
+                            <div class="call_me">
+                                <span>咨询热线：</span>
+                                <span>4007-888-234</span>
+                            </div>
+                        </div>
+                        <div class="right_div_1">
+                            <div class="enroo_lan_div">
+                                <a href="">阿里巴巴商铺</a>
+                                <div>
+                                    <a href="">中文</a>
+                                    <span> | </span>
+                                    <a href="">English</a>
+                                </div>
+                            </div>
+                            <div class="enroo_keyword">
+                                <div>单片机集成方案全方位解决服务商</div>
+                                <div>优质智能电子产品"芯"方案提供商</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:replace="/zh_CN/fragment::top"></section>
+    </section>
+
+    <section class="about_banner">
+        <div class="container">
+            <div class="banner_title">
+                <small>about us</small>
+                <h2>关于我们</h2>
+                <div class="about_banner_p">
+                    <p>专业品质</p>
+                    <div class="about_circle"></div>
+                    <p>创立于2008年深圳</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about_body p_tb_30_80">
+        <div class="new_Ipage_container">
+            <div class="row">
+                <div class="new_md_3">
+                    <div class="about_tab">
+                        <div class="about_tab_title">
+                            <small>about us</small>
+                            <h2>关于我们</h2>
+                        </div>
+                        <div class="about_content_nav">
+                            <ul class="about_content_ul ul_link_li">
+                                <li th:each="category : ${category2_cate1}">
+                                    <div class="square"></div>
+                                    <a href="#" th:if="${category?.text != '资质荣誉' && category?.text != '员工活动' && category?.text != '招贤纳士'}"
+                                        th:text="${category?.text}" th:href="@{/abouts_c(cid=${category?.id},key=${key2})}">企业简介</a>
+
+                                    <a href="#" th:if="${category?.text == '资质荣誉'}" th:text="${category?.text}" th:href="@{/about_honor(cid=${category?.id},key=${key2})}">资质荣誉</a>
+                                    <a href="#" th:if="${category?.text == '员工活动'}" th:text="${category?.text}" th:href="@{/about_activities(cid=${category?.id},key=${key2})}">员工活动</a>
+                                    <a href="#" th:if="${category?.text == '招贤纳士'}" th:text="${category?.text}" th:href="@{/about_Recruit(cid=${category?.id},key=${key2})}">招贤纳士</a>
+
+                                </li>
+
+                                <li th:each="category : ${category1_cate1}" th:if="${category?.text == '企业公告'} ">
+                                    <div class="square"></div>
+                                    <a href="javascript:void()" data-new th:href="@{/about_notice(cid=${category?.id},key=${key1})}"
+                                        th:class="${default_cate?.id == category?.id} ? 'active' : ''">企业公告</a>
+                                    <!-- <div class="slider_down_text" style="display: none;">
+                                    新闻中心
+                                </div> -->
+                                    <ul class="about_content_ul color_silver small_ul_m">
+                                        <li class="content_link" th:each="cate : ${category1_cate1}" th:if="${cate?.text != '企业公告'}"
+                                            th:class="${cate?.id == default_cate?.id || default_cate?.id == null && cate?.text =='企业公告' } ? 'content_link active':'content_link'">
+                                            <a href="about_consultation.html" th:text="${cate?.text}" th:href="@{/about_notice(cid=${cate?.id},key=${key1})}">原厂咨询</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="direction_about">
+                        <div class="direction_small">
+                            <div class="img_dir">
+                                <img src="images/关于我们3_03.png" alt="">
+                                <a href="javascript:void(0)" th:href="@{/solution?cid=788ff054c80e47d99c06c25aec945f4e&key=category1}">设计开发</a>
+                            </div>
+                            <div class="dir_content">
+                                <p>专业承接各类电子产品设计与开发硬件设计，主芯片编程等</p>
+                            </div>
+                        </div>
+                        <div class="direction_small">
+                            <div class="img_dir">
+                                <img src="images/关于我们3_07.png" alt="">
+                                <a href="javascript:void(0)" th:href="@{/products_list?cid=83cceabb688c46dbb57fe54f0c7aef3a&key=category1}">开发工具</a>
+                            </div>
+                            <div class="dir_content">
+                                <p>助力嵌入式系统应用设计提供工具选择及软件下载</p>
+                            </div>
+                        </div>
+                        <div class="direction_small">
+                            <div class="img_dir">
+                                <img src="images/关于我们3_11.png" alt="">
+                                <a href="javascript:void(0)" th:href="@{/support}">技术支持</a>
+                            </div>
+                            <div class="dir_content">
+                                <p>强大的技术支持，优质的合作伙伴提供精准的芯片选型指导、技术咨询</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact_about">
+                        <div class="contact_small">
+                            <i class="material-icons">
+                                place
+                            </i>
+                            <a href="javascript:void(0)" th:href="@{/contact_place}">中国深圳市龙岗区坂田环城南路坂田国际中心C2栋815</a>
+                        </div>
+                        <div class="contact_small">
+                            <i class="material-icons">
+                                phone
+                            </i>
+                            <a href="javascript:void(0)" th:href="@{/contact}">4007-888-234</a>
+                        </div>
+                        <div class="contact_small">
+                            <i class="material-icons">
+                                email
+                            </i>
+                            <a href="javascript:void(0)" th:href="@{/contact}">enroo@enroo.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="new_md_9">
+                    <div class="bread">
+                        <div class="bread_nav_title">
+                            <h4 th:text="${default_cate != null} ? ${default_cate?.text} : '企业公告'">新闻中心</h4>
+                        </div>
+                        <div class="bread_nav">
+                            <ul class="bread_nav_ul">
+                                <li class="nav_link_bread">
+                                    <a href="#">新闻中心</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a href="#" th:text="${default_cate != null} ? ${default_cate?.text} : '企业公告'">企业公告</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="download_content" th:if="${id == null}">
+                        <div class="support_content">
+                            <ul>
+                                <li th:each="blog : ${category1_blog1?.items}">
+                                    <a href="about_notice_detail.html" th:text="${blog?.title}" th:href="@{/about_notice(cid=${cid},ids=${blog?.id},key=${key1},page=${currentPage})}">单片机芯片制程工艺对芯片良率的影响</a>
+                                    <span th:text="|[${#strings.substring(blog?.createTime,0,10)}]|">[2018-11-03]</span>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        <div class="nav_page">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category1_blog1?.getPre()}&cid=${cid}&key=${key1}|">
+                                            << </a> </li> <li class="page-item actives" th:each="page : ${category1_blog1?.getPages()}"
+                                                th:class="${page == category1_blog1?.page} ? 'page-item actives' : 'page-item'">
+                                                <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&cid=${cid}&key=${key1}|">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${category1_blog1?.getNext()}&cid=${cid}&key=${key1}|">>></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+                    <div class="about_content about_notice_wrapper p_0" th:if="${id != null}">
+                        <div class="row">
+                            <div class="col-md-12 about_notice_col">
+                                <div class="notice_detail about_content_body">
+                                    <div class="support_detail_title">
+                                        <h1 th:text="${blogDetail?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                                        <div class="display_f">
+                                            <!-- <span>点击次数: 57次</span> -->
+                                            <span th:text="|更新时间: ${#strings.substring(blogDetail?.createTime,0,10)}|">更新时间:
+                                                2018-10-30</span>
+                                        </div>
+                                    </div>
+                                    <div class="support_detail_body">
+                                        <!--                                         <div class="page_turning">
+                                        <div class="pre">
+                                            <span class="icon_back">
+                                                上一篇
+                                            </span>
+                                        </div>
+                                        <div class="next">
+                                            <span class="icon_back_next">
+                                                下一篇
+                                            </span>
+                                        </div>
+                                    </div> -->
+                                        <p th:utext="${blogDetail?.htmlContent}">
+                                            深圳单片机开发方案公司英锐恩解答EN单片机芯片选型问题。英锐恩推出的单片机芯片没必要过度包装，以下是如实的解答。根据深圳单片机开发方案公司英锐恩的总结，客户对单片机芯片自带资源、可扩展资源、功耗、封装、芯片的可延续性及技术的可继承性、开发工具、价格及供货保证、还有技术支持等这是个方面比较在意，下边英锐恩为您解答。
+                                        </p>
+                                        <div class="dividingline"></div>
+                                        <div class="pagination_enroo">
+                                            <div class="pagina_next">
+                                                <a th:href="@{/about_notice(ids=${blogDetail?.id},cid=${cid},key=${key1},articleFlag='pre',page=${category1_blog1?.page})}">
+                                                    上一篇: <span>深圳单片机</span>
+                                                </a>
+                                            </div>
+                                            <div class="pagina_pre">
+                                                <a th:href="@{/about_notice(ids=${blogDetail?.id},cid=${cid},key=${key1},articleFlag='next',page=${category1_blog1?.page})}">
+                                                    下一篇: <span>开发公司</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="enroo_specialties specialties_footer">
+        <div class="container_new">
+            <div class="row a-center">
+                <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                    <div class="footer_title">
+                        <h3>专注专业</h3>
+                        <span>dedication professional</span>
+                    </div>
+                    <div class="specialties_footer_div">
+                        <div>
+                            <div class="specialties_text_div">
+                                <img src="images/x1.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            航模工控 </a></h4>
+                                    <span>Model aircraft industrial control</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x2.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            安防监控 </a></h4>
+                                    <span>Security monitoring</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x3.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            仪表电源 </a></h4>
+                                    <span>Instrument power supply</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x4.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            汽车电子 </a></h4>
+                                    <span>Automotive electronics</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="specialties_text_div">
+                                <img src="images/x5.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            通讯应用 </a></h4>
+                                    <span>Communications applications</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x6.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            健美仪器 </a></h4>
+                                    <span>Fitness equipment</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x7.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            智能家居 </a></h4>
+                                    <span>Smart home</span>
+                                </div>
+                            </div>
+                            <div class="specialties_text_div">
+                                <img src="images/x8.png" alt="">
+                                <div>
+                                    <h4><a href="javscript:void(0)" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                            照明控制 </a></h4>
+                                    <span>Lighting control</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="/zh_CN/footer::footer"></footer>
+
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="css/tab/jjs_jquery-1.10.2.min.js"></script>
+    <script src="css/tab/jjs_menu_min.js"></script>
+    <script type="text/javascript" src="dist/autocomplete.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".menu ul li").menu();
+        });
+    </script>
+    <script type="text/javascript">
+        var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+            'b1', 'b2', 'b3', 'b4', '?????'
+        ];
+        $(document).ready(function () {
+            $('#search-form').autocomplete({
+                hints: proposals,
+                width: 300,
+                height: 30,
+                placeholder: "全站搜索 / 产品搜索"
+                // onSubmit: function (text) {
+                //     $('#message').html('Selected: <b>' + text + '</b>');
+                // }
+            });
+        });
+
+        $(document).on("click", ".full_icon_search", function () {
+            var keyword = $("input[name='query']").val();
+            window.location.href = "/products_list?keyword=" + keyword;
+        });
+    </script>
+
+</body>
+
+</html>

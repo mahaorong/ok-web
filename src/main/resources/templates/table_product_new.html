@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="HTML, CSS, JavaScript"/>
+    <meta name="description" content="英瑞恩科技有限公司"/>
+    <title>about_development</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="css/tab/style.css" th:href="@{/css/tab/style.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="css/enroo_about.css" th:href="@{/css/enroo_about.css}">
+    <link rel="stylesheet" href="css/download_new.css" th:href="@{/css/download_new.css}">
+    <link rel="stylesheet" href="css/solution.css" th:href="@{/css/solution.css}">
+    <link rel="stylesheet" href="css/enroo_about_culture.css" th:href="@{/css/enroo_about_culture.css}">
+    <link rel="stylesheet" href="dist/autocomplete.css" th:href="@{/dist/autocomplete.css}" >
+    <!--<link rel="stylesheet" href="dist/style.css" th:href="@{/dist/style.css}">-->
+    <link rel="stylesheet" href="css/media.css" th:href="@{/css/media.css}">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style>
+        th {
+            font-size: 2px !important;
+        }
+        tr:last-child{
+            border-bottom: none;
+        }
+        .table .thead-light th{
+            border-top: 0;
+            border-bottom: 0;
+        }
+        .table td, .table th{
+            border-top: 0;
+        }
+        .table{
+            border: 1px #e4e4e4 solid;
+            border-top: 0;
+            margin-bottom: 0;
+        }
+        .obj_color{
+            background: #fff1a5 !important;
+        }
+    </style>
+</head>
+<body>
+<table class="table">
+    <thead class="thead-light table_back text-center">
+    <tr>
+        <th scope="col">pdf</th>
+        <th scope="col">产品名称</th>
+        <th scope="col"class="sorting" th:each="productName:${category1_productName}" th:text="${productName}" th:if="${keyword ==null}"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="allProduct:${category1_product?.items}" onclick="chengebg(this)">
+        <td scope="row">
+            <a class="td_title"  target="_parent" th:href="|@{/products_details_new/}${cateName}/${key1}/${allProduct?.id}|">下载</a>
+        </td>
+        <td scope="row">
+            <a class="td_title" target="_parent" th:href="|@{/products_details_new/}${cateName}/${key1}/${allProduct?.id}|" th:text="${allProduct?.name}">下载</a>
+        </td>
+        <td th:if="${keyword ==null}" th:each="json,jsonStatus: ${allProduct?.json}" th:id="|${json?.id}|" th:text="${json?.productMsg}"></td>
+    </tr>
+    </tbody>
+</table>
+<!-- <div class="nav_page" th:if="${category1_product?.totalcount}!= null"> -->
+
+<!-- <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="#" th:href="${keyword != null}?|?page=${category1_product?.getPre()}&cid=${cid}&key=${key1}&keyword=${keyword}|:|?page=${category1_product?.getPre()}&cid=${cid}&key=${key1}|"><< </a>
+        </li>
+        <li class="page-item actives" th:each="page:${category1_product?.getPages()}" th:class="${page == category1_product?.page} ? 'page-item actives':'page-item'">
+            <a class="page-link" href="#" th:text="${page}" th:href="${keyword != null}?|?page=${page}&cid=${cid}&key=${key1}&keyword=${keyword}|:|?page=${page}&cid=${cid}&key=${key1}|">1</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="#" th:href="${keyword != null}?|?page=${category1_product?.getNext()}&cid=${cid}&key=${key1}&keyword=${keyword}|:|?page=${category1_product?.getNext()}&cid=${cid}&key=${key1}|">>></a>
+        </li>
+    </ul>
+</nav> -->
+<div class="nav_page">
+    <nav class="b4_pagination" aria-label="...">
+        <ul class="pagination pag_new">
+            <li class="page-item pagination_num">
+                <span class="page-link" th:text="'共' + ${category1_product?.pagecount} + '页/' + ${category1_product?.totalcount} + '篇'">共2页/23篇</span>
+            </li>
+        </ul>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" th:href="|?page=1|">首页</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" th:href="|?page=${category1_product?.getPre()}|">上一页</a>
+            </li>
+            <li class="page-item actives" th:each="page : ${category1_product?.getPages()}" th:class="${page == category1_product?.page} ? 'page-item actives' : 'page-item'">
+                <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}|">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" th:href="|?page=${category1_product?.getNext()}|">下一页</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#" th:href="|?page=${category1_product?.pagecount}|">尾页</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</div>
+
+<script src="js/jquery-3.0.0.min.js" th:src="@{/js/jquery-3.0.0.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{/js/popper.min.js}"> </script>
+<script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="css/tab/jjs_jquery-1.10.2.min.js" th:src="@{/css/tab/jjs_jquery-1.10.2.min.js}"></script>
+<script src="css/tab/jjs_menu_min.js" th:src="@{/css/tab/jjs_menu_min.js}"></script>
+<script type="text/javascript" src="dist/autocomplete.js" th:src="@{/dist/autocomplete.js}"></script>
+<script src="js/index.js" th:src="@{/js/index.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+    function chengebg(a){
+        $(".obj_color").removeClass("obj_color");
+        $(a).addClass("obj_color");
+    }
+</script>
+
+</body>
+</html>

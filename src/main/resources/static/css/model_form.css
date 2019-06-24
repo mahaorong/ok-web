@@ -1,0 +1,84 @@
+.form_table_tr th {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form_table_tr td {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.form_table_tr input {
+    background-color: transparent;
+    border: none;
+}
+
+.form_table_tr input:focus {
+    color: #495057;
+    background-color: transparent;
+    border-color: transparent;
+    outline: 0;
+    box-shadow: none;
+}
+.model_tab{
+    margin-top: 20px;
+}
+.df_center{
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 1px;
+}
+.list_tab_link{
+    background-color: #fff;
+    border-top: 2px solid blue;
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
+}
+.list_tab_link:hover{
+    text-decoration: none;
+}
+.tab_nav_div{
+    background-color: #ffff;
+    padding: 11px;
+    border: 1px solid #eee;
+}
+.tab_nav_div table{
+    margin-bottom: 0px;
+}
+table thead{
+    background: #fafafa;
+}
+.back_button{
+    max-width: 500px;
+    margin: 20px  auto;
+}
+.btn_width{
+    width: 150px;
+}
+.btn_center{
+    text-align: center;
+}
+.df_jc{
+    justify-content: center;
+}
+.nav_m_t{
+    margin-top: 20px;
+}
+.none_active_tab{
+    padding: 15px 35px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: .5px;
+    color: #333743;
+}
+.from_input_respass{
+    padding: 30px;
+}
+.btn_from{
+    width: 150px;
+    margin: 20px auto 0;
+}
+.btn_from button{
+    width: 150px;
+}

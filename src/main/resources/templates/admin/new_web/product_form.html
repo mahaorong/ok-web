@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 产品管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/css/image_admin.css" th:href="@{/css/image_admin.css}">
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/js/ajax.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/dropzone/dropzone.js" th:src="@{/js/dropzone/dropzone.js}"></script>
+    <script src="../../../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/js/worktable_admin.js.js" th:src="@{/js/worktable_admin.js}"></script>
+    <script src="../../../static/js/admin/worktable.js" th:src="@{/js/admin/worktable.js}"></script>
+
+</head>
+
+<body >
+<!--<div class="img_sort_a display">
+    <div class="sort">
+        <div class="sort_top">
+            <h3>选择分类</h3>
+            <i class="material-icons sort_close">close</i>
+        </div>
+        <div class="sort_content">
+            <div class="sort_checkbox" th:each="cate : ${category?.tree}">
+                <input type="checkbox" class="sort_top_checbox" name="cateids" th:value="${cate?.id}">
+                [[|${cate?.tag}${cate?.text}|]]
+            </div>
+        </div>
+        <div class="sort_footer">
+            <button type="button" id="addCategory" class="btn btn-success sort_btn">确定</button>
+        </div>
+    </div>
+</div>-->
+<!-- Modal -->
+<div class="modal fade" style="margin: 40px 0;" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">选择分类</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal_overflow">
+                <div th:each="cate : ${category?.tree}">
+                    <input type="checkbox" class="sort_top_checbox" name="cateids" th:value="${cate?.id}">
+                    [[|${cate?.tag}${cate?.text}|]]
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" id="addCategory" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="enroo_img_top">
+    <div class="close_sort">
+        <a href="javascript:void(0)">
+            <i class="material-icons close_icon">close</i>
+        </a>
+    </div>
+    <div class="add_sort">
+        <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">加入分类</a>
+    </div>
+</div>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                <input hidden="hidden" type="text" name="type" value="product_form">
+                <input hidden="hidden" type="text" name="shape" value="3">
+                <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+<div class="flex_box">
+    <div class="number_dir">
+        <div id="treeview3" class=""></div>
+    </div>
+    <div class="enroo_main">
+        <div class="file_container">
+            <div class="file_mange">
+                <nav aria-label="breadcrumb" class="">
+                    <ol class="breadcrumb breadcrumb_ol model_form">
+                        <!--<li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                        <li class="breadcrumb-item active" aria-current="page">产品</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="file_upload">
+                <div class="file_btn">
+                    <div class="btn-group btn-group-toggle">
+                        <button type="button" class="btn btn-default" title="导入Excel文件" data-toggle="modal"
+                                data-target="#fileModal"><i class="fa fa-file-o"></i>导入Excel文件</button>
+                        <button type="button" class="btn btn-default" title="刷新" style="margin-left: 7px;" onclick="window.location.reload();"><i
+                                class="fa fa-refresh" style="font-style: normal;"><i class="fa fa-refresh"></i>刷新</button>
+                    </div>
+                </div>
+            </div>
+            <div class="table_box">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="" style="padding-right:0px">
+                            <input type="hidden" id="checkbox" th:checked="${check}" >
+                        </th>
+                        <th scope="col">文件名称</th>
+                        <th scope="col">发布时间</th>
+                        <th scope="col">修改时间</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="allProduct:${workPage?.items}">
+                        <th scope="col">
+                            <input type="checkbox"  name="worktableIds" th:value="${allProduct?.id}">
+                        </th>
+                        <th scope="row" th:text="${allProduct?.fileName}"></th>
+                        <td th:text="${#strings.substring(allProduct?.createTime,0,10)}"></td>
+                        <td th:text="${#strings.substring(allProduct?.updateTime,0,10)}"></td>
+                        <td class="d_flex">
+                            <a class="table_btn btn btn-primary" th:href="@{/admin/findProductDetail(wid=${allProduct?.id})}">产品列表</a>
+                            <a class="table_btn btn btn-success " th:href="@{/excel/getProduct(fileName=${allProduct?.fileName},wid=${allProduct?.id})}">下载</a>
+                            <a id="delete" class="table_btn btn btn-danger" th:href="@{/product/deleteWorktable(wid=${allProduct?.id})}">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page_nav">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&id=${id}|:|?page=1|)">首页</a></li>
+
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${workPage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.getPre()}&id=${id}|:|?page=${workPage?.getPre()}|)"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="page:${workPage?.getPages()}" th:class="${page == workPagePage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                                                                                                                                                                        th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&id=${id}|:|?page=${page}|)">[[${page}]]</a></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="${keyword}?|?page=${workPage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.getNext()}&id=${id}|:|?page=${workPage?.getNext()}|)"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${workPage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.pagecount}&id=${id}|:|?page=${workPage?.pagecount}|)">尾页</a></li>
+                    </ul>
+                    <span class="pageInfo">当前第[[${workPage?.page}]]/[[${workPage?.pagecount}]]页  共[[${workPage?.totalcount}]]条记录 每页[[${workPage?.pagesize}]]条</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="myModalLabel">导入产品</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/excel/uploadProduct" method="post" enctype="multipart/form-data">
+                        <input id="fileInput" type="file" name="file"  multiple="multiple" accept="application/vnd.ms-excel"></input>
+
+                        <label class="col-sm-2">语言:</label>
+                        <select name="language">
+                            <option value="zh_CN">简体中文</option>
+                            <option value="zh_TW">繁体中文</option>
+                            <option value="en_US">英文</option>
+                        </select>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit">上传</button>
+                            <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:inline="javascript">
+    $(function () {
+
+        var defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+            onNodeSelected: function (event, data) {
+                console.log(data.id);
+                window.location.href = "/product/categoryWork?id=" + data.id
+            },
+        });
+        $('#treeview3').treeview('collapseAll', {
+            silent: true
+        });
+    })
+</script>
+
+<!--<script th:inline="javascript">
+    $(function () {
+
+        window.defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+             list: true,
+             type: false,
+            del : function (a) {
+                let id = $(a).parents("li").data("id");
+                ajax("/admin/deletecategory?id="+id, "get")
+                    .then((mes) => {
+                    window.location.reload();
+            },function(err){
+                    //错误返回
+                });
+            },
+            upd: function(a){
+                $("[data-update-title]").on("click", function(){
+                    let formdata = new FormData();
+                    formdata.append("pid", $(a).parents("li").data("pid"));
+                    formdata.append("id", $(a).parents("li").data("id"));
+                    formdata.append("text", $(this).parents(".modal-content").find("[data-title]").val());
+                    ajax("/admin/category/change", "post", formdata)
+                        .then((mes) => {
+                        window.location.reload();
+                });
+                })
+            },
+            cre: function(a){
+                let id = $(a).parents("li").data("id");
+                window.location.href = "/page?id="+id;
+            },
+        });
+    })
+
+</script>-->
+
+
+</body>
+
+</html>

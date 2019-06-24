@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/image_admin.css" th:href="@{/css/image_admin.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="../../../static/js/register.js" th:src="@{/js/register.js}"></script>
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/js/blog/user.js" th:src="@{/js/blog/user.js}"></script>
+    <script src="../../../static/js/blog/databaseBackup.js" th:src="@{/js/blog/databaseBackup.js}"></script>
+</head>
+
+<body>
+<div class="img_sort_a display">
+    <div class="sort sort_height">
+        <div class="sort_top">
+            <h3>添加用户</h3>
+            <i class="material-icons sort_close">close</i>
+        </div>
+        <div class="sort_content">
+            <form id="form" role="form" th:action="@{/registerAuto}" method="get">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">用户名</span>
+                    </div>
+                    <input type="text" id="username" name="username" class="form-control" aria-describedby="basic-addon3">
+                </div>
+                <span class="s2" data-username></span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">密码</span>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" aria-describedby="basic-addon3">
+                </div>
+                <span class="s2"  data-password></span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">确认密码</span>
+                    </div>
+                    <input type="password" id="qpassword" name="qpassword" class="form-control" aria-describedby="basic-addon3">
+                </div>
+                <span class="s2" data-qpassword></span>
+            </form>
+            <div class="sort_footer">
+                <button type="button" id="bxx" class="btn btn-success sort_btn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+<div class="enroo_main no_left_list">
+    <div class="file_container">
+        <div class="file_mange">
+            <nav aria-label="breadcrumb" class="">
+                <ol class="breadcrumb breadcrumb_ol model_form">
+                    <li class="breadcrumb-item">通用</li>
+                    <li class="breadcrumb-item active" aria-current="page">用户权限</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="file_upload">
+            <div class="file_btn">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary add_sort">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked>
+                        新建
+                    </label>
+                    <label class="btn btn-secondary"  onclick="databasebackup()">
+                        <input type="radio" name="options" autocomplete="off">数据库备份
+                    </label>
+                    <label class="btn btn-secondary"  onclick="window.location.reload()">
+                        <input type="radio" name="options" id="option3" autocomplete="off">刷新
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="table_box">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">禁用</th>
+                    <th scope="col">用户名称</th>
+                    <th scope="col">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${userPage?.items}">
+                    <td><input type="checkbox" th:value="${user?.id}" th:checked="${user?.usable == 1}" data-check></td>
+                    <th scope="row" th:text="${user?.username}"> header</th>
+                    <td class="d_flex">
+                        <a class="table_btn btn btn-primary"  th:href="@{/user/detail(uid=${user.id})}">权限</a>
+                        <button th:onclick="'javascript:deleteById(\''+${user.id}+'\');'" type="button" class="table_btn btn btn-danger">删除</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="page_nav">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:|?page=1|">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${userPage?.getPre()}&keyword=${keyword}&type=${type}|:|?page=${userPage?.getPre()}|" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${userPage?.getPages()}" th:class="${page == userPage?.getPage()}? 'page-item active' : 'page-item'" ><a class="page-link" href="?page=1" th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:|?page=${page}|">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${userPage?.getNext()}&keyword=${keyword}&type=${type}|:|?page=${userPage?.getNext()}|" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${userPage?.pagecount}&keyword=${keyword}&type=${type}|:|?page=${userPage?.pagecount}|">尾页</a></li>
+                </ul>
+                <span class="pageInfoDetail">当前第[[${userPage?.page}]]/[[${userPage?.pagecount}]]页  共[[${userPage?.totalcount}]]条记录 每页[[${userPage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+
+</html>

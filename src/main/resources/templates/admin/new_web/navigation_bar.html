@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a th:fragment="top1" href="javascript:void(0)" th:text="${#session.getAttribute('compenyName')}" data-toggle="modal" data-target="#enditCompany" class="navbar-brand m_l_1rem col_fff">网站管理</a>
+
+<ul th:fragment="top3" class="navbar-nav ml-auto m_r_1rem">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            通用
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" th:href="@{/admin/index}">信息分类</a>
+            <a class="dropdown-item" href="#" th:href="@{/user/findAll}">用户权限</a>
+            <a class="dropdown-item" href="#" th:href="@{/changePassword}">修改密码</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/customerAll}">客服管理</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            文章
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" th:href="@{/admin/addBlog}">发布</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/findAllArticle}">所有文章</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/findBlog(status=0,review=0)}">待审核</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/findBlog(status=0,review=1)}">已审核</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/findBlog(status=0,review=2)}">未通过</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            文件
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" th:href="@{/image/findAll}">图片管理</a>
+            <a class="dropdown-item" href="#" th:href="@{/admin/findFile}">文件管理</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
+           aria-expanded="false" th:href="@{/product/findWorktable}">
+            产品
+        </a>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            表单
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" th:href="@{/form/findPageForm(status=0,shape=3)}">表单模板</a>
+            <a class="dropdown-item" th:href="@{/form/findAllForm}">所有表单</a>
+            <a class="dropdown-item" th:href="@{/form/findPageForm(status=0,shape=0)}">未处理</a>
+            <a class="dropdown-item" th:href="@{/form/findPageForm(status=0,shape=1)}">已处理</a>
+            <a class="dropdown-item" th:href="@{/form/findPageForm(status=0,shape=2)}">异常</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
+           aria-expanded="false" th:href="@{/template/findAll}">
+            栏目
+        </a>
+
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            回收站
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" th:href="@{/recovery/findAll(type='recycle_article')}">文章</a>
+            <a class="dropdown-item" href="#" th:href="@{/recovery/findAll(type='recycle_image')}">图片</a>
+            <a class="dropdown-item" href="#" th:href="@{/recovery/findAll(type='recycle_file')}">文件</a>
+            <a class="dropdown-item" href="#" th:href="@{/recovery/findAll(type='recycle_product')}">产品</a>
+            <a class="dropdown-item" href="#" th:href="@{/recovery/findAll(type='recycle_form')}">表单</a>
+        </div>
+    </li>
+</ul>
+
+<div th:fragment="top2" class="modal fade" id="enditCompany" tabindex="-1" role="dialog" aria-labelledby="enditCompany"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleCompany">修改名称</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/admin/editCompany" method="post">
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="名称" data-text>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

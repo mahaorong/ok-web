@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|" >enroo-联系我们</title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <title th:if="${id != null && title == null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}|">enroo-联系我们</title>
+    <title th:if="${id != null && title != null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="/css/tab/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about.css">
+    <link rel="stylesheet" href="/css/contac.css">
+    <!--<link rel="stylesheet" href="css/enroo_about_culture.css">-->
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+</head>
+
+<body>
+ <section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+        <section class="enroo_top">
+                <div class="container new_container">
+                    <div class="row a-center flex_header">
+                        <div class="d_f left_header">
+                            <div class="logo">
+                                <a href="#">
+                                    <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="right_header">
+                            <div class="right_div_2">
+                                <div class="input_search">
+                                    <div id="search-form"></div>
+                                    <a href="#" class="full_icon_search">
+                                        <i class="material-icons">search</i>
+                                    </a>
+                                </div>
+                                <div class="call_me">
+                                    <span>技术热线：</span>
+                                    <span>4007-888-234</span>
+                                </div>
+                            </div>
+                            <div class="right_div_1">
+                                <div class="enroo_lan_div">
+                                    <div>
+                                        <a href="" th:href="@{/index(lang='zh_CN')}">中文</a>
+                                    </div>
+                                    <div>
+                                        <a href="" th:href="@{/index(lang='en_US')}">English</a>
+                                    </div>
+                                </div>
+                                <!-- <div class="enroo_keyword">
+                                        <div>单片机集成方案全方位解决服务商</div>
+                                        <div>优质智能电子产品"芯"方案提供商</div>
+                                    </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>contact us</small>
+            <h2>联系我们</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_tb_30_80">
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3">
+                <div class="about_tab">
+                    <div class="about_tab_title">
+                        <small>contact us</small>
+                        <h2>联系我们</h2>
+                    </div>
+                    <div class="about_content_nav">
+                        <ul class="about_content_ul ul_link_li">
+                            <li th:each="category : ${category1_cate1}" th:class="${category?.id == default_cate?.id} ? 'active' : '' ">
+                                <div class="square"></div>
+                                <a href="#" th:if="${category?.text != '在线反馈'}" th:href="${category?.outlink == null || category?.outlink == ''} ? @{/contact(cid=${category?.id},key=${key1})} : @{${category?.outlink}}" th:text="${category?.text}">联系方式</a>
+
+                                <a href="#" th:if="${category?.text == '在线反馈'}" th:href="${category?.outlink == null || category?.outlink == ''} ? @{/customer_service?cid=b79d6fc7d31b4b53a891d8047c8f2752&key=category1} : @{${category?.outlink}}" th:text="${category?.text}">联系方式</a>
+                            </li>
+                       <!--      <li>
+                                <div class="square"></div>
+                                <a href="#" th:href="@{/contact_place}">地理位置</a>
+                            </li>
+                            <li>
+                                <div class="square"></div>
+                                <a href="#" th:href="@{/customer_service?cid=b79d6fc7d31b4b53a891d8047c8f2752&key=category1}">在线反馈</a>
+                            </li>
+                            <li class="active">
+                                <div class="square"></div>
+                                <a href="#" th:href="@{/contact_join}">友情链接</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div th:replace="zh_CN/LeftNavigation::top"></div>
+                <div th:replace="zh_CN/LeftNavigation::top1"></div>
+            </div>
+            <div class="new_md_9">
+                <div class="bread">
+                    <div class="bread_nav_title">
+                        <h4>联系我们</h4>
+                    </div>
+                    <div class="bread_nav">
+                        <ul class="bread_nav_ul">
+                            <li class="nav_link_bread">
+                                <a href="#">联系我们</a>
+                            </li>
+                            <li class="nav_link_bread">
+                                <a href="#" th:text="${default_cate?.text}">友情链接</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="about_content_border contact_content place_join_content" th:if="${default_cate?.text == '友情链接'}">
+                    <div class="row">
+                        <div class="col-md-3" th:each="imag:${category1_img1?.items}"><img src="/images/2016081009194262608.jpg" th:src="@{${imag?.imageUrl}}" th:alt="${imag?.imageName}" class="img-fluid"></div>
+                    </div>
+                </div>
+
+
+                <div class="about_content_border contact_content" th:if="${default_cate?.text == '联系方式'}">
+                    <div class="box_contact">
+                        <div class="box_width">
+                            <h2>深圳市英锐恩科技有限公司（总部）</h2>
+                            <p class="small_title">Enroo Technologies Company Limited</p>
+                            <div class="contact_us space_del">
+                                <ul>
+                                    <li>
+                                        <i class="material-icons">place</i>
+                                        <span>地址：中国·深圳市龙岗区坂田环城南路坂田国际中心C2栋815</span>
+                                    </li>
+                                    <li>
+                                        <i class="material-icons">phone</i>
+                                        <span>电话：4007-888-234 0755-82543411</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-QQ"></i>
+                                        <span>邮箱：enroo@enroo.com</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-chuanzhen"></i>
+                                        <span>传真：86-755-82543511</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-QQ"></i>
+                                        <span>技术支持：27781279        46885145(点击咨询)</span>
+                                    </li>
+                                </ul>
+                                <div class="p-l-40">
+                                    <img src="/images/Chat.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_contact">
+                        <div class="box_width">
+                            <h2>香港分公司（总部）</h2>
+                            <div class="contact_us space_del">
+                                <ul>
+                                    <li>
+                                        <i class="material-icons">place</i>
+                                        <span>地址：香港新界葵涌工业街24-28号威信物流中心13楼</span>
+                                    </li>
+                                    <li>
+                                        <i class="material-icons">phone</i>
+                                        <span>电话：00852-39042841</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-chuanzhen"></i>
+                                        <span>传真：00852-39042840</span>
+                                    </li>
+                                </ul>
+                                <div class="p-l-40">
+                                    <img src="/images/Chat.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box_contact">
+                        <div class="box_width">
+                            <h2>English Contact: </h2>
+                            <p class="small_title">Enroo Technologies Company Limited</p>
+                            <div class="contact_us space_del">
+                                <ul>
+                                    <li>
+                                        <i class="material-icons">place</i>
+                                        <span>Add：Room 815, C2 Building, Bantian International Center
+                                                <br> Bantian Sub-District, Longgang, Shenzhen City</span>
+                                    </li>
+                                    <li>
+                                        <i class="material-icons">phone</i>
+                                        <span>Tel：  4007-888-234     0755-82543411</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-chuanzhen"></i>
+                                        <span>Fax：86-755-82543511</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-QQ"></i>
+                                        <span>Email：enroo@enroo.com</span>
+                                    </li>
+                                    <li>
+                                        <i class="iconfont icon-QQ"></i>
+                                        <span>Technical Support On Line：27781279 46885145</span>
+                                    </li>
+                                </ul>
+                                <div class="p-l-40">
+                                    <img src="/images/Chat.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about_content_border contact_content " th:if="${default_cate?.text == '地理位置'}">
+                    <iframe width="604" height="760" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                            src="http://j.map.baidu.com/F8y3e"></iframe>
+                    <div class="contact_place">
+                        <p><strong>深圳市英锐恩科技有限公司总部</strong></p>
+                        <p>地址：中国·深圳市龙岗区坂田环城南路坂田国际中心C2栋815</p>
+                        <p>电话：4007-888-234 &nbsp; &nbsp;0755-82543411</p>
+                        <p>邮箱：enroo@enroo.com</p>
+                        <p>传真：86-755-82543511</p>
+                        <p>传真：86-755-82543511</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  th:replace="zh_CN/absorbed::top"></section>
+
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+$(document).on("click",".full_icon_search",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+
+</body>
+
+</html>
+
+</html>

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发布文章</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <!--<link rel="stylesheet" href="../../../static/css/editormd.min.css" th:href="@{/css/editormd.min.css}">-->
+    <link rel="stylesheet" href="../../../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="../../../static/css/jquery.tagsinput-revisited.css" th:href="@{/css/jquery.tagsinput-revisited.css}">
+    <link rel="stylesheet" href="../../../static/css/iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <!--<script src="../../../static/js/editormd.js" th:src="@{/js/editormd.js}"></script>-->
+    <script src="../../../static/js/blog/addBlog.js" th:src="@{/js/blog/addBlog.js}"></script>
+    <script src="http://www.jq22.com/jquery/jquery-ui-1.11.0.js"></script>
+    <script src="../../../static/js/jquery.tagsinput-revisited.js" th:src="@{/js/jquery.tagsinput-revisited.js}"></script>
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+
+    <script src="../../../static/ueditor/ueditor.config.js" th:src="@{/ueditor/ueditor.config.js}"></script>
+    <script src="../../../static/ueditor/ueditor.all.min.js" th:src="@{/ueditor/ueditor.all.min.js}"></script>
+    <script src="../../../static/ueditor/lang/zh-cn/zh-cn.js" th:src="@{/ueditor/lang/zh-cn/zh-cn.js}"></script>
+
+</head>
+
+<body>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+
+        <div class="enroo_main">
+        <div class="form_enroo_addBolg">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">文章</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">发布</li>
+                </ol>
+            </nav>
+            <hr>
+            <form method="post" action="/admin/addBlog" id="addBlogForm">
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-1 col-form-label">标题:</label>
+                    <div class="col-sm-11">
+                        <input type="text" name="title" class="form-control" id="inputPassword" placeholder="标题">
+                        <div class="help">
+                            <small id="emailHelp"  class="form-text text-muted">We'll never share your
+                                email with anyone
+                                else.</small>
+                        </div>
+                    </div>
+                    <div><span style="color:red" id="title"></span></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-1 col-form-label">摘要:</label>
+                    <div class="col-sm-11">
+                        <input type="text" name="summary" class="form-control" id="inputPassword" placeholder="摘要">
+                        <div class="help">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                    </div>
+                    <div><span style="color:red" id="summary"></span></div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-1 col-form-label">keywords:</label>
+                    <div class="col-sm-11">
+                        <input type="text" name="keywords" class="form-control"  placeholder="keywords">
+                        <div class="help">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-1 col-form-label">description:</label>
+                    <div class="col-sm-11">
+                        <input type="text" name="description" class="form-control"  placeholder="description">
+                        <div class="help">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-1 col-form-label">产品标签:</label>
+                    <div class="col-sm-11">
+                        <input id="form-tags-1" name="tags" type="text" value="">
+                        <div class="help">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-1 col-form-label">语言:</label>
+                    <div class="col-sm-11">
+                        <select name="language">
+                            <option value="zh_CN">简体中文</option>
+                            <option value="zh_TW">繁体中文</option>
+                            <option value="en_US">英文</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group row d_a_c">
+                    <label for="exampleFormControlFile1" class=" col-sm-1 col-form-label">封面图片:</label>
+                    <div class="col-sm-11">
+                        <input type="file" name="uploadfile" class="form-control-file file_btn_size" id="exampleFormControlFile1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">描述:</label>
+                    <div id="editormd" class="editormd_height m_t">
+                        <textarea name="content" id="editor" style="width:1024px;height:500px;"></textarea>
+                        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+
+                    </div>
+                    <div><span style="color:red" id="content"></span></div>
+                </div>
+                <div class="form-group add_Blog_Btn_Center">
+                    <input type="hidden" id="userId" name="userId" th:value="${#session.getAttribute('user').id}">
+                    <button type="button" onclick="releaseArticle()" class="btn btn-success add_blog_btn" name="submit_form">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <script>
+        // var testEditor;
+        $(function () {
+
+            UE.getEditor("editor");
+
+           /* testEditor = editormd("editormd", {
+                width: "100%",
+                height: 700,
+                syncScrolling: "single",
+                path: "/lib/", 
+                //为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
+                saveHTMLToTextarea: true,
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/admin/uploadImg",
+                onload: function () {
+                    // console.log('onload', this);
+                    // this.fullscreen();
+                    // this.unwatch();
+                    // this.watch().fullscreen();
+                    this.width("100%");
+                    this.height(900);
+
+                    // this.resize("100%", 640);
+                }
+
+            });*/
+
+
+        })
+    </script>
+    <!--<script>
+        $(function () {
+
+            window.defaultData = [{
+                    text: '标题 1',
+                    href: '#parent1',
+                    tags: ['4'],
+                    //checkbox
+                    type: "test",
+                    //三选项
+                    list: true,
+                    del: function () {
+                        alert("da");
+                    },
+                    upd: function () {},
+                    cre: function () {},
+                    nodes: [{
+                            text: '子标题 1',
+                            href: '#child1',
+                            tags: ['2'],
+                        type: "test",
+
+                            //三选项
+                            list: true,
+                            del: function () {
+                                alert("da");
+                            },
+                            upd: function () {},
+                            cre: function () {},
+                            nodes: [{
+                                    text: 'a啊啊吖 1',
+                                    href: '#grandchild1',
+                                    tags: ['0'],
+                                },
+                                {
+                                    text: 'a啊啊吖 2',
+                                    href: '#grandchild2',
+                                    tags: ['0']
+                                }
+                            ]
+                        },
+                        {
+                            text: '子标题 2',
+                            href: '#child2',
+                            tags: ['0'],
+                            list: true,
+                        }
+                    ]
+                },
+                {
+                    text: '标题 2',
+                    href: '#parent2',
+                    tags: ['0']
+                },
+                {
+                    text: '标题 3',
+                    href: '#parent3',
+                    tags: ['0']
+                },
+                {
+                    text: '标题 4',
+                    href: '#parent4',
+                    tags: ['0']
+                },
+                {
+                    text: '标题 5',
+                    href: '#parent5',
+                    tags: ['0']
+                }
+            ];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                list: true,
+                type: true,
+            });
+        })
+    </script>-->
+
+    <script th:inline="javascript">
+        let checkbox_arr = [];
+        $(function () {
+            window.defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                list: false,
+                showCheckbox: true,
+                onNodeChecked: function (event, data) {
+                    checkbox_arr.push(data.id);
+                    console.log(checkbox_arr);
+                },
+                onNodeUnchecked: function (event, data) {
+                    let new_arr = [];
+                    for(var i in checkbox_arr){
+                        if(checkbox_arr[i] != data.id){
+                            new_arr.push(checkbox_arr[i]);
+                        }
+                    }
+                    checkbox_arr = new_arr;
+                    console.log(checkbox_arr);
+                }
+            });
+            $('#treeview3').treeview('collapseAll', { silent: true });
+        })
+
+
+        $('#form-tags-1').tagsInput();
+
+
+    </script>
+</body>
+
+</html>

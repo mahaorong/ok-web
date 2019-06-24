@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片回收站</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/css/image_admin.css" th:href="@{/css/image_admin.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/recycle.css" th:href="@{/css/new_css/recycle.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="recycle_image">
+                    <input name="keyword" th:value="${keyword}" class="form-control mr-sm-2" type="search" placeholder="请输入..."
+                        aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main p_r">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">回收站</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">图片</li>
+                </ol>
+            </nav>
+            <hr>
+            <a class="btn btn-default" onclick="window.location.reload();">刷新</a>
+            <a class="btn btn-default" data-restore>恢复勾选</a>
+            <a class="btn btn-default" data-delete>删除勾选</a>
+            <!--<table class="table table-bordered article_review_table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="checkId"></th>
+                        <th scope="col">图片名称</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="image:${imagePage?.items}">
+                        <th><input type="checkbox" class="checkbox1" th:id="${image?.id}" data-class th:value="${image?.id}"></th>
+                        <th scope="row" th:text="${image?.imageName}">1</th>
+                        <td class="table_fun">
+                            <a href="" th:href="@{/recovery/delete(type='recycle_image',id=${image?.id})}">删除</a>
+                            <a href="" th:href="@{/recovery/restore(type='recycle_image',id=${image?.id})}">恢复</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>-->
+            <div class="img_container">
+                <div class="img_box" th:each="image:${imagePage?.items}">
+                    <div class="img_div">
+                        <a href="javascript:void(0)">
+                            <img class="img_sort" src="../../../static/images/14.png" th:src="@{${image?.imageUrl}}"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="input_div">
+                        <div class="checkbox">
+                            <input type="checkbox" class="checkbox1" th:id="${image?.id}" data-class th:value="${image?.id}">
+                        </div>
+                        <div class="dropdown p_a_dropdown">
+                            <div class="enroo_dropdown_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </div>
+                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#" th:href="@{/recovery/delete(type='recycle_image',id=${image?.id})}">删除</a>
+                                <a class="dropdown-item" href="#" th:href="@{/recovery/restore(type='recycle_image',id=${image?.id})}">恢复</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="img_name">
+                        <a href="javascript:void(0)" th:text="${image?.imageName}">图片</a>
+                    </div>
+                </div>
+
+            </div>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&type=recycle_image&id=${id}|:|?page=1&type=recycle_image|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${imagePage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.getPre()}&type=recycle_image&id=${id}|:|?page=${imagePage?.getPre()}&type=recycle_image|)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${imagePage?.getPages()}" th:class="${page == imagePage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                            th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&type=recycle_image&id=${id}|:|?page=${page}&type=recycle_image|)">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${imagePage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.getNext()}&type=recycle_image&id=${id}|:|?page=${imagePage?.getNext()}&type=recycle_image|)"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${imagePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${imagePage?.pagecount}&type=recycle_image&id=${id}|:|?page=${imagePage?.pagecount}&type=recycle_image|)">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${imagePage?.page}]]/[[${imagePage?.pagecount}]]页  共[[${imagePage?.totalcount}]]条记录 每页[[${imagePage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(function () {
+            var defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/recovery/findAll?type=recycle_image&id=" + data.id
+                },
+            });
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+        })
+
+        var imageIds = [];
+        $("[data-class]").on("click",function () {
+            var id = $(this).val();
+            if ($(this).prop("checked")){
+                imageIds.push(id)
+            } else {
+                let new_arr = [];
+                for (var i in imageIds) {
+                    if (imageIds[i] != id) {
+                        new_arr.push(imageIds[i]);
+                    }
+                }
+                imageIds = new_arr;
+            }
+            console.log(imageIds);
+        })
+
+        $("[data-delete]").on("click",function () {
+            $.get("/recovery/batchDelete?type=recycle_image&ids=" + imageIds, function (data) {
+                if (data == "success"){
+                    window.location.reload();
+                }
+            });
+        })
+
+        $("[data-restore]").on("click",function () {
+            $.get("/recovery/batchRestore?type=recycle_image&ids=" + imageIds, function (data) {
+                if (data == "success") {
+                    window.location.reload();
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

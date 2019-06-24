@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <title th:if="${default_cate?.text == null && title == null}" th:text="|产品中心-${customer?.company}|" >enroo-产品中心</title>
+    <title th:if="${default_cate?.text == null && title != null}" th:text="|产品中心-${customer?.company}-${title}|">enroo-产品中心</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about.css">
+    <link rel="stylesheet" href="/css/enroo_about_culture.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+</head>
+
+<body>
+   <section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+            <div class="container new_container">
+                <div class="row a-center flex_header">
+                    <div class="d_f left_header">
+                        <div class="logo">
+                            <a href="#">
+                                    <!-- style="width: 472px !important;" -->
+                                <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right_header">
+                        <div class="right_div_2">
+                            <div class="input_search">
+                                <div id="search-form"></div>
+                                <a href="#" class="full_icon_search">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </div>
+                            <div class="call_me">
+                                <span>技术热线：</span>
+                                <span>4007-888-234</span>
+                            </div>
+                        </div>
+                        <div class="right_div_1">
+                            <div class="enroo_lan_div">
+                                <div>
+                                    <a href="" th:href="@{/index(lang='zh_CN')}">中文</a>
+                                </div>
+                                <div>
+                                    <a href="" th:href="@{/index(lang='en_US')}">English</a>
+                                </div>
+                            </div>
+                            <!-- <div class="enroo_keyword">
+                                    <div>单片机集成方案全方位解决服务商</div>
+                                    <div>优质智能电子产品"芯"方案提供商</div>
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>Products Center</small>
+            <h2>产品中心</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_tb_30_80">
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3">
+                <aside>
+                    <section class="met_aside">
+                        <div class="about_tab_title">
+                            <small>product center</small>
+                            <h2>产品中心</h2>
+                        </div>
+                        <div id="content">
+                            <div class="menu">
+                                <ul class="">
+                                    <li th:each="category : ${category1_cate1}" th:if="${category?.tag == '-'}">
+                                        <a class="active" th:text="${category?.text}" th:if="${category?.tag == '-'}">EN全系列产品</a>
+                                        <ul>
+                                            <li th:each="cate2 : ${category?.nodes}" th:if="${cate2?.tag == '--'}"><a  th:text="${cate2?.text}" th:href="${cate2?.outlink == null || cate2?.outlink == ''} ? @{/products_list(cid=${cate2?.id},key=${key1})} : @{${cate2?.outlink}}">EN系列微控制器</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <div th:replace="zh_CN/LeftNavigation::top"></div>
+                <div th:replace="zh_CN/LeftNavigation::top1"></div>
+            </div>
+            <div class="new_md_9">
+                <div class="bread">
+                    <div class="bread_nav_title">
+                        <h4>产品中心</h4>
+                    </div>
+                    <div class="bread_nav">
+                        <div class="input-group input_search">
+                            <input type="text" name="keyword" placeholder="全站搜索 / 产品搜索" class="autocomplete-input"
+                                   style="width: 250px;">
+                            <a href="#" class="full_icon_search search_icon" id="searchPro">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="about_main about_content_border line">
+                    <div class="product_css">
+                        <div class="line_img">
+                            <img src="/images/time_products.png" alt="" class="line_img_fluid">
+                        </div>
+                        <div class="row a-center">
+                            <div class="col-md-6">
+                                <div class="product_img">
+                                    <a href="#" th:href="@{/products_list_new?cid=7dde68abb8cd4ecb855692fab04a57de&key=category1}">
+                                        <img src="/images/enroo_img01.jpg"  th:src="@{/images/enroo_img01.jpg}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_text w_100">
+                                    <p>①微控制器：8-bits单片机</p>
+                                    <p>②电源产品IC： 锂电池保护及充电控制产品、DC-DC\AC-DC\线性稳压型电源管理</p>
+                                    <p>③LED照明系列： LED背光驱动、LED照明驱动产品-隔离、LED照明驱动产品-非隔离</p>
+                                    <p></p>④功率MOSFET系列： 低压MOSFET系列、中压MOSFET系列、高压MOSFET系列</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product_css">
+                        <div class="line_img">
+                            <img src="/images/time_products.png" alt="" class="line_img_fluid">
+                        </div>
+                        <div class="row a-center">
+                            <div class="col-md-6">
+                                <div class="product_img">
+                                    <a href="#" th:href="@{/products_list_new?cid=2b9e04665dd6429ab75df1aa5285ab76&key=category1}">
+                                        <img src="/images/enroo_img01.jpg" th:src="@{/images/enroo_img03.jpg}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_text w_100">
+                                    <p> ①各类电池解码专用芯片，电池码片</p>
+                                    <p>  ②耳机线控IC专用芯片
+                                    <p> ④电子烟芯片方案</p>
+                                    <p> ⑤智能手电筒专用芯片</p>
+                                    <p>⑥无线充、快充方案芯片</p>
+                                    <p>⑦移动电源方案芯片</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product_css">
+                        <div class="line_img">
+                            <img src="/images/time_products.png" alt="" class="line_img_fluid">
+                        </div>
+                        <div class="row a-center">
+                            <div class="col-md-6">
+                                <div class="product_img">
+                                    <a href="#" th:href="@{/products_list_new?cid=c14199aa3afb4318a472b9b18929c011&key=category1}">
+                                        <img src="/images/enroo_img01.jpg" th:src="@{/imagePath/ac8faee815c1482db6e065f5395bcbb6enroo_img05.jpg}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_text w_100">
+                                    <p> 8位单片机,16位单片机，32位单片机</p>
+                                    <p>全系列开发工具：</p>
+                                    <p> ①仿真器ICE系列</p>
+                                    <p> ②在线调试器</p>
+                                    <p>③编程器、软件程式烧录器</p>
+                                    <p>④全系列开发板、开发工程测试套件</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="product_css">
+                        <div class="line_img">
+                            <img src="/images/time_products.png" alt="" class="line_img_fluid">
+                        </div>
+                        <div class="row a-center">
+                            <div class="col-md-6">
+                                <div class="product_img">
+                                    <a href="#" th:href="@{/products_list_new?cid=8027e9f9932f45ff9049f7febbb7fb35&key=category1}">
+                                        <img src="/images/enroo_img01.jpg" th:src="@{/imagePath/454708ada0f74b59af37b1e5b29c5e79enroo_img04.jpg}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_text w_100">
+                                    <p> ①运算放大器及比较器 : 精密运算放大器、高速运算放大器、通用运算放大器、低噪声运算放大器、微功耗运算放大器、高压通用放大器、高压高精度放大器、仪表放大器、微功耗比较器、高速比较器 </p>
+                                    <p> ②开关和多路复用器：模拟开关、多路复用器</p>
+                                    <p> ③电源管理：高压线性稳压器、高精度线性稳压器</p>
+                                    <p>  ④数据转换器：模拟转换器、数模转换 器</p>
+                                    <p> ⑤模拟前端：工业控制、医疗电子</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product_css">
+                        <div class="line_img">
+                            <img src="/images/time_products.png" alt="" class="line_img_fluid">
+                        </div>
+                        <div class="row a-center">
+                            <div class="col-md-6">
+                                <div class="product_img">
+                                    <a href="#" >
+                                        <img src="/images/enroo_img01.jpg" th:src="@{/imagePath/4b4535c56d0b404580caba585e495f13enroo_img06.jpg}" alt="" class="img-fluid">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_text w_100">
+                                    <p>①8 Bit Flash单片机，8 Bit Otp单片机</p>
+                                    <p> ②Lcd、Led Driver Mcu，Usb Mcu，Remoter Mcu</p>
+                                    <p>③Power Management</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ <section  th:replace="zh_CN/absorbed::top"></section>
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+    $(document).on("click","#searchTop",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+    $(document).on("click","#searchPro",function(){
+        var keyword = $("input[name='keyword']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+
+</body>
+
+</html>

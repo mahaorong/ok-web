@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <title>Search-联系我们</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material-icons.css">
+    <link rel="stylesheet" href="css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/tab/new_style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="css/enroo_about_new.css">
+    <link rel="stylesheet" href="css/about_left.css">
+    <link rel="stylesheet" href="css/web_search.css">
+    <!-- <link rel="stylesheet" href="css/enroo_about_culture.css"> -->
+    <link rel="stylesheet" href="dist/autocomplete.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style>
+        .back-content{
+            border-radius: 4px;
+        }
+        .back-content p {
+            padding-left: 5px;
+            padding-right: 4px;
+            color: #D7000F;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+        }
+        .back-content:hover .back-p{
+            color: #fff;
+        }
+        .contact_content{
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+<section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+        <div class="container new_container">
+            <div class="row a-center flex_header">
+                <div class="d_f left_header">
+                    <div class="logo">
+                        <a href="#">
+                            <!-- style="width: 472px !important;" -->
+                            <img src="images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="right_header">
+                    <div class="right_div_2">
+                        <div class="input_search">
+                            <div id="search-form"></div>
+                            <a href="#" class="full_icon_search">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="call_me">
+                            <span>技术热线：</span>
+                            <span>4007-888-234</span>
+                        </div>
+                    </div>
+                    <div class="right_div_1">
+                        <div class="enroo_lan_div">
+                            <div>
+                                <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                            </div>
+                            <div>
+                                <a href="" th:href="@{/(lang='en_US')}">English</a>
+                            </div>
+                        </div>
+                        <!-- <div class="enroo_keyword">
+                                        <div>单片机 集成方案全方位解决服务商</div>
+                                        <div>优质智能电子产品"芯"方案提供商</div>
+                                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>contact us</small>
+            <h2>搜索页面</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_tb_30_80 top_10">
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3 pa_60 prb-90">
+                <aside>
+                    <section class="met_aside">
+                        <div class="new_about_tab_title ">
+                            <h2>高级<br>搜索</h2>
+                            <div class="new_about_tab_small">
+                                <small>product center</small>
+                            </div>
+                        </div>
+                        <div id="content">
+                            <div class="menu">
+                                <ul class="">
+                                    <li class="active" th:class="${type == 'all'} ? 'active' : '' ">
+                                        <a class="inactive" href="#" th:href="@{/searchAll(keyword=${keyword},type='all')}" style="background: none !important">全站搜索</a>
+                                    </li>
+                                    <li th:class="${type == 'pro'} ? 'active' : '' ">
+                                        <a class="inactive" href="#" th:href="@{/searchProduct(keyword=${keyword},type='pro')}" style="background: none !important">产品中心搜索</a>
+                                    </li>
+                                    <li th:class="${type == 'file'} ? 'active' : '' ">
+                                        <a class="inactive" href="#" th:href="@{/searchFile(keyword=${keyword},type='file')}" style="background: none !important">下载中心搜索</a>
+                                    </li>
+                                    <li th:class="${type == 'article'} ? 'active' : '' ">
+                                        <a class="inactive" href="#" th:href="@{/searchArticle(keyword=${keyword},type='article')}" style="background: none !important">公司方案搜索</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <div th:replace="zh_CN/new_left::left2"></div>
+                <div th:replace="zh_CN/new_left::left3"></div>
+            </div>
+            <div class="new_md_9">
+                <!-- <div class="bread top_0">
+                    <div class="bread_nav_title">
+                        <h4>联系我们</h4>
+                    </div>
+                    <div class="bread_nav">
+                        <ul class="bread_nav_ul">
+                            <li class="nav_link_bread">
+                                <a href="#">单片机</a>
+                            </li>
+                            <li class="nav_link_bread">
+                                <a href="#">关于我们</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="contact_content">
+                    <div class="search-input">
+                        <input type="text" class="enroo-seaInput" id="keyword" th:value="${keyword}" />
+                        <button class="enroo-seaBtn">搜索</button>
+                        <div class="tips">
+                            <span>关于</span>
+                            <span class="tips-red">“</span>
+                            <span class="tips-red" th:text="${keyword}">EN8F15</span>
+                            <span class="tips-red">”</span>
+                            <span>的搜索结果</span>
+                        </div>
+                    </div>
+
+                    <div class="search-result">
+
+                        <div class="result" th:each="article : ${searchResult?.items}" th:if="${type == 'article'}">
+                            <div class="result-title">
+                                <a href="#" th:text="${article?.title}" th:href="|@{/solution_new/gsfa/category1/}${article?.id}">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+                            <p th:text="${article?.summary}">
+                                水母是一种利用光的折射原理制作的一款非常具有观赏性的装饰工具。LED灯组件是水母灯上的非常重要的组件，LED驱动芯片简化LED灯电路结构设计设计设计设计设计设计设计师设计师实际上就是设计师计算机是
+                            </p>
+                        </div>
+
+                        <div class="result" th:each="file : ${searchResult?.items}" th:if="${type == 'file'}">
+                            <div class="result-title">
+                                <a href="#" th:text="${file?.name}"  th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+
+                        </div>
+
+                        <div class="result" th:each="pro : ${searchResult?.items}" th:if="${type == 'pro'}">
+                            <div class="result-title">
+                                <a href="#" th:text="${pro?.articleTitle == null ? '没有产品详情文章':pro?.articleTitle}"  th:href="|@{/products_details_new/}${pro?.tag}/category1/${pro?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+                        </div>
+
+                        <div class="result" th:each="article : ${articlePage?.items}" th:if="!${#strings.contains(article?.cateName,'产品中心') && type == 'all'}">
+                            <div class="result-title">
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'关于我们')}" th:text="${article?.title}" th:href="|@{/abouts_c_new/}${article?.initials(#strings.substringAfter(article?.cateName,','))}/category2/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'员工活动')}" th:text="${article?.title}" th:href="|@{/about_activities_new/}${article?.initials(article?.cateName)}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'招贤纳士')}" th:text="${article?.title}" th:href="|@{/about_Recruit_new/}${article?.initials(article?.cateName)}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'新闻中心')}" th:text="${article?.title}" th:href="|@{/about_notice_new/}${article?.initials(#strings.substringAfter(article?.cateName,','))}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <!--<a href="#" th:if="${#strings.contains(article?.cateName,'产品中心')}" th:text="${article?.title}" th:href="|@{/products_details_new/}${article?.initials(#strings.arraySplit(article?.cateName, ',')[#arrays.length(#strings.arraySplit(article?.cateName, ',')) - 1])}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>-->
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'方案设计')}" th:text="${article?.title}" th:href="|@{/solution_new/}${article?.initials(#strings.substringAfter(article?.cateName,','))}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <a href="#" th:if="${#strings.contains(article?.cateName,'技术支持')}" th:text="${article?.title}" th:href="|@{/support_new/}${article?.initials(#strings.substringAfter(article?.cateName,','))}/category1/${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                                <a href="#" th:if="${article?.cateName == null || article?.cateName == ''}" th:text="${article?.title}" th:href="|@{/solution_new/gsfa/category1/}${article?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+                            <p th:text="${article?.summary}">
+                                水母是一种利用光的折射原理制作的一款非常具有观赏性的装饰工具。LED灯组件是水母灯上的非常重要的组件，LED驱动芯片简化LED灯电路结构设计设计设计设计设计设计设计师设计师实际上就是设计师计算机是
+                            </p>
+                        </div>
+
+                        <div class="result" th:each="file : ${filePage?.items}" th:if="${type == 'all'}">
+                            <div class="result-title">
+                                <a href="#" th:text="${file?.name}"  th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+
+                        </div>
+
+                        <div class="result" th:each="pro : ${productPage?.items}" th:if="${type == 'all'}">
+                            <div class="result-title">
+                                <a href="#" th:text="${pro?.articleTitle == null ? '没有产品详情文章':pro?.articleTitle}"  th:href="|@{/products_details_new/}${pro?.tag}/category1/${pro?.id}|">英锐恩单片机型号EN8F15.PDF</a>
+                            </div>
+                        </div>
+
+                        <section class="back-top">
+                            <div class="back-content">
+                                <i class="material-icons">
+                                    keyboard_arrow_up
+                                </i>
+                                <p class="back-p">返回顶部</p>
+                            </div>
+                        </section>
+                        <div class="nav_page" >
+                            <nav class="b4_pagination" aria-label="..."  th:if="${type != 'all'}">
+
+                                <ul class="pagination pag_new" >
+                                    <li class="page-item pagination_num">
+                                        <span class="page-link" th:text="'共' + ${searchResult?.pagecount == null ? 0 : searchResult?.pagecount} + '页/' + ${searchResult?.totalcount == null ? 0 : searchResult?.totalcount} + '篇'">共2页/23篇</span>
+                                    </li>
+
+                                </ul>
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=1&keyword=${keyword}&type=${type}|">首页</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${searchResult?.getPre()}&keyword=${keyword}&type=${type}|">上一页</a>
+                                    </li>
+
+
+                                    <li class="page-item actives" th:each="page : ${searchResult?.getPages()}" th:class="${page == searchResult?.page} ? 'page-item actives' : 'page-item'">
+                                        <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&keyword=${keyword}&type=${type}|">1</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${searchResult?.getNext()}&keyword=${keyword}&type=${type}|">下一页</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${searchResult?.pagecount}&keyword=${keyword}&type=${type}|">尾页</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+
+
+                            <nav class="b4_pagination" aria-label="..." th:if="${type == 'all' && keyword != null && keyword == ''}">
+
+                                <ul class="pagination pag_new" >
+                                    <li class="page-item pagination_num">
+                                        <span class="page-link" th:text="'共' + ${pageCount == null ? 0 : pageCount} + '页/' + ${articlePage?.totalcount==null && filePage?.totalcount==null && productPage?.totalcount==null ? 0 : articlePage?.totalcount+filePage?.totalcount+productPage?.totalcount} + '篇'">共2页/23篇</span>
+                                    </li>
+
+                                </ul>
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=1&keyword=${keyword}&type=${type}|">首页</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${currentPage-1 <= 0 ? 1 : currentPage-1}&keyword=${keyword}&type=${type}|">上一页</a>
+                                    </li>
+
+
+                                    <li class="page-item actives" th:each="page : ${pageNum}" th:class="${page == currentPage} ? 'page-item actives' : 'page-item'">
+                                        <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&keyword=${keyword}&type=${type}|">1</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${currentPage+1}&keyword=${keyword}&type=${type}|">下一页</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" th:href="|?page=${pageCount}&keyword=${keyword}&type=${type}|">尾页</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript" th:inline="javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+    $(document).on("click", ".full_icon_search", function () {
+        // var keyword = $("input[name='query']").val();
+        // alert(keyword);
+        // window.location.href = "/searchs?keyword=" + keyword;
+    });
+
+    $(document).on("click", ".enroo-seaBtn", function () {
+        var keyword = $("#keyword").val();
+        var type = [[${type}]];
+        console.log("type=" + type);
+
+        if (type == "all") {
+            window.location.href = "/searchAll?keyword="+keyword+"&type="+type;
+        }else if (type == "pro") {
+            window.location.href = "/searchProduct?keyword="+keyword+"&type="+type;
+        }else if (type == "file") {
+            window.location.href = "/searchFile?keyword="+keyword+"&type="+type;
+        }else if (type == "article") {
+            window.location.href = "/searchArticle?keyword="+keyword+"&type="+type;
+        }
+
+    });
+
+
+</script>
+</body>
+
+</html>

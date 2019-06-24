@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>logo</title>
+</head>
+<body>
+<section class="enroo_top" th:fragment="logo">
+    <div class="container new_container">
+        <div class="row a-center flex_header">
+            <div class="d_f left_header">
+                <div class="logo">
+                    <a href="http://enroo.com">
+                        <img src="/images/Enroologo(CDR)2.png" th:src="@{/images/Enroologo(CDR)2.png}" alt="英锐恩科技"
+                             class="img-fluid" style="width:400px">
+                    </a>
+                </div>
+            </div>
+            <div class="right_header">
+                <div class="right_div_2">
+                    <div class="input_search">
+                        <div id="search-form"></div>
+                        <a href="#" class="full_icon_search">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </div>
+                    <div class="call_me">
+                        <span>技术热线：</span>
+                        <span>4007-888-234</span>
+                    </div>
+                </div>
+                <div class="right_div_1">
+                    <div class="enroo_lan_div">
+                        <div>
+                            <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                        </div>
+                        <div>
+                            <a href="" th:href="@{/(lang='en_US')}">English</a>
+                        </div>
+                    </div>
+                    <!-- <div class="enroo_keyword">
+                            <div>单片机集成方案全方位解决服务商</div>
+                            <div>优质智能电子产品"芯"方案提供商</div>
+                        </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

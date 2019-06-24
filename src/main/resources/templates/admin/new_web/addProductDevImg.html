@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 产品管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
+</head>
+
+<body>
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form action="/image/search" method="get" class="form-inline my-2 my-lg-0">
+                <!--<input hidden="hidden" type="text" name="type" value="addProductBlog">-->
+                <input  type="text" hidden="hidden" name="id" th:value="${product?.id}">
+                <input  type="text" hidden="hidden" name="url" value="addProductDevImg">
+                <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+<div class="flex_box">
+    <div class="number_dir">
+        <div id="treeview3" class=""></div>
+    </div>
+    <div class="enroo_main">
+        <div class="file_container">
+            <div class="file_mange">
+                <nav aria-label="breadcrumb" class="">
+                    <ol class="breadcrumb breadcrumb_ol model_form">
+                        <li class="breadcrumb-item"><a th:href="@{/product/findWorktable}">产品</a></li>
+                        <li class="breadcrumb-item"><a href="#" th:href="@{/admin/findProductDetail(wid=${worktable?.id})}" th:text="|${worktable?.fileName}|"></a></li>
+                        <li class="breadcrumb-item active" aria-current="page" th:text="|${product?.name}|">产品列表</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="table_box">
+                <table class="table table-bordered" style="margin-top: 10px">
+                    <a class="btn btn-default" style="color: black;background: #E0E0E0;" th:href="@{/admin/findProductDetail(wid=${worktable?.id})}">返回</a>
+                    <a class="btn btn-default" style="background: #E0E0E0;" onclick="window.location.reload();">刷新</a>
+                    <thead style="margin-top: 15px">
+                    <tr>
+                        <th >
+                            <input hidden="hidden" type="checkbox" id="checkbox" th:checked="${check}"  class="icheckbox_square-blue">
+                        </th>
+                        <th scope="col">图片名称</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <form action="/product/addPackageData" method="post">
+                        <input name="id" id="proId" hidden="hidden" th:value="${product?.id}">
+                        <tr th:each="image:${imgPage?.items}">
+                            <td>
+                                <input th:id="${image?.id}" name="images" th:checked="${#lists.contains(product?.devImgs,image?.id)}" th:data-id="${image?.id}" th:value="${image?.id}" type="checkbox">
+                            </td>
+                            <!--<div th:if="${ids != null}">
+                                <td th:if="${#sets.contains(ids,blog?.id)}">
+                                    <input th:id="${blog?.id}" th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\')'"
+                                        name="blogs" th:checked="true" th:value="${blog?.id}" type="radio">
+                                </td>
+                                <td th:if="${! #sets.contains(ids,file?.id)}">
+                                    <input th:id="${blog?.id}" th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\')'"
+                                        name="blogs" th:value="${blog?.id}" type="radio">
+                                </td>
+                            </div>
+                            <div th:if="${ids == null}">
+                                <td><input th:id="${blog?.id}" th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\')'"
+                                        name="blogs" th:value="${blog?.id}" type="radio"></td>
+                            </div>-->
+                            <td scope="row" th:text="${image?.imageName}"></td>
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="|?page=1&id=${product?.id}&keyword=${keyword}&url=${url}&cateids=${cateids}|">首页</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="|?page=${imgPage?.pre}&id=${product?.id}&keyword=${keyword}&url=${url}&cateids=${cateids}|"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:class="${page == imgPage?.getPage()}?'page-item active':'page-item'" th:each="page:${imgPage?.getPages()}">
+                        <a class="page-link" href="?page=1" th:href="|?page=${page}&id=${product?.id}&keyword=${keyword}&url=${url}&cateids=${cateids}|">[[${page}]]</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="|?page=${imgPage?.next}&id=${product?.id}&keyword=${keyword}&url=${url}&cateids=${cateids}|"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="|?page=${imgPage?.pagecount}&id=${product?.id}&keyword=${keyword}&url=${url}&cateids=${cateids}|">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${imgPage?.page}]]页  共[[${imgPage?.totalcount}]]条记录 每页[[${imgPage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<script th:inline="javascript">
+
+    $(function () {
+
+        window.defaultData = [[${category?.cateitems}]];
+        $('#treeview3').treeview({
+            levels: 99,
+            data: defaultData,
+            list: false,
+            type: false,
+            onNodeSelected: function (event, data) {
+                console.log(data.id);
+                window.location.href = "/image/cate?id=" + [[${product?.id}]] + "&url="+[[${url}]]+ "&cateids=" + data.id
+            }
+        });
+
+        $('#treeview3').treeview('collapseAll', {
+            silent: true
+        });
+
+        $("input[data-id]").click(function () {
+            let id = [[${product?.id}]];
+            let imgId = $(this).attr("data-id");
+            let status = $(this).prop("checked");
+            let url;
+            console.log(status);
+            if (status) {
+                url = "/product/addPackageDevImg?id=" + id + "&imgId=" + imgId;
+            } else {
+                url = "/product/deletePackageDevImg?id=" + id + "&imgId=" + imgId;
+            }
+            ajax(url, "get").then(function (data) {
+                if (data == 'success') {
+                    iziToast.success({
+                        position: 'topRight',
+                        title: '操作成功',
+                        message: 'success'
+                    });
+                } else {
+                    iziToast.error({
+                        position: 'topRight',
+                        title: '操作失败',
+                        message: '操作失败或者没有权限访问!',
+                    });
+                }
+            });
+        });
+
+    });
+
+</script>
+
+
+</body>
+
+</html>

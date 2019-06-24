@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?8083cb1adbb369706ff28a9ae676a63e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?c23efae75302ca7f789c8827d97ed39a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+
+
+
+</head>
+<body>
+<section class="enroo_nav new_enroo_nav" th:fragment="top">
+    <div class="container new_container padd_0 navber_btn_height">
+        <nav class="navbar navbar-expand-lg navbar-light flex_end">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="material-icons">reorder</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto kx-nav-flex">
+                    <li class="nav-item actives" th:class="${url == 'index'} ? 'nav-item actives' : 'nav-item' ">
+                        <a href="index.html" class="nav-link" th:href="@{/}">网站首页</a>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'abouts_c_new' || url == 'about_Recruit_new' || url == 'about_activities_new' || url == 'about_notice_new' || url == 'about_honor_new' } ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="abouts_c.html"  th:href="@{/abouts_c_new/qyjj/category2}">关于我们</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li>
+                                    <a href="abouts_c.html" th:href="@{/abouts_c_new/qyjj/category2}">企业简介</a>
+                                </li>
+                                <li>
+                                    <a href="about_culture.html" th:href="@{/abouts_c_new/qywh/category2}">企业文化</a>
+                                </li>
+                                <li>
+                                    <a href="about_development.html" th:href="@{/abouts_c_new/fzlc/category2}">发展历程</a>
+                                </li>
+                                <li>
+                                    <a href="about_organization.html" th:href="@{/abouts_c_new/zzjg/category2}">组织架构</a>
+                                </li>
+                            </ul>
+                            <ul class="drop_down_ul">
+                                <li>
+                                    <a href="#" th:href="@{/about_honor_new/zzry/category2}">荣誉资质</a>
+                                </li>
+
+                                <li>
+                                    <a href="about_activities.html" th:href="@{/about_activities_new/yghd/category2}">员工活动</a>
+                                </li>
+                                <li>
+                                    <a href="about_Recruit.html" th:href="@{/about_Recruit_new/zxns/category2}">招贤纳士</a>
+                                </li>
+
+                                <li>
+                                    <a href="about_notice.html" th:href="@{/about_notice_new/xptg/category1}">新品推广</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'products_new' || url == 'products_list_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link"  href="products.html" th:href="@{/products_new}">产品中心</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li><a href="#" th:href="@{/products_list_new/otp%20gydpj/category1}">8位单片机</a></li>
+                                <li><a href="#" th:href="@{/products_list_new/ldcbhicxp/category1}">电源芯片</a></li>
+                                <li><a href="#" th:href="@{/products_list_new/fazyicxp/category1}">专用芯片</a></li>
+                            </ul>
+                            <ul class="drop_down_ul">
+                                <li><a href="#"th:href="@{/products_list_new/32wtyxdpj/category1}">32位单片机</a></li>
+                                <li><a href="#"th:href="@{/products_list_new/rsysfdq,bjq/category1}">RS润石产品</a></li>
+                                <li><a href="#" th:href="@{/products_list_new/dpjbcq/category1}">开发工具</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'solution_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="solution.html" th:href="@{/solution_new/gsfa/category1}">方案设计</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li>
+                                    <a href="#" th:href="@{/solution_new/xyfa/category1}">行业方案</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/solution_new/cpyy/category1}">产品应用</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/solution_new/hzkf/category1}">合作开发</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/solution_new/gsfa/category1}">公司方案</a>
+                                </li>
+                            </ul>
+                            <img src="/imagePath/498184c9cf8047688728b892ccda6754下载中心.png"   alt=”兼容PIC单片机代理商英锐恩科技提供单片机开发需求“>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'downloads_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="downloads.html" th:href="@{/downloads_new}">下载中心</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li>
+                                    <a href="#" th:href="@{/downloads_new/enroo%20mcu%20xxzn/category1}">EN单片机</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/downloads_new/hc%20mcu%20xxzn/category1}">HD单片机</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/downloads_new/rs rsxxzn/category1}">RS放大器</a>
+                                </li>
+
+
+
+                                <li>
+                                    <a href="#" th:href="@{/downloads_new/enroo%20mcu%20xxzn/category1}">电源芯片</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/downloads_new/hc%20mcu%20kfgj/category1}">开发工具</a>
+                                </li>
+
+
+                            </ul>
+                            <img src="http://1688.enroo.com/image/images/nav_fasj_img.jpg" >
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'support_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="support.html" th:href="@{/support_new}">技术支持</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li><a href="#"  th:href="@{/support_new/endpjxxsc/category1}" >单片机选型</a></li>
+                                <li><a href="#" th:href="@{/downloads_new/cywdbgxz/category1}">合作文档下载</a></li>
+                            </ul>
+                            <ul class="drop_down_ul">
+                                <li><a href="#"  th:href="@{/support_new/endpjyyjq/category1}">单片机应用技巧</a></li>
+                                <li><a href="#"  th:href="@{/support_new/dzcpjyjlhz/category1}">工程师经验汇总</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'customer_service_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="customer_service.html" th:href="@{/customer_service_new/dkcxrl/category1}">客户服务</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li><a href="#" th:href="@{/customer_service_new/xpypsq/category1}">芯片样品申请</a></li>
+                                <li><a href="#" th:href="@{/customer_service_new/jszcfw/category1}">技术支持服务</a></li>
+                            </ul>
+                            <ul class="drop_down_ul">
+                                <li><a href="#" th:href="@{/customer_service_new/dkcxrl/category1}">代客程序烧录</a></li>
+                                <li><a href="#" th:href="@{/solution_new/hzkf/category1}">项目合作开发</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item" th:class="${url == 'contact_new'} ? 'nav-item actives' : 'nav-item' ">
+                        <a class="nav-link" href="contact.html" th:href="@{/contact_new/lxfs/category1}">联系我们</a>
+                        <div class="drop_down_list">
+                            <ul class="drop_down_ul">
+                                <li>
+                                    <a href="contact.html" th:href="@{/contact_new/lxfs/category1}">联系方式</a>
+                                </li>
+                                <li>
+                                    <a href="contact_place.html" th:href="@{/contact_new/dlwz/category1}">地理位置</a>
+                                </li>
+                                <li>
+                                    <a href="#" th:href="@{/customer_service_new/khyjts/category1}">在线反馈</a>
+                                </li>
+                                <li>
+                                    <a href="contact_join.html" th:href="@{/contact_new/yqlj/category1}">友情链接</a>
+                                </li>
+                            </ul>
+                            <img src="/imagePath/17310e8a1cc5443390886edf8f7f46bb联系我们的图片.jpg"   alt=”联系单片机代理商英锐恩科技“ >
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" >技术论坛</a>
+                        <!--                                <div class="drop_down_list">
+                                <ul class="drop_down_ul">
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                </ul>
+                                <ul class="drop_down_ul">
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                    <li><a href="#">嗯哼？？？</a></li>
+                                </ul>
+                            </div>-->
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+</body>
+</html>

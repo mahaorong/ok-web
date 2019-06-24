@@ -1,0 +1,19 @@
+.about_content_body{
+    margin-top: 50px;
+}
+.about_content_body_p>span{
+    color: #c9161d;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    margin-left: 5px;
+}
+.about_culture_s_tilte{
+    margin-top: 60px;
+    color: #c9161d;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+.search_icon i{
+    color: #666666
+}

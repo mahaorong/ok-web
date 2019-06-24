@@ -1,0 +1,119 @@
+/*footer start*/
+.kx-footer{
+    margin-top: 165px;
+    background: #2e2e2e;
+    color: white;
+}
+.kx-padding{
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    color: white;
+    line-height: 2;
+    width: calc(100% - 33px);
+    display:  -webkit-box;
+    -webkit-box-orient:  vertical;
+    -webkit-line-clamp:  6;
+    overflow:  hidden;
+}
+.kx-padding-tow{
+    color: white;
+    line-height: 2;
+}
+.kx-food{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+.kx-footer-row{
+    padding: 80px 0 30px 0;
+}
+.kx-hrs{
+    border-bottom: 2px solid white;
+    width: 30%;
+    margin: auto;
+}
+.kx-ppt{
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    letter-spacing: 1.5px;
+}
+.kx-tried{
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}
+.fa-envelope-o:before {
+    content: "\f003";}
+.fa-qrcode:before,.fa-arrow-up:before{
+    position: relative;
+    right: -14px;
+    top: 4px;
+}
+.fa-chevron-circle-left:before,.fa-chevron-circle-right:before{
+    font-size: 18px;
+}
+.fa-html5:before,.fa-gg-circle:before,.fa-eercast:before,.fa-stack-overflow:before,.fa-ioxhost:before,.fa-android:before{
+    font-size: 36px;
+    color: #2196f3;
+}
+.fa-map-marker:before {
+    font-size: 18px;
+    color: #2196f3;
+    margin-right: 10px;
+}
+.fa-search:before {
+    font-size: 24px;
+}
+.fa-search{
+    margin-bottom: 30px;
+}
+.fa-map-pin{
+    margin-bottom: 16px;
+}
+.fa-map-pin:before{
+    font-size: 18px;
+    margin-right: 17px;
+}
+.fa-envelope-o:before{
+    font-size: 18px;
+    margin-right: 10px;
+
+}
+.fa-mobile-phone:before, .fa-mobile:before{
+    font-size: 22px;
+    margin-right: 17px;
+    position:  relative;
+    top: 3px;
+}
+.fa-mobile{
+    margin-top: 10px;
+}
+.fa-qrcode:hover, .fa-arrow-up:hover{
+    color: lavender;
+}
+.ab-mat{
+    margin-left: 11px;
+    font-size: 16px;
+    top: -3px;
+    position: relative;
+}
+.kx-padding-tow {
+    color: white;
+    line-height: 2;
+    font-size: 14px;
+    font-weight: 400;
+}
+.map_pin {
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+}
+.map_pin>i{
+    margin-right: 15px;
+}
+/*footer end*/

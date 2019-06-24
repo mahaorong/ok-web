@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 模板管理</title>
+
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/css/model_form.css" th:href="@{/css/model_form.css}">
+    <link rel="stylesheet" href="image_admin.css" th:href="@{/css/image_admin.css}">
+    <!--<link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">-->
+    <!--<link rel="stylesheet" href="../../../static/css/editormd.min.css" th:href="@{/css/editormd.min.css}">-->
+
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!--<script src="../../../static/js/editormd.js" th:src="@{/js/editormd.js}"></script>-->
+    <!--<script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>-->
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="/js/blog/saveName.min.js" th:src="@{/js/blog/saveName.js}"></script>
+    <script src="../../../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
+    <script src="../../../static/js/blog/template.js" th:src="@{/js/blog/template.js}"></script>
+
+    <style>
+
+        .a_link{
+            font-weight: bold;
+            display: block;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+<div class="img_sort_a display">
+    <div class="sort">
+        <div class="sort_top">
+            <h3>上传文件</h3>
+            <i class="material-icons sort_close">close</i>
+        </div>
+        <form action="/template/uploadTemplate" method="post" enctype="multipart/form-data">
+            <div class="sort_content">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">栏目名称</label> <span th:text="${templateName}"></span>
+                    <input type="text" class="form-control" name="templateName" id="exampleInputEmail1" aria-describedby="emailHelp"
+                           placeholder="栏目名称">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">请求地址</label>
+                    <input type="text" class="form-control" name="requestUrl" id="exampleInputPassword1" placeholder="请求地址">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">栏目位置</label><br>
+                    <span >内部栏目</span><input type="radio" value="0" name="position" id="position1" onclick="showFile()">
+                    <span >外部栏目</span><input type="radio" value="1" name="position" id="position2" onclick="hiddenFile()">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">keywords</label>
+                    <input type="text" class="form-control" name="keywords" id="keywords" placeholder="keywords">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">description</label>
+                    <input type="text" class="form-control" name="description" id="description" placeholder="description">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">语言</label>
+                    <select name="language">
+                        <option value="zh_CN">简体中文</option>
+                        <option value="zh_TW">繁体中文</option>
+                        <option value="en_US">英文</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">分组</label>
+                    <select name="tmpGroup">
+                        <option value="1">网站首页</option>
+                        <option value="2">关于我们</option>
+                        <option value="3">产品中心</option>
+                        <option value="4">方案设计</option>
+                        <option value="5">下载中心</option>
+                        <option value="6">技术支持</option>
+                        <option value="7">客户服务</option>
+                        <option value="8">联系我们</option>
+                        <option value="9">技术论坛</option>
+                        <option value="0">公共内容</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group" id="fileUpload">
+                    <label for="exampleFormControlFile1">选择文件</label>
+                    <input type="file" class="form-control-file" name="templateFile" id="exampleFormControlFile1" accept=".html">
+                </div>
+
+            </div>
+            <div class="sort_footer">
+                <button type="submit" class="btn btn-success sort_btn">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="img_sort_a2 display">
+    <div class="sort2">
+        <div class="sort_top">
+            <h3>编辑HTML</h3>
+            <i class="material-icons sort_close2">close</i>
+        </div>
+        <form action="/template/saveEditor" method="post">
+            <div class="sort_content">
+                <!-- <div id="editormd" class="editormd_height m_t">-->
+                <!-- <textarea style="display:none;" name="content"></textarea>-->
+                <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                <!--<textarea id="htmlContent" class="editormd-html-textarea" name="htmlContent"></textarea>-->
+                <textarea id="htmlContent" name="htmlContent" style="width: 1200px;height: 600px;"></textarea>
+                <input name="id" id="templateId" type="hidden">
+                <!-- </div>-->
+            </div>
+            <div class="sort_footer">
+                <button type="submit" class="btn btn-success sort_btn">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+            </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+
+<div class="enroo_main no_left_list">
+    <div class="file_container">
+        <div class="file_mange">
+            <nav aria-label="breadcrumb" class="">
+                <ol class="breadcrumb breadcrumb_ol model_form">
+                    <!--<li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">栏目</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="file_upload">
+            <div class="file_btn">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary add_sort">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> 上传文件
+                    </label>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            切换语言
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" id="zh_CN" href="#" onclick="window.location.href='/template/findAll?language=zh_CN'">简体中文</a>
+                            <a class="dropdown-item" href="#"  onclick="window.location.href='/template/findAll?language=en_US'">英文</a>
+                            <a class="dropdown-item" href="#" onclick="window.location.href='/template/findAll?language=zh_TW'">繁体中文</a>
+                        </div>
+                    </div>
+
+                    <label class="btn btn-secondary " onclick="window.location.reload()">
+                        <input type="radio" name="options" id="option3" autocomplete="off"> 刷新
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="accordion">
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link a_link" data-toggle="collapse" href="#collapseOne">
+                        网站首页
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 1}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseTwo">
+                        关于我们
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 2}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseThree">
+                        产品中心
+                    </a>
+                </div>
+                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 3}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseFour">
+                        方案设计
+                    </a>
+                </div>
+                <div id="collapseFour" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 4}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseFive">
+                        下载中心
+                    </a>
+                </div>
+                <div id="collapseFive" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 5}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseSix">
+                        技术支持
+                    </a>
+                </div>
+                <div id="collapseSix" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 6}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseSeven">
+                        客户服务
+                    </a>
+                </div>
+                <div id="collapseSeven" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 7}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseEight">
+                        联系我们
+                    </a>
+                </div>
+                <div id="collapseEight" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 8}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseNine">
+                        技术论坛
+                    </a>
+                </div>
+                <div id="collapseNine" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 9}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link a_link" data-toggle="collapse" href="#collapseZero">
+                        公共内容
+                    </a>
+                </div>
+                <div id="collapseZero" class="collapse" data-parent="#accordion">
+                    <div class="card-body" >
+
+                        <div class="table_box">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                <tr>
+                                    <th scope="col">栏目名称</th>
+                                    <th scope="col">请求地址</th>
+                                    <th scope="col">title</th>
+                                    <th scope="col">keywords</th>
+                                    <th scope="col">description</th>
+                                    <th scope="col">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="form_table_tr" th:each="template:${templatePage?.items}" th:if="${template?.tmpGroup == 0}">
+                                    <th scope="row">
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'templateName\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'templateName\')'" class="form-control" value=主页 aria-label="Username" th:value="${template?.name}" th:id="templateName+${template?.id}" aria-describedby="basic-addon1">
+                                    </th>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'url\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'url\')'" class="form-control" value=index aria-label="Username" th:value="${template?.url}" th:id="url+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'title\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'title\')'" class="form-control" value=index aria-label="Username" th:value="${template?.title}" th:id="title+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'keywords\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'keywords\')'" class="form-control" value=index aria-label="Username" th:value="${template?.keywords}" th:id="keywords+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td>
+                                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${template?.id}+'\',\'description\')'" th:onblur="'javascript:editTemplate(\''+${template?.id}+'\',\'description\')'" class="form-control" value=index aria-label="Username" th:value="${template?.description}" th:id="description+${template?.id}" aria-describedby="basic-addon1">
+                                    </td>
+                                    <td class="d_flex" th:if="${template?.position != 1}">
+                                        <button class="table_btn btn btn-primary me_group_btn" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">分组</button>
+                                        <button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal"  th:data-id="${template?.id}">编辑</button>
+                                        <a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>
+                                        <a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+
+                                    <td class="d_flex" th:if="${template?.position == 1}">
+                                        <button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="page_nav">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1|:|?page=1|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${templatePage?.getPre()}&keyword=${keyword}&type=${type}|:|?page=${templatePage?.getPre()}|" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${templatePage?.getPages()}" th:class="${page == templatePage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1" th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:|?page=${page}|">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${templatePage?.getNext()}&keyword=${keyword}&type=${type}|:|?page=${templatePage?.getNext()}|" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${templatePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${templatePage?.pagecount}|:|?page=${templatePage?.pagecount}|)">尾页</a></li>
+                </ul>
+                <span class="pageInfoDetail">当前第[[${templatePage?.page}]]/[[${templatePage?.pagecount}]]页  共[[${templatePage?.totalcount}]]条记录 每页[[${templatePage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">分组</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">分组</label>
+                    <select name="language" id="editgroup">
+                        <option value="1">网站首页</option>
+                        <option value="2">关于我们</option>
+                        <option value="3">产品中心</option>
+                        <option value="4">方案设计</option>
+                        <option value="5">下载中心</option>
+                        <option value="6">技术支持</option>
+                        <option value="7">客户服务</option>
+                        <option value="8">联系我们</option>
+                        <option value="9">技术论坛</option>
+                        <option value="0">公共内容</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-group>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

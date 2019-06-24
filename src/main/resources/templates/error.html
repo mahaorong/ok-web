@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+</head>
+<style>
+    a:hover{color:red;}
+    a{color: #343a40}
+</style>
+<body>
+    <div style="text-align: center;margin-top: 200px">
+        <img src="../static/images/404/404.png" th:src="@{/images/404/404.png}" >
+    </div>
+    <div style="text-align: center;font-size: 18px;">
+        <a href="#" th:href="@{/}" style="text-decoration: none;"><strong>返回首页</strong></a>&emsp;|&emsp;
+        <a href="#" onclick="window.history.back(-1);" style="text-decoration: none;"><strong>返回上一页</strong></a>
+    </div>
+</body>
+
+<!--<script>-->
+
+    <!--window.onload = function(){-->
+        <!--history.back(-1)-->
+    <!--}-->
+
+
+<!--</script>-->
+</html>

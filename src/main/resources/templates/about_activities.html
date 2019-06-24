@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}"  content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}"  content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}" th:content="${blogDetail?.description}" content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|" >enroo-关于我们</title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <title th:if="${id != null && title == null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}|">enroo-关于我们</title>
+    <title th:if="${id != null && title != null}" th:text="|${blogDetail?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="/css/download.css">
+    <link rel="stylesheet" href="/css/support.css">
+    <link rel="stylesheet" href="/css/enroo_about.css">
+    <link rel="stylesheet" href="/css/enroo_about_culture.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="../static/css/zy.css"> -->
+    <style type="text/css">
+        .articleLink{
+            color: #6e6e6e
+        }
+    </style>
+</head>
+
+<body>
+   <section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+            <div class="container new_container">
+                <div class="row a-center flex_header">
+                    <div class="d_f left_header">
+                        <div class="logo">
+                            <a href="#">
+                                    <!-- style="width: 472px !important;" -->
+                                <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right_header">
+                        <div class="right_div_2">
+                            <div class="input_search">
+                                <div id="search-form"></div>
+                                <a href="#" class="full_icon_search">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </div>
+                            <div class="call_me">
+                                <span>技术热线：</span>
+                                <span>4007-888-234</span>
+                            </div>
+                        </div>
+                        <div class="right_div_1">
+                            <div class="enroo_lan_div">
+                                <div>
+                                    <a href="" th:href="@{/index(lang='zh_CN')}">中文</a>
+                                </div>
+                                <div>
+                                    <a href="" th:href="@{/index(lang='en_US')}">English</a>
+                                </div>
+                            </div>
+                            <!-- <div class="enroo_keyword">
+                                    <div>单片机集成方案全方位解决服务商</div>
+                                    <div>优质智能电子产品"芯"方案提供商</div>
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>about us</small>
+            <h2>关于我们</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_tb_30_80">
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3">
+                <div class="about_tab">
+                    <div class="about_tab_title">
+                        <small>about us</small>
+                        <h2>关于我们</h2>
+                    </div>
+                    <div class="about_content_nav">
+                        <ul class="about_content_ul ul_link_li">
+                            <li class="active" th:each="category : ${category2_cate1}" th:class="${category?.text =='员工活动' } ? 'active':''">
+                                <div class="square"></div>
+                                <a href="#"  th:if="${category?.text != '资质荣誉' && category?.text != '员工活动' && category?.text != '招贤纳士'}" th:text="${category?.text}" th:href="${category?.outlink == null || category?.outlink == ''} ? @{/abouts_c(cid=${category?.id},key=${key2})} : @{${category?.outlink}}">企业简介</a>
+
+
+                                <a href="#" th:if="${category?.text == '资质荣誉'}" th:text="${category?.text}" th:href="@{/about_honor(cid=${category?.id},key=${key2})}">资质荣誉</a>
+                                <a href="#" th:if="${category?.text == '员工活动'}" th:text="${category?.text}" th:href="@{/about_activities(cid=${category?.id},key=${key2})}">员工活动</a>
+                                <a href="#" th:if="${category?.text == '招贤纳士'}" th:text="${category?.text}" th:href="@{/about_Recruit(cid=${category?.id},key=${key2})}">招贤纳士</a>
+
+                            </li>
+
+                            <li th:each="category : ${category1_cate1}" th:if="${category?.text == '企业公告'} ">
+                                <div class="square"></div>
+                                <a href="javascript:void()" data-new th:href="@{/about_notice(cid=${category?.id},key=${key1})}" >企业公告</a>
+                                <!-- <div class="slider_down_text" style="display: none;">
+                                    新闻中心
+                                </div> -->
+                                <ul class="about_content_ul color_silver small_ul_m">
+                                    <li class="content_link" th:each="cate : ${category1_cate1}" th:if="${cate?.text != '企业公告'}" th:class="${cate?.id == default_cate?.id || default_cate?.id == null && cate?.text =='企业公告' } ? 'content_link active':'content_link'">
+                                        <a href="about_consultation.html" th:text="${cate?.text}" th:href="${cate?.outlink == null || category?.outlink == ''} ? @{/about_notice(cid=${cate?.id},key=${key1})} : @{${cate?.outlink}}">原厂咨询</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div th:replace="zh_CN/LeftNavigation::top"></div>
+                <div th:replace="zh_CN/LeftNavigation::top1"></div>
+            </div>
+
+            <div class="new_md_9">
+                <div class="bread">
+                    <div class="bread_nav_title">
+                        <h4>员工活动</h4>
+                    </div>
+                    <div class="bread_nav">
+                        <ul class="bread_nav_ul">
+                            <li class="nav_link_bread">
+                                <a href="#">关于我们</a>
+                            </li>
+                            <li class="nav_link_bread">
+                                <a href="#">员工活动</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="about_content_border about_content about_activities_wrapper" th:if="${id == null}">
+                    <div class="row">
+
+                        <div class="col-md-12 about_md_t" th:each="blog : ${category2_blog2?.items}">
+                            <div class="about_activities">
+                                <div class="about_activities_img">
+                                    <img src="images/about_actives.png" alt="" class="img-fluid" th:src="${blog?.imageUrl}" th:if="${blog?.imageUrl != '/imagePath/'}">
+                                    <img src="/images/about_actives.png" alt="" class="img-fluid" th:if="${blog?.imageUrl == '/imagePath/'}">
+                                </div>
+                                <div class="about_activities_content">
+                                    <h3><a href="javascript:void()" th:text="${blog?.title}" th:href="@{/about_activities(ids=${blog?.id},cid=${cid},key=${key2},page=${currentPage})}"> 2017年11月英锐恩趣味运动赛</a></h3>
+                                    <hr>
+                                    <p th:text="${blog?.summary}">
+                                        寒风悄悄的来临，虽然没有北方那么寒冷，但早晚的温差还是有点差距，也令人有点措手不及，增添一些惰性。于是乎我们给技术一部的同事们准备了一场户外运动，到羽毛球场大展身手，活动一下筋骨，挥洒汗水
+                                        寒风悄悄的来临，虽然没有北方那么寒冷，但早晚的温差还是有点差距，也令人有点措手不及，增添一些惰性。于是乎我们给技术一部的同事们准备了一场户外运动，到羽毛球场大展身手，活动一下筋骨，挥洒汗水......
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="nav_page">
+                        <!-- <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getPre()}&cid=${cid}&key=${key2}|"> &lt;&lt;</a>
+                                </li>
+                                <li class="page-item actives" th:each="page : ${category2_blog2?.getPages()}" th:class="${page == category2_blog2?.page} ? 'page-item actives' : 'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&cid=${cid}&key=${key2}|">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getNext()}&cid=${cid}&key=${key2}|">&gt;&gt;</a>
+                                </li>
+                            </ul>
+                        </nav> -->
+                        <nav class="b4_pagination" aria-label="...">
+                            <ul class="pagination pag_new">
+                                <li class="page-item pagination_num">
+                                    <span class="page-link" th:text="'共' + ${category2_blog2?.pagecount} + '页/' + ${category2_blog2?.totalcount} + '篇'">共2页/23篇</span>
+                                </li>
+                            </ul>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=1&cid=${cid}&key=${key2}|">首页</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getPre()}&cid=${cid}&key=${key2}|">上一页</a>
+                                </li>
+                                <li class="page-item actives" th:each="page : ${category2_blog2?.getPages()}" th:class="${page == category2_blog2?.page} ? 'page-item actives' : 'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&cid=${cid}&key=${key2}|">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=${category2_blog2?.getNext()}&cid=${cid}&key=${key2}|">下一页</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" th:href="|?page=${category2_blog2?.pagecount}&cid=${cid}&key=${key2}|">尾页</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="about_content about_notice_wrapper p_0" th:if="${id != null}">
+                    <div class="row">
+                        <div class="col-md-12 about_notice_col">
+                            <div class="notice_detail">
+                                <div class="support_detail_title">
+                                    <h1 th:text="${blogDetail?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                                    <div class="display_f">
+                                        <!-- <span>点击次数: 57次</span> -->
+                                        <span th:text="|更新时间: ${#strings.substring(blogDetail?.createTime,0,10)}|">更新时间: 2018-10-30</span>
+                                    </div>
+                                </div>
+                                <div class="support_detail_body">
+                                    <p th:utext="${blogDetail?.htmlContent}">
+                                        深圳单片机开发方案公司英锐恩解答EN单片机芯片选型问题。英锐恩推出的单片机芯片没必要过度包装，以下是如实的解答。根据深圳单片机开发方案公司英锐恩的总结，客户对单片机芯片自带资源、可扩展资源、功耗、封装、芯片的可延续性及技术的可继承性、开发工具、价格及供货保证、还有技术支持等这是个方面比较在意，下边英锐恩为您解答。
+                                    </p>
+                                    <div class="pagination_enroo">
+                                        <div class="pagina_next">
+                                            <a th:href="@{/about_activities(ids=${blogDetail?.id},cid=${cid},key=${key1},articleFlag='pre',page=${currentPage})}">
+                                                上一篇: <span th:text="${preTitle}">深圳单片机</span>
+                                            </a>
+                                        </div>
+                                        <div class="pagina_pre">
+                                            <a th:href="@{/about_activities(ids=${blogDetail?.id},cid=${cid},key=${key1},articleFlag='next',page=${currentPage})}">
+                                                下一篇: <span th:text="${nextTitle}">开发公司</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--     <section class="direction_wrapper">
+    <div class="container">
+        <div class="direction_footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="direction_content">
+                        <div class="direction_img text-center">
+                            <img src="images/sjkf.png" alt="">
+                            <h4>设计开发</h4>
+                        </div>
+                        <div class="direction_item">
+                            <p>专业承接各类</p>
+                            <p>电子产品设计与开发，</p>
+                            <p>件设计，主芯片编程等</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="direction_content">
+                        <div class="direction_img text-center">
+                            <img src="images/jszc.png" alt="">
+                            <h4>技术支持</h4>
+                        </div>
+                        <div class="direction_item">
+                            <p>强大的技术支持，</p>
+                            <p> 优质的合作伙伴，</p>
+                            <p>提供精准的</p>
+                            <p>芯片选型指导、技术咨询</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="direction_content">
+                        <div class="direction_img text-center">
+                            <img src="images/kfgj.png" alt="">
+                            <h4>开发工具</h4>
+                        </div>
+                        <div class="direction_item">
+                            <p>助力嵌入式</p>
+                            <p> 系统应用设计</p>
+                            <p>提供工具选择</p>
+                            <p>及软件下载</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+<section  th:replace="/zh_CN/absorbed::top"></section>
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+$(document).on("click",".full_icon_search",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+</body>
+
+</html>

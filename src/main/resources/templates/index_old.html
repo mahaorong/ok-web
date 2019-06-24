@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${customer?.company}|" >enroo-联系我们</title>
+    <title th:if="${id == null && title != null}" th:text="|${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="/css/style_old.css" th:href="@{/css/style_old.css}">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="/dist/autocomplete.css" th:href="@{/dist/autocomplete.css}">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css" th:href="@{/css/media.css}">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style>
+        .checkcode{
+            float: left;
+            margin-top: 10px;
+            width: 182px;
+            height: 42px;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            background: #fff;
+        }
+        .btn-code{
+            margin-top: 10px;
+            display: block;
+            float: left;
+            width: 95px;
+            height: 42px;
+            margin-left: 20px;
+            background: #008cff;
+            color: #fff;
+            border-radius: 3px;
+        }
+        .btn-no{
+            background: none;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            color: #008cff;
+        }
+        .checkcode input{
+            float: left;
+            text-align: center;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+            color: #000;
+        }
+
+        .checkcode canvas{
+            float: right;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+<section th:replace="/zh_CN/service::service"></section>
+
+<section class="enroo_p_f p_f_0">
+    <section class="enroo_top">
+        <div class="container new_container">
+            <div class="row a-center flex_header">
+                <div class="d_f left_header">
+                    <div class="logo">
+                        <a href="#">
+                            <img src="/images/Enroologo(CDR)2.png" th:src="@{/images/Enroologo(CDR)2.png}" alt="" class="img-fluid" style="width:400px">
+                        </a>
+                    </div>
+                </div>
+                <div class="right_header">
+                    <div class="right_div_2">
+                        <div class="input_search">
+                            <div id="search-form"></div>
+                            <a href="#" class="full_icon_search">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="call_me">
+                            <span>技术热线：</span>
+                            <span>4007-888-234</span>
+                        </div>
+                    </div>
+                    <div class="right_div_1">
+                        <div class="enroo_lan_div">
+                            <div>
+                                <a href="" th:href="@{${url}(lang='zh_CN')}">中文</a>
+                            </div>
+                            <div>
+                                <a href="" th:href="@{${url}(lang='en_US')}">English</a>
+                            </div>
+                        </div>
+                        <!-- <div class="enroo_keyword">
+                            <div>单片机集成方案全方位解决服务商</div>
+                            <div>优质智能电子产品"芯"方案提供商</div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="enroo_nav">
+        <div class="container new_container padd_0 navber_btn_height">
+            <nav class="navbar navbar-expand-lg navbar-light flex_end">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="material-icons">reorder</span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto kx-nav-flex">
+                        <li class="nav-item actives">
+                            <a href="index.html" class="nav-link" th:href="@{/}">网站首页</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="abouts_c.html" th:href="@{/abouts_c?cid=4d6ac22003f94e4f9dbc05ddb9e69846&key=category2}">关于我们</a>
+                            <div class="drop_down_list">
+                                <ul class="drop_down_ul">
+                                    <li>
+                                        <a href="abouts_c.html" th:href="@{/abouts_c?cid=4d6ac22003f94e4f9dbc05ddb9e69846&key=category2}">企业简介</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_culture.html" th:href="@{/abouts_c?cid=7d894d8a1d1a469da49d44d16082f1c9&key=category2}">企业文化</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_development.html" th:href="@{/abouts_c?cid=ce71c1a978074c6899a8b5c64a3f2f2d&key=category2}">发展历程</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_organization.html" th:href="@{/abouts_c?cid=09c10af778c24a10918af34ebf0dd5cf&key=category2}">组织架构</a>
+                                    </li>
+                                </ul>
+                                <ul class="drop_down_ul">
+                                    <li>
+                                        <a href="#" th:href="@{/about_honor?cid=06c46b25478246b7a7308ea324823525&key=category2}">荣誉资质</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_notice.html" th:href="@{/about_notice?cid=2bfdbdc90c704998b6f99b3f7a5591ff&key=category1}">企业公告</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_activities.html" th:href="@{/about_activities?cid=1e44fe4d9ba140f097beb7008964ce40&key=category2}">员工活动</a>
+                                    </li>
+                                    <li>
+                                        <a href="about_Recruit.html" th:href="@{/about_Recruit?cid=b18cb9b00b0c489681bd9a2da6c95bcd&key=category2}">招贤纳士</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html" th:href="@{/products}">产品中心</a>
+                            <!--                                <div class="drop_down_list">
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                </div>-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="solution.html" th:href="@{/solution?cid=8cee83b82de442008b63ee8064a37ceb&key=category1}">方案设计</a>
+                            <div class="drop_down_list">
+                                <ul class="drop_down_ul">
+                                    <li>
+                                        <a href="#" th:href="@{/solution?cid=6be97e08267347c4a0aee7007b611530&key=category1}">行业方案</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/solution?cid=b5c7049279b346759560916fdd97cf28&key=category1}">产品应用</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/solution?cid=788ff054c80e47d99c06c25aec945f4e&key=category1}">合作开发</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/solution?cid=8cee83b82de442008b63ee8064a37ceb&key=category1}">公司方案</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="downloads.html" th:href="@{/downloads}">下载中心</a>
+                            <div class="drop_down_list">
+                                <ul class="drop_down_ul">
+                                    <li>
+                                        <a href="#" th:href="@{/downloads?cid=9c84d652d7bc48728ce8488fda8deb56&key=category1}">EN单片机</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/downloads?cid=7a9e159535524965a4b9bdd9f05d3a1e&key=category1}">RS放大器</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/downloads?cid=56cb303045424cdda8fd2aa199a44211&key=category1}">方案芯片</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/downloads?cid=0a7e3aac81fa40c48eee117468aed15b&key=category1}">开发工具</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="support.html" th:href="@{/support}">技术支持</a>
+                            <!--                                <div class="drop_down_list">
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                </div>-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="customer_service.html" th:href="@{/customer_service?cid=58404ec7c1ac49a9a721a08ab58daa42&key=category1}">客户服务</a>
+                            <!--                                <div class="drop_down_list">
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                </div>-->
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html" th:href="@{/contact}">联系我们</a>
+                            <div class="drop_down_list">
+                                <ul class="drop_down_ul">
+                                    <li>
+                                        <a href="contact.html" th:href="@{/contact}">联系我们</a>
+                                    </li>
+                                    <li>
+                                        <a href="contact_place.html" th:href="@{/contact_place}">地理位置</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" th:href="@{/customer_service?cid=b79d6fc7d31b4b53a891d8047c8f2752&key=category1}">在线反馈</a>
+                                    </li>
+                                    <li>
+                                        <a href="contact_join.html" th:href="@{/contact_join}">友情链接</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >技术论坛</a>
+                            <!--                                <div class="drop_down_list">
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                    <ul class="drop_down_ul">
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                        <li><a href="#">嗯哼？？？</a></li>
+                                    </ul>
+                                </div>-->
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </section>
+</section>
+<section class="carousel carousel_margin_top">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" th:each="image,item : ${category4_img4?.items}" th:data-slide-to="${item?.index}" class="active" th:class="${item?.index == 0} ? 'active' : ''"></li>
+
+        </ol>
+        <div class="carousel-inner banner_max_hei">
+            <div class="carousel-item active" th:each="image,item : ${category4_img4?.items}" th:class="${item?.index == 0} ? 'carousel-item active':'carousel-item'">
+                <a href="#">
+                    <img class="w-100" src="/images/banner.jpg" alt="First slide" th:src="@{${image?.imageUrl}}" th:alt="${image?.imageName}">
+                </a>
+            </div>
+        </div>
+    </section>
+<section class="enroo_specialties">
+    <div class="container">
+        <div class="row a-center">
+            <div class="col-md-1 col-sm-12 col-xs-12">
+                <div class="specialties_img">
+                    <img src="/images/zhuanzhu.png" alt="" class="kx-img-fluid">
+                </div>
+            </div>
+            <div class="col-md-11 col-sm-12 col-xs-12 min-991">
+                <div class="div_box">
+                    <div class="box_list">
+                        <div>
+                            <a class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z1.png">
+                                    <p>汽车电子</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="major" href="#"   th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z2.png">
+                                    <p>通讯应用</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box_list">
+                        <div>
+                            <a class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z3.png">
+                                    <p>仪表电源</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z4.png">
+                                    <p>健美仪器</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box_list">
+                        <div>
+                            <a class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z5.png">
+                                    <p>安防监控</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50"  >
+                                    <img src="/images/z6.png">
+                                    <p>智能家居</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="box_list">
+                        <div>
+                            <a class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z7.png" >
+                                    <p>航模工控</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                                <div class="transform_50">
+                                    <img src="/images/z8.png"  >
+                                    <p>照明控制</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-sm-12 col-xs-12 max-991">
+                <div class="div_box_2">
+                    <div>
+                        <div class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z1.png">
+                                <p>汽车电子</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z2.png">
+                                <p>通讯应用</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z3.png">
+                                <p>仪表电源</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z4.png">
+                                <p>健美仪器</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z5.png">
+                                <p>安防监控</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#" th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z6.png">
+                                <p>智能家居</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z7.png">
+                                <p>航模工控</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="major" href="#"  th:href="@{/solution?key=category1&cid=6be97e08267347c4a0aee7007b611530&ids=2ecb903c57d1452ebb1124a8f5f3302c&page=1}">
+                            <div class="transform_50_2">
+                                <img src="/images/z8.png">
+                                <p>照明控制</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="enroo_keyword">
+            <span class="enroo_keyword_span">单片机集成方案全方位解决服务商</span>
+            <span class="enroo_keyword_span">优质智能电子产品"芯"方案提供商</span>
+        </div>
+
+    </div>
+</section>
+<section class="p-t-b-45">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="direction text-center">
+                    <div class="design_img">
+                        <img src="/images/sjkf.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" th:href="@{/solution?cid=788ff054c80e47d99c06c25aec945f4e&key=category1}"> 设计开发 </a>
+                        <p>专注差异化的嵌入式产品解决方案<br>给定制产品注入灵魂给予生命</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="direction text-center">
+                    <div class="design_img">
+                        <img src="/images/jszc.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" th:href="@{/support}">技术支持</a>
+                        <p>
+                            从全面的产品导入到技术支持服务<br>全程贴心伴随服务，创造无限潜能！
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="direction text-center">
+                    <div class="design_img">
+                        <img src="/images/kfgj.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="content">
+                        <a href="#" th:href="@{/products_list?cid=83cceabb688c46dbb57fe54f0c7aef3a&key=category1}">开发工具</a>
+                        <p>
+                            嵌入式设计平台、应用开发工具提供<br>完善的开发案例库支援
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="product p-t-b-45">
+        <div class="container">
+            <div class="title text-center">
+                <h2>产品中心</h2>
+                <p>product center</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product_card p_80 text-center">
+                        <h1>微控制器芯片</h1>
+                        <p>microcontrollers</p>
+                        <a href="#" th:href="@{/products}">更多产品></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product_img_box">
+                        <div class="product_img">
+                            <a href="#" th:href="@{/products_list?cid=7dde68abb8cd4ecb855692fab04a57de&key=category1}"><img src="/images/3.png" alt="" class="img-fluid p_img"></a>
+                            <div class="product_content text-center">
+                                    <h2>
+
+                                <a href="#" th:href="@{/products_list?cid=7dde68abb8cd4ecb855692fab04a57de&key=category1}">
+                                    8位单片机
+                                </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product_img_box">
+                        <div class="product_img">
+                            <a href="#"  th:href="@{/products_list?cid=9142b174ad8341c8b3f3c10cf69bae8e&key=category1}"><img src="/images/2.png" alt="" class="img-fluid p_img"></a>
+                            <div class="product_content text-center">
+                                <h2>
+                                    <a href="#"  th:href="@{/products_list?cid=9142b174ad8341c8b3f3c10cf69bae8e&key=category1}">
+                                        32位单片机
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product_img_box">
+                        <div class="product_img">
+                            <a href="#" th:href="@{/products_list?cid=2b9e04665dd6429ab75df1aa5285ab76&key=category1}"><img src="/images/1.png" alt="" class="img-fluid p_img"></a>
+                            <div class="product_content text-center">
+                                <h2>
+                                    <a href="#" th:href="@{/products_list?cid=2b9e04665dd6429ab75df1aa5285ab76&key=category1}">
+                                        专用方案控制芯片
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product_img_box">
+                        <div class="product_img">
+                            <a href="#" th:href="@{/products_list?cid=8027e9f9932f45ff9049f7febbb7fb35&key=category1}"><img src="/images/4.png" alt="" class="img-fluid p_img"></a>
+                            <div class="product_content text-center">
+                                <h2>
+                                    <a href="#" th:href="@{/products_list?cid=8027e9f9932f45ff9049f7febbb7fb35&key=category1}">
+                                        电源产品芯片
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="product_img_box">
+                        <div class="product_img">
+                            <a href="#" th:href="@{/products_list?cid=c14199aa3afb4318a472b9b18929c011&key=category1}"><img src="/images/5.png" alt="" class="img-fluid p_img"></a>
+                            <div class="product_content text-center">
+                                <h2>
+                                    <a href="#" th:href="@{/products_list?cid=c14199aa3afb4318a472b9b18929c011&key=category1}">
+                                        开发工具及案例
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more text-center">
+                <a href="#"  th:href="@{/products}" >查看更多</a>
+            </div>
+        </div>
+    </section>    
+<section class="quotient p-t-b-45">
+    <div class="container index_new_container">
+        <div class="color_fff title text-center">
+            <h2>"芯"方案解决商 </h2>
+            <p>Core solution providerr</p>
+        </div>
+        <div class="row m_t_40">
+            <div class=" custom-kx-1-5 p_r_0_custorm">
+                <div class="nav flex-column nav-pills m_b_20 m_lr_15 text-center p_lr_15" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link tab_link active" href="javascript:void(0)" id="v-pills-home-tab">公司方案</a>
+                    <a class="nav-link tab_link m_t_20" href="javascript:void(0)" id="v-pills-profile-tab">新品推荐</a>
+                    <a class="nav-link tab_link m_t_20" href="javascript:void(0)" id="v-pills-messages-tab">样品申请</a>
+                </div>
+            </div>
+            <div class=" custom-kx-10-5">
+                <div class="quotient_tab tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="row df_acenters">
+                            <div class="col-md-6" th:each="blog :${category1_blog1?.items}" style="margin-bottom: 8px;">
+                                <div class="quotient_tab_content">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3 tab_plan_pad" >
+                                            <div class="providerr_img">
+                                                <a href="#">
+                                                    <img src="/images/noimage.gif" alt="" class="img-fluid quotient_tab_img_wh" th:src="@{${blog?.imageUrl}}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-xs-9 tab_plan_content_pb">
+                                            <div class="providerr_content_a">
+                                                <h3><a href="#" th:text="${blog?.title}" th:href="@{/solution(key='category1',cid='8cee83b82de442008b63ee8064a37ceb',ids=${blog?.id})}"> Mini充电宝单片机IC芯片方案 </a></h3>
+                                                <p th:text="${blog?.summary}">即将迎来每年苹果新机发布会了，大家对苹果推出的新机议论纷纷，各种传闻爆炸式增长，有称今年苹果将发布三款iphone,并且支持双卡双待。</p>
+                                                <p th:text="${#strings.substring(blog?.createTime,0,10)}">2018-07-09</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="more more_white text-center">
+                            <a href="#">查看更多</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        <div class="row df_acenters">
+                            <div class="col-md-6" th:each="blog :${category2_blog2?.items}" style="margin-bottom: 8px;">
+                                <div class="quotient_tab_content">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-3 tab_plan_pad" >
+                                            <div class="providerr_img">
+                                                <a href="#">
+                                                    <img src="/images/noimage.gif" alt="" class="img-fluid quotient_tab_img_wh" th:src="@{${blog?.imageUrl}}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-xs-9 tab_plan_content_pb">
+                                            <div class="providerr_content_a">
+                                                <h3><a href="#" th:text="${blog?.title}" th:href="@{/about_notice(cid='ae47450810f64775b31588d74e733cf9',key='category1',ids=${blog?.id})}">新品推荐 </a></h3>
+                                                <p th:text="${blog?.summary}">即将迎来每年苹果新机发布会了，大家对苹果推出的新机议论纷纷，各种传闻爆炸式增长，有称今年苹果将发布三款iphone,并且支持双卡双待。</p>
+                                                <p th:text="${#strings.substring(blog?.createTime,0,10)}">2018-07-09</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="more more_white text-center">
+                            <a href="#">查看更多</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                        <form id="addForm" action="/form/saveForm" method="post">
+                            <input hidden="hidden" type="text" name="formId" th:value="${formId}">
+                            <input hidden="hidden" name="codeToUp" id="verify">
+                            <input hidden="hidden" name="inputCode" id="inputCode">
+                            <div th:if="${formId != null}">
+                                <input th:if="${!#lists.contains(allType,'text')&&!#lists.contains(allType,'select')&&!#lists.contains(allType,'textarea')}" hidden="hidden" name="result" value="666">
+                                <input th:if="${!#lists.contains(allType,'radio')}" hidden="hidden" type="radio" name="radio[0]" value="7777" checked>
+                                <input th:if="${!#lists.contains(allType,'checkbox')}" hidden="hidden" type="checkbox" name="checkbox[0]" value="8888" checked>
+                            </div>
+                            <div class="row input_div">
+                                <div th:class="${formStat.count <= 4}? 'col-md-6' : 'col-md-12'" th:each="form:${form3}">
+                                    <div th:if="${form?.type == 'text'}">
+                                        <label th:text="${form?.name}">公司名称：</label>
+                                        <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                        <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                        <input type="text" name="result" class="form-control">
+                                    </div>
+
+                                    <div th:if="${form?.type == 'textarea'}">
+                                        <label th:text="${form?.name}">公司名称：</label><span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                        <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                        <textarea name="result" class="form-control" cols="30" rows="2"></textarea>
+                                    </div>
+
+                                    <div th:if="${form?.type == 'select'}">
+                                        <label th:text="${form?.name}">公司名称：</label>
+                                        <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span><p>
+                                        <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                        <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                        <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                        <select class="select" th:id="result+${form?.id}" name="result" style="width: 100%;height: 34px;background: transparent;color: #888888;">
+                                            <option></option>
+                                            <div th:if="${#lists.isEmpty(form?.option)}">
+                                                <option th:text="无选项" th:value="无选项"></option>
+                                            </div>
+                                            <div th:if="${!#lists.isEmpty(form?.option)}">
+                                                <option th:each="option:${form?.option}" th:text="${option}" th:value="${option}"></option>
+                                            </div>
+                                        </select>
+                                    </div>
+
+                                    <div th:if="${form?.type == 'radio'}">
+                                        <label th:text="${form?.name}">公司名称：</label>
+                                        <span class="radio error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                        <input hidden="hidden" type="text" name="radioId" th:value="${form?.id}">
+                                        <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                        <div class="checkbox_div">
+                                            <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                <input type="radio" th:name="|radio[${form?.keyValue}]|" th:value="${option}">
+                                                <span th:text="${option}">制造</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div th:if="${form?.type == 'checkbox'}">
+                                        <label th:text="${form?.name}">公司名称：</label>
+                                        <span class="checkb error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                        <input hidden="hidden" type="text" name="ids" th:value="${form?.id}">
+                                        <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                        <div class="checkbox_div">
+                                            <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                <input type="checkbox" th:name="|checkbox[${form?.keyValue}]|" th:value="${option}">
+                                                <span th:text="${option}">制造</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-md-12 tab-pane-button-div">
+                            <div class="ddetails-con">
+                                <div class="J_before">
+                                    <input type="button"  value="确认提交" class="btn custome-color btn J_download">
+                                </div>
+                                <div class="J_after" style="display:none;">
+                                    <div class="checkcode">
+                                        <input type="text" style="border: none;" id="J_codetext" placeholder="验证码" maxlength="4">
+                                        <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">
+                                            Your browser does not support the canvas element.
+                                        </canvas>
+                                    </div>
+                                    <input type="button" value="提交" class="btn custome-color btn-code" id="updateFormItem">
+                                    <input type="button" value="返回" class="btn custome-color btn-code btn-no">
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-12 tab-pane-button-div">
+                            <BUTTON class="btn custome-color" id="updateFormItem" data-dismiss="modal" aria-hidden="true">确认提交</BUTTON>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="news p-t-b-45">
+    <div class="container ">
+        <div class="title text-center">
+            <h2>新闻中心</h2>
+            <p>NEWS</p>
+        </div>
+        <div class="row row_p_r news_js_parent">
+            <div class="col-md-9">
+                <div class="new_dl p-t-b-80 p-l-r-40">
+                    <div class="item" th:each="blog : ${category5_blog5?.items}" th:if="${blogStat?.index != 0}">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="item_time text-center">
+                                    <h3 th:text="${#strings.substring(blog?.createTime,8,10)}">10</h3>
+                                    <p th:text="${#strings.substring(blog?.createTime,0,7)}">2018-08</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="item_content">
+                                    <h3><a href="#" th:text="${blog?.title}" th:href="@{/about_notice(cid='aa964159406c4e539b83a8b2f2339999',ids=${blog?.id},key='category1')}"> 今天，我十岁了 </a></h3>
+                                    <p class="more_hang_out2"><a href="#" th:text="${blog?.summary}" th:href="@{/about_notice(cid='aa964159406c4e539b83a8b2f2339999',ids=${blog?.id},key='category1')}">即将迎来每年苹果新机发布会了，大家对苹果推出的新机议论纷纷，各种传闻爆炸式增长，有称今年苹果将发布三款iphone,并且支持双卡双待。</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="new_a">
+                        <a href="#" th:href="|@{/about_notice?cid=aa964159406c4e539b83a8b2f2339999&key=category1}|">查看更多</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col_p_a news_right_small_div" style="top: 0;">
+                <div class="new_detail p-t-b-80 p-l-r-40">
+                    <div class="row" th:each="blog : ${category5_blog5?.items}" th:if="${blogStat?.index == 0}">
+                        <div class="col-md-6">
+                            <div class="new_detail_title">
+                                <h4 th:text="${#strings.substring(blog?.createTime,0,10)}">2018-08-23</h4>
+                                <h2><a href="#" th:text="${blog?.title}" th:href="@{/about_notice(cid='aa964159406c4e539b83a8b2f2339999',ids=${blog?.id},key='category1')}"> Socket接口测试工具 (socket.io.js) - 徐同保的专栏 </a></h2>
+                            </div>
+                            <div class="new_detail_body">
+                                <p class="more_hang_out"><a href="#" th:text="${blog?.summary}" th:href="@{/about_notice(cid='aa964159406c4e539b83a8b2f2339999',ids=${blog?.id},key='category1')}">即将迎来每年苹果新机发布会了，大家对苹果推出的新机议论纷纷，各种传闻爆炸式增长，有称今年苹果将发布三款iphone,并且支持双卡双待。
+                                    即将迎来每年苹果新机发布会了，大家对苹果推出的新机议论纷纷，各种传闻爆炸式增长，有称今年苹果将发布三款iphone,并且支持双卡双待。</a>
+                                </p>
+                                <div class="new_detail_more">
+                                    <a href="#" th:href="|@{/about_notice?cid=aa964159406c4e539b83a8b2f2339999&key=category1}|">查看更多</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="new_detail_img">
+                                <a href="#" th:href="@{/about_notice(cid='aa964159406c4e539b83a8b2f2339999',ids=${blog?.id},key='category1')}">
+                                    <img src="/images/enheng.png" th:src="@{${blog?.imageUrl}}" alt="" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="enroo_footer p_t_80_b_40">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                <div class="footer_tab">
+                    <h3><a href="#" th:href="@{/abouts_c?cid=4d6ac22003f94e4f9dbc05ddb9e69846&key=category2}"> 关于我们 </a></h3>
+                    <ul>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/abouts_c?cid=4d6ac22003f94e4f9dbc05ddb9e69846&key=category2}">企业介绍</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_activities?cid=1e44fe4d9ba140f097beb7008964ce40&key=category2}">员工活动</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/abouts_c?cid=7d894d8a1d1a469da49d44d16082f1c9&key=category2}">使命价值观</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_honor?cid=06c46b25478246b7a7308ea324823525&key=category2}">荣誉资质</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_Recruit?cid=b18cb9b00b0c489681bd9a2da6c95bcd&key=category2}">招聘职位</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                <div class="footer_tab">
+                    <h3><a href="#" th:href="@{/products}"> 产品中心 </a></h3>
+                    <ul>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/products_list?cid=7dde68abb8cd4ecb855692fab04a57de&key=category1}">8位单片机</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/products_list?cid=9142b174ad8341c8b3f3c10cf69bae8e&key=category1}">32位单片机</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/products_list?cid=2b9e04665dd6429ab75df1aa5285ab76&key=category1}">专用芯片</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/products_list?cid=8027e9f9932f45ff9049f7febbb7fb35&key=category1}">电源芯片</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/products_list?cid=c14199aa3afb4318a472b9b18929c011&key=category1}">开发工具</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                <div class="footer_tab">
+                    <h3><a href="#" th:href="@{/about_notice?cid=2bfdbdc90c704998b6f99b3f7a5591ff&key=category1}"> 新闻中心 </a></h3>
+                    <ul>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=2bfdbdc90c704998b6f99b3f7a5591ff&key=category1}">企业公告</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=1e56cdf8961f45a0a6ec20aa9d1d15db&key=category1}">原厂咨询</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=ae47450810f64775b31588d74e733cf9&key=category1}">新品推广</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=db366303a86b4c45bafee7aaa7fbe9b4&key=category1}">活动培训</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=08857802aff94868b115925d2ec7cf64&key=category1}">业界动态</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/about_notice?cid=aa964159406c4e539b83a8b2f2339999&key=category1}">公司新闻</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                <div class="footer_tab">
+                    <h3><a href="#" th:href="@{/contact}"> 联系我们 </a></h3>
+                    <ul>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/contact}">联系方式</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/contact_place}">地理位置</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer_link" th:href="@{/customer_service?cid=b79d6fc7d31b4b53a891d8047c8f2752&key=category1}">在线反馈</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 m_t_20 d-f-c">
+                <div class="footer_img text-center">
+                    <div class="vrcode_all_div">
+                        <div class="vrcode_div">
+                            <img src="/images/qrcode_for_gh_335f712d27ec_1280.jpg" alt="" class="img-fluid">
+                            <div class="content_footer">
+                                <p>关注公众号</p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="/imagePath/3ad531768f42450ab49f6efe73cca18bweixin.png" alt="" class="img-fluid">
+                            <div class="content_footer">
+                                <p>关注公众号</p>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="/images/Enroologo(CDR)2.png" class="footer_img_logo" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="friendly_link">
+            <p>友情链接：
+                <a href="#"> 单片机 </a>
+                <a href="#">　单片机方案开发</a>　
+                <a href="#">8位单片机　</a>
+                <a href="#">16位单片机　 </a>
+                <a href="#">深圳单片机开发公司　 </a>
+                <a href="#">单片机厂商 </a>
+                <a href="#">PIC单片机 </a>
+                <a href="#">单片机/处理器技术 </a>
+            </p>
+            <hr>
+            <p>© 2008-2018 深圳市英锐恩科技有限公司 版权所有 粤ICP备09008620号</p>
+        </div>
+    </div>
+</footer>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="dist/autocomplete.js"></script>
+<script src="js/saveUserFormData.js" th:src="@{/js/saveUserFormData.js}"></script>
+<script src="js/index_old.js"></script>
+<script src="js/verify.js" th:src="@{/js/verify.js}"></script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+    $(function(){
+        //获取文本的行高，并获取文本的高度，假设我们规定的行数是五行，那么对超过行数的部分进行限制高度，并加上省略号
+        for(var i = 0; i < $('.more_hang_out').length; i++){
+            var thiss = $('.more_hang_out')[i];
+            var lineHeight = parseInt($(thiss).css("line-height"));
+            var height = parseInt($(thiss).height());
+            if((height / lineHeight) > 5 ){
+                // $(thiss).addClass("p-after")
+                $(thiss).css("height",4 * lineHeight + "px");
+            }
+        }
+        for(var i = 0; i < $('.more_hang_out2').length; i++){
+            var thiss = $('.more_hang_out2')[i];
+            var lineHeight = parseInt($(thiss).css("line-height"));
+            var height = parseInt($(thiss).height());
+            if((height / lineHeight) > 3 ){
+                // $(thiss).addClass("p-after")
+                $(thiss).css("height",2 * lineHeight + "px");
+            }
+        }
+        var news_js_parent_height = $(".news_js_parent").height();
+        var news_right_small_div_height = $(".news_right_small_div").height();
+        // $(".news_right_small_div")[0].style.top = (news_js_parent_height - news_right_small_div_height) / 2 + "px";
+        var news_right_small_div_top = (news_js_parent_height - news_right_small_div_height) / 2 + "px"
+        var scroll_width  = $(window).width();
+        if(scroll_width <= 767){
+            $(".news_right_small_div")[0].style.top = "0px"
+        }else{
+            $(".news_right_small_div")[0].style.top = (news_js_parent_height - news_right_small_div_height) / 2 + "px";
+        }
+        $(window).resize(function () {
+            var scroll_width_t  = $(window).width();
+            if(scroll_width_t <= 767){
+                $(".news_right_small_div")[0].style.top = "0px"
+            }else{
+                $(".news_right_small_div")[0].style.top = news_right_small_div_top;
+            }
+        })   
+    })
+
+
+    $(document).on("click",".full_icon_search",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+</body>
+
+</html>

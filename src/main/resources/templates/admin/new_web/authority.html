@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 权限管理</title>
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css"  th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css"  th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+    <script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="file_management">
+                    <input hidden="hidden" type="text" name="shape" value="3">
+                    <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="enroo_main no_left_list">
+        <div class="file_container">
+            <div class="file_mange">
+                <nav aria-label="breadcrumb" class="">
+                    <ol class="breadcrumb breadcrumb_ol model_form">
+                        <li class="breadcrumb-item">通用</li>
+                        <li class="breadcrumb-item"><a th:href="@{/user/findAll}">用户权限</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">授权</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="file_upload">
+                <div class="file_btn">
+                    <div class="btn-group btn-group-toggle" >
+                        <!-- <button type="button" class="btn btn-default" title="上传单文件" data-toggle="modal" data-target="#fileModal" ><i class="fa fa-file-o"></i>上传单文件</button>
+                        <button type="button" class="btn btn-default" title="上传多文件" data-toggle="modal" data-target="#filesModal" ><i class="fa fa-file-o"></i>上传多文件</button> -->
+                        <!--<label class="btn btn-secondary">-->
+                            <!--<input type="radio" name="options" id="option2" autocomplete="off"> 上传多文件-->
+                        <!--</label>-->
+                        <!--<label class="btn btn-secondary">-->
+                            <!--<input type="radio" name="options" id="option3" autocomplete="off"> 刷新-->
+                        <!--</label>-->
+                        <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();">
+                            <i class="fa fa-refresh" style="font-style: normal;"></i>
+                            <i class="fa fa-refresh"></i>
+                            刷新
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="uid" th:value="${uid}">
+            <div class="table_box">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col"><input type="checkbox" th:checked="${check}" th:value="${webId}"  name="" id="checkbox"></th>
+                            <th scope="col">网址名称</th>
+                            <th scope="col">网址描述</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="website:${websitePage?.items}">
+                        <!--<td th:text="${tag.id}" id="tagId"></td>-->
+                        <div th:if="${ids != null}">
+                            <td th:if="${#sets.contains(ids,website?.id)}">
+                                <input class="checkbox1" th:onclick="'javascript:checkAndSubmit(\''+${website?.id}+'\')'" th:value="${website?.id}"  th:id="${website?.id}"  th:checked="true"   type="checkbox">
+                            </td>
+                            <td th:if="${! #sets.contains(ids,website?.id)}">
+                                <input class="checkbox1" th:onclick="'javascript:checkAndSubmit(\''+${website?.id}+'\')'"  th:value="${website?.id}" th:id="${website?.id}" type="checkbox">
+                            </td>
+                        </div>
+                        <div th:if="${ids == null}">
+                            <td><input class="checkbox1" th:onclick="'javascript:checkAndSubmit(\''+${website?.id}+'\')'"  th:value="${website?.id}" th:id="${website?.id}"  type="checkbox"></td>
+                        </div>
+
+                        <td th:text="${website.url}"></td>
+                        <td th:text="${website.description}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&id=${id}|:|?page=1&uid=${uid}|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${websitePage?.getPre()}&keyword=${keyword}&type=${type}|:|?page=${websitePage?.getPre()}&uid=${uid}|" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${websitePage?.getPages()}" th:class="${page == websitePage?.getPage()}?'page-item active':'page-item'"><a class="page-link"  href="?page=1" th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:|?page=${page}&uid=${uid}|">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${websitePage?.getNext()}&keyword=${keyword}&type=${type}|:|?page=${websitePage?.getNext()}&uid=${uid}|" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${websitePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${websitePage?.pagecount}|:|?page=${websitePage?.pagecount}&uid=${uid}|)">尾页</a></li>
+                </ul>
+                <span class="pageInfoDetail">当前第[[${websitePage?.page}]]/[[${websitePage?.pagecount}]]页  共[[${websitePage?.totalcount}]]条记录 每页[[${websitePage?.pagesize}]]条</span>
+            </nav>
+
+        </div>
+
+
+        <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="myModalLabel">上传单文件</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="/file/upload" method="post" enctype="multipart/form-data" id="fileForm" >
+                            <input type="file" name="file"></input>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" onclick="document:fileForm.submit()">上传</button>
+                                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="filesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="myModalLabels">上传多文件</h3>
+                        <button type="button" class="close" data-dismiss="modal" id="delete3" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/file/multiUpload" method="post" enctype="multipart/form-data" >
+                            请输入你想上传的数量:<input type="text" id="fileId"><span style="color: red" id="number"></span>
+                            <div class="modal-footer">
+                                <button class="btn btn-success"  value="上传" onclick="document:fileForm.submit()" >上传</button>
+                                <button class="btn btn-default" data-dismiss="modal" id="delete1" aria-hidden="true">关闭</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            //授权
+            function checkAndSubmit(id) {
+                var uid = $("#uid").val();
+                $.ajax({
+                    type: "GET",
+                    data:{wid: id, uid: uid},
+                    url: "/user/authorize",
+                    success: function (data) {
+                        iziToast.success({
+                            position: 'topRight',
+                            title: data,
+                            message: 'Successfully!',
+                        });
+                    }
+                });
+            }
+        </script>
+        <script >
+            $(function () {
+
+                var defaultData = [[${category?.cateitems}]];
+                $('#treeview3').treeview({
+                    levels: 99,
+                    data: defaultData,
+                     : function(event, data) {
+                        console.log(data.id);
+                        window.location.href="/admin/findFile?id="+data.id
+                    },
+                });
+            })
+        </script>
+        <script th:inline="javascript">
+            $(function () {
+                $("#checkbox").click(function () {
+                    var flag = null;
+                    if ($("#checkbox").prop('checked')){
+                        flag = "check";
+                    }else {
+                        flag = "notcheck";
+                    }
+                    var webId = [[${webId}]];
+                    var webIdString = JSON.stringify(webId);
+                    var uid = $("#uid").val();
+                    $.ajax({
+                        url:"/user/volumeAuto",
+                        data:{"wid":webIdString, "uid": uid, "flag": flag},
+                        type:"GET",
+                        success:function (data) {
+                            window.location.reload();
+                        }
+                    })
+                })
+            })
+        </script>
+    </div>
+</body>
+
+</html>

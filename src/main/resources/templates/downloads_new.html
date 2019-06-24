@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${keywords != ''}" th:content="${keywords}" content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${description != ''}" th:content="${description}" content="英瑞恩科技有限公司" />
+    <title>enroo-下载中心</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/new_style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about_new.css">
+    <link rel="stylesheet" href="/css/download_new.css">
+    <link rel="stylesheet" href="/css/about_left.css">
+    <link rel="stylesheet" href="/css/solution.css">
+    <!--<link rel="stylesheet" href="css/enroo_about_culture.css">-->
+    <!-- <link rel="stylesheet" href="css/enroo_about.css"> -->
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+</head>
+
+<body>
+    <section th:replace="/zh_CN/service::service"></section>
+    <section class="enroo_p_f p_f_0 new_nav_inpage">
+        <section class="enroo_top">
+            <div class="container new_container">
+                <div class="row a-center flex_header">
+                    <div class="d_f left_header">
+                        <div class="logo">
+                            <a href="#">
+                                <!-- style="width: 472px !important;" -->
+                                <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="right_header">
+                        <div class="right_div_2">
+                            <div class="input_search">
+                                <div id="search-form"></div>
+                                <a href="#" class="full_icon_search">
+                                    <i class="material-icons">search</i>
+                                </a>
+                            </div>
+                            <div class="call_me">
+                                <span>技术热线：</span>
+                                <span>4007-888-234</span>
+                            </div>
+                        </div>
+                        <div class="right_div_1">
+                            <div class="enroo_lan_div">
+                                <div>
+                                    <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                                </div>
+                                <div>
+                                    <a href="" th:href="@{/(lang='en_US')}">English</a>
+                                </div>
+                            </div>
+                            <!-- <div class="enroo_keyword">
+                                    <div>单片机集成方案全方位解决服务商</div>
+                                    <div>优质智能电子产品"芯"方案提供商</div>
+                                </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:replace="/zh_CN/fragment::top"></section>
+    </section>
+
+
+    <section class="about_banner carousel_margin_top">
+        <div class="container">
+            <div class="banner_title">
+                <small>Download center</small>
+                <h2> 下载中心</h2>
+                <div class="about_banner_p">
+                    <p>专业品质</p>
+                    <div class="about_circle"></div>
+                    <p>创立于2008年深圳</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about_body p_t_30_80">
+        <div class="bread_bac">
+            <div class="new_Ipage_container">
+                <div class="row justify-content-end">
+                    <div class="new_md_9">
+                        <div class="bread_df">
+                            <div class="bread_nav_title">
+                                <h4>下载列表</h4>
+                            </div>
+                            <div class="bread_nav">
+                                <ul class="bread_nav_ul">
+                                    <li class="nav_link_bread">
+                                        <a href="#" class="go_home" th:href="@{/}"><i class="fa fa-home"></i></a>
+                                        <a href="#" th:href="@{/}">单片机</a>
+                                    </li>
+                                    <li class="nav_link_bread">
+                                        <a href="#" th:href="|@{/downloads_new}|">下载中心</a>
+                                    </li>
+                                    <li class="nav_link_bread" th:if="${default_cate?.text != '' && default_cate?.text != null}">
+                                        <a href="#" th:text="${default_cate?.text}">下载中心</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new_Ipage_container">
+            <div class="row">
+                <div class="new_md_3 pa_191">
+                    <aside>
+                        <section class="met_aside">
+                            <div class="new_about_tab_title ">
+                                <h2>下载<br>中心</h2>
+                                <div class="new_about_tab_small">
+                                    <small>Download center</small>
+                                </div>
+                            </div>
+                            <div id="content">
+                                <div class="menu">
+                                    <ul class="">
+                                        <li th:each="category : ${category1_cate1}" th:if="${category?.tag == '-'}">
+                                            <a th:text="${category?.text}" th:if="${category?.tag == '-'}">EN全系列产品</a>
+                                            <ul>
+                                                <li class="change_active flex_box_space" th:class="${default_cate?.id == cate2?.id}?'change_active flex_box_space menu_li_active':'change_active flex_box_space'" th:each="cate2 : ${category?.nodes}"
+                                                    th:if="${cate2?.tag == '--'}"><a th:text="${cate2?.text}" th:href="|@{/downloads_new/}${cate2?.initials(cate2?.text)}/${key1}|">EN系列微控制器</a>
+                                                    <i class="fa fa-long-arrow-right"></i>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+
+                    <div th:replace="zh_CN/new_left::left2"></div>
+                </div>
+                <div class="about_content about_content_border about_main new_md_9">
+                    <table class="table">
+                        <thead class="thead-light table_back text-center">
+                            <tr>
+                                <th scope="col">资源标题</th>
+                                <th scope="col">资源大小</th>
+                                <th scope="col">发布时间</th>
+                                <th scope="col">点击下载</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr th:each="file:${category1_file1?.items}">
+                                <td scope="row">
+                                    <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}"
+                                        class="td_title" th:text="${file?.name}"></a>
+                                </td>
+                                <td class="text-center" th:text="${file?.formatSize(file?.size)}">273KB</td>
+                                <td class="text-center" th:text="${#strings.substring(file?.createTime,0,10)}">2()018-04-23
+                                </td>
+                                <td class="text-center">
+                                    <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}">下载</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="nav_page" th:if="${category1_file1?.totalcount}!= null">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getPre()}&key=${key1}|"><< </a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getPre()}&cid=${cid}&key=${key1}|"><< </a>
+                                </li>
+                                <li class="page-item actives" th:each="page:${category1_file1?.getPages()}"  th:if="${cid != null}" th:class="${page == category1_file1?.page} ? 'page-item actives':'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&cid=${cid}&key=${key1}|">1</a>
+                                </li>
+                                <li class="page-item actives" th:each="page:${category1_file1?.getPages()}" th:if="${cid == null}" th:class="${page == category1_file1?.page} ? 'page-item actives':'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}&key=${key1}|">1</a>
+                                </li>
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getNext()}&key=${key1}|">>></a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getNext()}&cid=${cid}&key=${key1}|">>></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+                    <div class="nav_page">
+                        <nav class="b4_pagination" aria-label="...">
+                            <ul class="pagination pag_new">
+                                <li class="page-item pagination_num">
+                                    <span class="page-link" th:text="'共' + ${category1_file1?.pagecount} + '页/' + ${category1_file1?.totalcount} + '篇'">共2页/23篇</span>
+                                </li>
+                            </ul>
+                            <ul class="pagination">
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=1|">首页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=1|">首页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getPre()}|">上一页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getPre()}|">上一页</a>
+                                </li>
+                                <li class="page-item actives" th:each="page:${category1_file1?.getPages()}" th:if="${cid != null}"
+                                    th:class="${page == category1_file1?.page} ? 'page-item actives':'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}|">1</a>
+                                </li>
+                                <li class="page-item actives" th:each="page:${category1_file1?.getPages()}" th:if="${cid == null}"
+                                    th:class="${page == category1_file1?.page} ? 'page-item actives':'page-item'">
+                                    <a class="page-link" href="#" th:text="${page}" th:href="|?page=${page}|">1</a>
+                                </li>
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getNext()}|">下一页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.getNext()}|">下一页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid == null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.pagecount}|">尾页</a>
+                                </li>
+                                <li class="page-item" th:if="${cid != null}">
+                                    <a class="page-link" href="#" th:href="|?page=${category1_file1?.pagecount}|">尾页</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer th:replace="/zh_CN/footer::footer"></footer>
+
+    <script src="/js/jquery-3.0.0.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+    <script src="/css/tab/jjs_menu_min.js"></script>
+    <script type="text/javascript" src="/dist/autocomplete.js"></script>
+    <script src="/js/index.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".menu ul li").menu();
+        });
+    </script>
+    <script type="text/javascript">
+        var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+            'b1', 'b2', 'b3', 'b4', '?????'
+        ];
+        $(document).ready(function () {
+            $('#search-form').autocomplete({
+                hints: proposals,
+                width: 300,
+                height: 30,
+                placeholder: "全站搜索 / 产品搜索"
+                // onSubmit: function (text) {
+                //     $('#message').html('Selected: <b>' + text + '</b>');
+                // }
+            });
+        });
+
+        $(document).on("click", ".full_icon_search", function () {
+            var keyword = $("input[name='query']").val();
+            window.location.href = "/products_list_new?keyword=" + keyword;
+        });
+    </script>
+
+</body>
+
+</html>

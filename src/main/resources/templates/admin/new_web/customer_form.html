@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 模板管理</title>
+
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/css/model_form.css" th:href="@{/css/model_form.css}">
+    <link rel="stylesheet" href="image_admin.css" th:href="@{/css/image_admin.css}">
+    <!--<link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">-->
+    <!--<link rel="stylesheet" href="../../../static/css/editormd.min.css" th:href="@{/css/editormd.min.css}">-->
+
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!--<script src="../../../static/js/editormd.js" th:src="@{/js/editormd.js}"></script>-->
+    <!--<script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>-->
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="/js/blog/saveName.min.js" th:src="@{/js/blog/customer.js}"></script>
+    <script src="../../../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
+
+    <script>
+        /*
+        //根据ID查询信息
+        deleteData = function(templateId,key)  {
+            $.ajax({
+                url: "/template/deleteData",
+                type: "GET",
+                data: {"templateId":templateId,"key":key},
+                success: function (data) {
+                    // alert("删除成功");
+                    iziToast.success({
+                        position: 'topRight',
+                        title: '删除成功',
+                        message: 'Successfully!',
+                    });
+                    window.location.href = "/template/showData?templateId="+data;
+                },
+                error: function (data) {
+                    iziToast.error({
+                        position: 'topRight',
+                        title: '删除失败',
+                        message: 'Illegal operation',
+                    });
+                    // alert("删除失败");
+                }
+            });
+        }
+        */
+    </script>
+
+</head>
+
+<body>
+
+<div class="img_sort_a display">
+    <div class="sort">
+        <div class="sort_top">
+            <h3>上传文件</h3>
+            <i class="material-icons sort_close">close</i>
+        </div>
+        <form action="/admin/uploadWechat" method="post" enctype="multipart/form-data">
+            <div class="sort_content">
+
+                <div class="form-group" id="fileUpload">
+                    <label for="exampleFormControlFile1">选择文件</label>
+                    <input type="file" class="form-control-file" name="file" id="exampleFormControlFile1" >
+                    <input type="hidden" class="form-control-file" name="id" th:value="${id}" >
+                </div>
+
+            </div>
+            <div class="sort_footer">
+                <button type="submit" class="btn btn-success sort_btn">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+<section class="p_f">
+    <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+        <div th:replace="admin/new_web/navigation_bar::top1"></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+            <div th:replace="admin/new_web/navigation_bar::top3"></div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+        </form>
+        </div>
+        <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+    </nav>
+</section>
+
+<div class="enroo_main no_left_list">
+    <div class="file_container">
+        <div class="file_mange">
+            <nav aria-label="breadcrumb" class="">
+                <ol class="breadcrumb breadcrumb_ol model_form">
+                    <!--<li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">客服服务</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="file_upload">
+            <div class="file_btn">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary add_sort">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> 微信二维码上传
+                    </label>
+                    <label class="btn btn-primary" onclick="window.location.reload()">
+                        <input type="radio" name="options" id="option3" autocomplete="off"> 刷新
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="table_box">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">腾讯QQ_1</th>
+                    <th scope="col">腾讯QQ_2</th>
+                    <th scope="col">微信二维码</th>
+                    <th scope="col">阿里巴巴</th>
+                    <th scope="col">邮箱</th>
+                    <th scope="col">联系电话</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="form_table_tr" th:each="customer:${customers}">
+                    <th scope="row">
+                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${customer?.id}+'\',\'tencent1\')'" th:onblur="'javascript:editTemplate(\''+${customer?.id}+'\',\'tencent1\')'" class="form-control" value=主页 aria-label="Username" th:value="${customer?.tencent1}" th:id="tencent1+${customer?.id}" aria-describedby="basic-addon1">
+                    </th>
+                    <th>
+                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${customer?.id}+'\',\'tencent2\')'" th:onblur="'javascript:editTemplate(\''+${customer?.id}+'\',\'tencent2\')'" class="form-control" value=主页 aria-label="Username" th:value="${customer?.tencent2}" th:id="tencent2+${customer?.id}" aria-describedby="basic-addon1">
+                    </th>
+                    <td>
+                        <input type="text"  class="form-control" value=index aria-label="Username" th:value="${customer?.wechat}"  aria-describedby="basic-addon1">
+                    </td>
+                    <td>
+                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${customer?.id}+'\',\'alibaba\')'" th:onblur="'javascript:editTemplate(\''+${customer?.id}+'\',\'alibaba\')'" class="form-control" value=index aria-label="Username" th:value="${customer?.alibaba}" th:id="alibaba+${customer?.id}" aria-describedby="basic-addon1">
+                    </td>
+                    <td>
+                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${customer?.id}+'\',\'email\')'" th:onblur="'javascript:editTemplate(\''+${customer?.id}+'\',\'email\')'" class="form-control" value=index aria-label="Username" th:value="${customer?.email}" th:id="email+${customer?.id}" aria-describedby="basic-addon1">
+                    </td>
+                    <td>
+                        <input type="text" th:onclick="'javascript:checkTemplate(\''+${customer?.id}+'\',\'phone\')'" th:onblur="'javascript:editTemplate(\''+${customer?.id}+'\',\'phone\')'" class="form-control" value=index aria-label="Username" th:value="${customer?.phone}" th:id="phone+${customer?.id}" aria-describedby="basic-addon1">
+                    </td>
+                    <!--<td class="d_flex" th:if="${template?.position != 1}">-->
+                        <!--<button class="table_btn btn btn-primary md_editor_btn add_sort2" data-toggle="modal" data-target="#exampleModal" th:data-id="${template?.id}">编辑</button>-->
+                        <!--<a th:href="@{/template/showData(templateId=${template?.id})}" class="table_btn btn btn-primary">数据</a>-->
+                        <!--<a th:href="@{/template/downloadTemplate(templateId=${template?.id})}" class="table_btn btn btn-primary">下载</a>-->
+                        <!--<button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>-->
+                    <!--</td>-->
+
+                    <!--<td class="d_flex" th:if="${template?.position == 1}">-->
+                        <!--<button type="button" th:onclick="'javascript:deleteById(\''+${template?.id}+'\');'" class="table_btn btn btn-danger">删除</button>-->
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div class="page_nav">-->
+            <!--<nav>-->
+                <!--<ul class="pagination justify-content-center">-->
+                    <!--<li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1|:|?page=1|)">首页</a></li>-->
+
+                    <!--<li class="page-item">-->
+                        <!--<a class="page-link" href="?page=1" th:href="${keyword}?|?page=${templatePage?.getPre()}&keyword=${keyword}&type=${type}|:|?page=${templatePage?.getPre()}|" aria-label="Previous">-->
+                            <!--<span aria-hidden="true">&laquo;</span>-->
+                            <!--<span class="sr-only">Previous</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="page-item" th:each="page:${templatePage?.getPages()}" th:class="${page == templatePage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1" th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:|?page=${page}|">[[${page}]]</a></li>-->
+                    <!--<li class="page-item">-->
+                        <!--<a class="page-link" th:href="${keyword}?|?page=${templatePage?.getNext()}&keyword=${keyword}&type=${type}|:|?page=${templatePage?.getNext()}|" aria-label="Next">-->
+                            <!--<span aria-hidden="true">&raquo;</span>-->
+                            <!--<span class="sr-only">Next</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+
+                    <!--<li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${templatePage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${templatePage?.pagecount}|:|?page=${templatePage?.pagecount}|)">尾页</a></li>-->
+                <!--</ul>-->
+                <!--<span class="pageInfoDetail">当前第[[${templatePage?.page}]]/[[${templatePage?.pagecount}]]页  共[[${templatePage?.totalcount}]]条记录 每页[[${templatePage?.pagesize}]]条</span>-->
+            <!--</nav>-->
+        <!--</div>-->
+    </div>
+</div>
+
+
+
+<script>
+
+
+    hiddenFile = function () {
+        $("#fileUpload").hide();
+    }
+
+    showFile = function () {
+        $("#fileUpload").show();
+    }
+
+
+
+</script>
+
+</body>
+
+</html>

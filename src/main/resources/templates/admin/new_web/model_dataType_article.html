@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>enroo - 模板管理</title>
+
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/file_management.css" th:href="@{/css/file_management.css}">
+    <link rel="stylesheet" href="../../../static/css/model_form.css" th:href="@{/css/model_form.css}">
+    <link rel="stylesheet" href="image_admin.css" th:href="@{/css/image_admin.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/image_admin.js" th:src="@{/js/image_admin.js}"></script>
+    <script src="iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+
+
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div  th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input type="text" name="key" th:value="${key}" hidden>
+                    <input type="text" name="templateId" th:value="${templateId}" hidden>
+                    <input type="text" name="type" value="model_dataType_article" hidden>
+                    <input class="form-control mr-sm-2" type="text" name="keyword" th:value="${keyword}" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+
+
+    <div class="flex_box">
+        <div class="number_dir">
+            <!--<div id="categorySize" style="display: none" th:if="${ids == null}">
+        数量：<input type="text" id="number" >
+        <button type="button" style="width: 100%;margin-top: 5px" th:onclick="'javascript:checkAndSubmit(\'0\',\''+'new'+'\',\''+${templateId}+'\',\''+'category'+'\')'" class="btn btn-sm btn-success">确认</button>
+        &lt;!&ndash;<button class="del_button" data-files-delete>确认</button>&ndash;&gt;
+    </div>
+    <div id="categorySize"  style="display: none" th:if="${ids != null}">
+        数量：<input type="text" id="number" th:value="${td?.number}">
+        <button type="button" style="width: 100%;margin-top: 5px" th:onclick="'javascript:checkAndSubmit(\'0\',\''+${key}+'\',\''+${templateId}+'\',\''+'category'+'\')'" class="btn btn-sm btn-success">确认</button>
+        &lt;!&ndash;<button class="del_button" data-files-delete>确认</button>&ndash;&gt;
+    </div>-->
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item"><a th:href="@{/template/findAll}">栏目</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/template/showData(templateId=${templateId})}">栏目数据</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">文章</li>
+                </ol>
+            </nav>
+            <hr>
+            <div class="file_container model_tab">
+                <div id="list-example" class="df_center">
+                    <a class="none_active_tab list_tab_link" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_article')}">文章</a>
+                    <a class="none_active_tab" href="#list-item-2" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_product')}">产品</a>
+                    <a class="none_active_tab" href="#list-item-2" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_image')}">图片</a>
+                    <a class="none_active_tab" href="#list-item-2" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_form')}">表单</a>
+                    <a class="none_active_tab" href="#list-item-2" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_file')}">文件</a>
+                    <a class="none_active_tab" href="#list-item-2" th:href="@{/template/templateData(templateId=${templateId},key=${key},url='model_dataType_category')}">分类</a>
+                </div>
+                <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example tab_nav_div">
+                    <div id="list-item-1">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><input type="checkbox" name="" id=""></th>
+                                    <th scope="col">序号</th>
+                                    <th scope="col">文章标题</th>
+                                    <th scope="col">文章摘要</th>
+                                    <th scope="col">发布时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <input type="hidden" name="key" th:value="${key}">
+                                <tr th:each="blog,itemStat:${pages?.items}">
+                                    <div th:if="${ids != null}">
+                                        <td th:if="${#sets.contains(ids,blog?.id)}">
+                                            <input th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\',\''+${key}+'\',\''+${templateId}+'\')'"
+                                                th:id="${blog?.id}" name="jsonId" th:checked="true" th:value="${blog?.id}"
+                                                type="checkbox">
+                                        </td>
+                                        <td th:if="${! #sets.contains(ids,blog?.id)}">
+                                            <input th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\',\''+${key}+'\',\''+${templateId}+'\')'"
+                                                th:id="${blog?.id}" name="jsonId" th:value="${blog?.id}" type="checkbox">
+                                        </td>
+                                    </div>
+                                    <div th:if="${ids == null}">
+                                        <td><input th:onclick="'javascript:checkAndSubmit(\''+${blog?.id}+'\',\''+'new'+'\',\''+${templateId}+'\')'"
+                                                th:id="${blog?.id}" name="jsonId" th:value="${blog?.id}" type="checkbox"></td>
+                                    </div>
+                                    <td th:text="${itemStat?.count}"></td>
+                                    <td th:text="${blog?.title}">小米6S手机</td>
+                                    <td th:text="${blog?.summary}">1090</td>
+                                    <td th:text="${#strings.substring(blog?.createTime,0,10)}">数码</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation example" class="nav_m_t">
+                            <ul class="pagination df_jc">
+                                <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&key=${key}&templateId=${templateId}&type=${type}&keyword=${keyword}|:(${cateids}?|?page=1&key=${key}&templateId=${templateId}&url=model_dataType_article&cateids=${cateids}|:|?page=1&key=${key}&templateId=${templateId}&url=model_dataType_article|)">首页</a></li>
+
+                                <li class="page-item">
+                                    <a class="page-link" href="#" id="pre" th:href="${keyword}?|?page=${pages?.getPre()}&key=${key}&templateId=${templateId}&type=${type}&keyword=${keyword}|:(${cateids}?|?page=${pages?.getPre()}&key=${key}&templateId=${templateId}&url=model_dataType_article&cateids=${cateids}|:|?page=${pages?.getPre()}&key=${key}&templateId=${templateId}&url=model_dataType_article|)"
+                                        aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" th:each="page,paegStart:${pages?.getPages()}" th:class="${page == pages?.getPage()}? 'page-item active' : 'page-item'"><a th:text="${page}"
+                                        th:id="page+${paegStart.index}" th:href="${keyword}?|?page=${page}&key=${key}&templateId=${templateId}&type=${type}&keyword=${keyword}|:(${cateids}?|?page=${page}&key=${key}&templateId=${templateId}&url=model_dataType_article&cateids=${cateids}|:|?page=${page}&key=${key}&templateId=${templateId}&url=model_dataType_article|)"
+                                        class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" id="next" th:href="${keyword}?|?page=${pages?.getNext()}&key=${key}&templateId=${templateId}&type=${type}&keyword=${keyword}|:(${cateids}?|?page=${pages?.getNext()}&key=${key}&templateId=${templateId}&url=model_dataType_article&cateids=${cateids}|:|?page=${pages?.getNext()}&key=${key}&templateId=${templateId}&url=model_dataType_article|)"
+                                        aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+
+                                <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${pages?.pagecount}&key=${key}&templateId=${templateId}&type=${type}&keyword=${keyword}|:(${cateids}?|?page=${pages?.pagecount}&key=${key}&templateId=${templateId}&url=model_dataType_article&cateids=${cateids}|:|?page=${pages?.pagecount}&key=${key}&templateId=${templateId}&url=model_dataType_article|)">尾页</a></li>
+                            </ul>
+                            <span class="pageInfo">当前第[[${pages?.page}]]/[[${pages?.pagecount}]]页  共[[${pages?.totalcount}]]条记录 每页[[${pages?.pagesize}]]条</span>
+                        </nav>
+                        <div class="form-group m-t btn_center">
+                            <a th:href="@{/template/showData(templateId=${templateId})}" class="btn_width btn btn-success">返回列表</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script th:inline="javascript">
+        let checkbox_arr = [];
+        $(function () {
+            window.defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                list: false,
+                type: false,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/template/templateData?templateId="+[[${templateId}]]+"&url=model_dataType_article" + "&cateids=" + data.id
+                }
+            });
+
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+
+            $("#treeview3").find("input[type='checkbox']").on("change", function () {
+                let id = $(this).parents("li").data("id");
+                let new_arr = [];
+                if (this.checked) {
+                    $("#categorySize").fadeIn("5000");
+                    checkbox_arr.push(id);
+                    checkOrder++;
+                } else {
+                    for (var i in checkbox_arr) {
+                        if (checkbox_arr[i] != id) {
+                            new_arr.push(checkbox_arr[i]);
+                        }
+                    }
+                    checkbox_arr = new_arr;
+                    checkOrder--;
+                    if (checkOrder <= 0) {
+                        checkOrder = 0;
+                        $("#categorySize").fadeOut();
+                    }
+                }
+                console.log(checkbox_arr);
+            })
+        })
+    </script>
+
+    <script th:inline="javascript">
+        //选中出现批量操作
+        var checkOrder = 0; //计算点击复选框的次数
+        // var categoryIds = [];//创建一个数组用于存放需要传输的id
+        /*$(document).ready(function(){
+            var ids = [[${ids}]]
+            // Array.prototype.push.apply(categoryIds, ids);
+            $.each(ids,function(index,val){
+                console.log('索引是:'+index);
+                console.log('键值是:'+val);
+                checkbox_arr.push(val);
+                checkOrder++;
+                $("#categorySize").fadeIn("5000");
+            })
+
+            // console.log("初始化："+checkbox_arr);
+        });*/
+
+        $(function () {
+            var data = null;
+            var key1 = "new";
+            var url = null;
+
+            checkAndSubmit = function (id, key, templateId, type) {
+
+                var number = $("#number").val();
+                console.log("数量：" + number);
+                // console.log("集合id："+categoryIds);
+                if (key != "new") {
+                        data = {
+                            "jsonId": id,
+                            "templateId": templateId,
+                            "key": key
+                        };
+                } else {
+                        data = {
+                            "jsonId": id,
+                            "templateId": templateId,
+                            "key": key1
+                        };
+                }
+                console.log("type=" + type);
+                if ($("#" + id + "").prop('checked') == true) {
+                    console.log("进军！！");
+                    url = "/template/saveArticle";
+                    console.log("数据：" + data);
+                    $.post(url, data, function (result) {
+                        key1 = result;
+                        var td = [[${templateId}]];
+                        var page = [[${pages.page}]];
+                        // alert("接收key="+result);
+                        var prePage = [[${pages.getPre()}]]
+                        var nextPage = [[${pages.getNext()}]]
+                        var pageCount = [[${pages.getPages()}]]
+
+                        var keyword = $("input[name='keyword']").val();
+                        console.log("keyword:" + keyword);
+
+                        var td = [[${templateId}]];
+                        var pre = "?page=" + prePage + "&key=" + key1 + "&templateId=" + td;
+                        var next = "?page=" + nextPage + "&key=" + key1 + "&templateId=" + td;
+
+                        if (keyword != null ) {
+                            pre = pre + "&type=model_dataType_article&keyword="+keyword+"";
+                            next = next + "&type=model_dataType_article&keyword="+keyword+"";
+                            for (var i = 0; i < pageCount.length; i++) {
+                                var pageNum = pageCount[i];
+                                var page = "?page=" + pageNum + "&key=" + key1 + "&templateId=" + td;
+                                page = page + "&type=model_dataType_article&keyword="+keyword+"";
+                                $("#page" + i + "").attr("href", page);
+                            }
+                        }else {
+                            pre = pre + "&url=model_dataType_article&cateids="+[[${cateids}]]+"";
+                            next = next + "&url=model_dataType_article&cateids="+[[${cateids}]]+"";
+                            for (var i = 0; i < pageCount.length; i++) {
+                                var pageNum = pageCount[i];
+                                var page = "?page=" + pageNum + "&key=" + key1 + "&templateId=" + td;
+                                page = page + "&url=model_dataType_article&cateids="+[[${cateids}]]+"";
+                                $("#page" + i + "").attr("href", page);
+                            }
+                        }
+
+                        // alert(pageCount.length);
+
+
+
+                        $("#pre").attr("href", pre);
+                        $("#next").attr("href", next);
+
+                        $("#number").val("");
+                        /*                        window.location.href="/template/templateData?templateId="+td+"&page="+page+"&key="+key1+"&url=model_dataType_article";*/
+                        iziToast.success({
+                            position: 'topRight',
+                            title: '添加成功',
+                            message: 'Successfully!',
+                        });
+
+                    });
+
+                } else {
+                    url = "/template/deleteBlogData";
+                    //alert("未点击");
+                    $.post(url, data, function (result) {
+                        // alert("删除成功");
+                        iziToast.success({
+                            position: 'topRight',
+                            title: '删除成功',
+                            message: 'Successfully!',
+                        });
+                    });
+                }
+            }
+
+        });
+    </script>
+
+
+    <script src="../../../static/js/blog/check.js" th:src="@{/js/blog/check.js}"></script>
+
+
+</body>
+
+</html>

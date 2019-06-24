@@ -1,0 +1,38 @@
+.enroo_main h4{
+    margin-top:1rem;
+}
+.pagination{
+    margin-top:3rem;
+}
+.article_review_table{
+    margin-top: 1rem;
+}
+.article_review_table thead tr{
+    background: #f3f3f3;
+}
+.article_review_table tbody tr:first-child{
+    border-top:0;
+}
+.table-bordered thead th{
+    border-bottom-width: 0px;
+    border-bottom: 1px solid #dee2e6;
+}
+.btn-default{
+    color: #333;
+    background-color: #f9f9f9;
+    border-color: #ccc;
+}
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+.table_fun{
+    font-size: 13px;
+    text-align: center;
+}
+.table_fun a:not(:last-child)::after{
+    content: " | ";
+    padding:0 3px;
+    color:black;
+}

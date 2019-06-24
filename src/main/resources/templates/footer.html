@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <meta name="description" content="英瑞恩科技有限公司" />
+    <title>enroo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="/css/style_old.css" th:href="@{/css/style_old.css}">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" href="/dist/autocomplete.css" th:href="@{/dist/autocomplete.css}">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/media.css" th:href="@{/css/media.css}">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style>
+        .checkcode{
+            float: left;
+            margin-top: 10px;
+            width: 182px;
+            height: 42px;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            background: #fff;
+        }
+        .btn-code{
+            margin-top: 10px;
+            display: block;
+            float: left;
+            width: 95px;
+            height: 42px;
+            margin-left: 20px;
+            background: #008cff;
+            color: #fff;
+            border-radius: 3px;
+        }
+        .btn-no{
+            background: none;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            color: #008cff;
+        }
+        .checkcode input{
+            float: left;
+            text-align: center;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+            color: #000;
+        }
+
+        .checkcode canvas{
+            float: right;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+<footer class="enroo_footer p-t-b-45 mar_top_40">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 m_t_20 d-f-c">
+                    <div class="footer_img text-center">
+                        <img class="footer_img_logo" style="width: 336px;" src="/images/Enroologo(CDR)2.png" alt="">
+                        <div class="vrcode_all_div">
+                            <div class="vrcode_div">
+                                <img src="/imagePath/ae0a798902fb46f28bf613f94b58be31二维码-公众号.jpg" alt="" class="img-fluid">
+                                <div class="content_footer">
+                                    <p>关注公众号</p>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="/imagePath/c5d79b3792214ac48839b7270ddc6773二维码-阿里.jpg" alt="" class="img-fluid">
+                                <div class="content_footer">
+                                    <p>关注阿里旺铺</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                    <div class="footer_tab">
+                        <h3><a href="#" th:href="@{/abouts_c_new/qyjj/category2}"> 关于我们
+                            </a></h3>
+                        <ul>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/abouts_c_new/qyjj/category2}">企业介绍</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_activities_new/yghd/category2}">员工活动</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/abouts_c_new/qywh/category2}">使命价值观</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_honor_new/zzry/category2}">荣誉资质</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_Recruit_new/zxns/category2}">招聘职位</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                    <div class="footer_tab">
+                        <h3><a href="#" th:href="@{/products_new}"> 产品中心 </a></h3>
+                        <ul>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/products_list_new/otp gydpj/category1}">8位单片机</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/products_list_new/32tyxdpj/category1}">32位单片机</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/products_list_new/fazyicxp/category1}">专用芯片</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/products_list_new/ldcbhicxp/category1}">电源芯片</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/products_list_new/dpjfzq/category1}">开发工具</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                    <div class="footer_tab">
+                        <h3><a href="#" th:href="@{/about_notice_new/qygg/category1}">
+                                新闻中心 </a></h3>
+                        <ul>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/qygg/category1}">企业公告</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/yczx/category1}">原厂咨询</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/xptg/category1}">新品推广</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/hdpx/category1}">活动培训</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/yjdt/category1}">业界动态</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/about_notice_new/gsxw/category1}">公司新闻</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 col-md-1 m_t_20 col-6-center">
+                    <div class="footer_tab">
+                        <h3><a href="#" th:href="|@{/contact_new/}lxfs/category1|"> 联系我们 </a></h3>
+                        <ul>
+                            <li>
+                                <a href="#" class="footer_link" th:href="|@{/contact_new/}lxfs/category1|">联系方式</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="|@{/contact_new/}dlwz/category1|">地理位置</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer_link" th:href="@{/customer_service_new/khyjts/category1}">在线反馈</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="friendly_link">
+                <p>友情链接：
+                    <a href="#">单片机　</a>
+                    <a href="#">单片机方案开发　</a>　
+                    <a href="#">8位单片机　</a>
+                    <a href="#">16位单片机　</a>
+                    <a href="#">深圳单片机开发公司　</a>
+                    <a href="#">单片机厂商　</a>
+                    <a href="#">PIC单片机　</a>
+                    <a href="#">单片机/处理器技术　</a>
+                    <a href="#">公司阿里旺铺官网</a>
+                </p>
+                <hr>
+                <p>© 2008-2018 深圳市英锐恩科技有限公司 版权所有 粤ICP备09008620号   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;建议使用Chrome最新稳定版本，Firefox最新稳定版本，IE11及以上版本浏览器浏览</p>
+            </div>
+        </div>
+    </footer>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="dist/autocomplete.js"></script>
+<script src="js/saveUserFormData.js" th:src="@{/js/saveUserFormData.js}"></script>
+<script src="js/index_old.js"></script>
+<script src="js/verify.js" th:src="@{/js/verify.js}"></script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+    $(function(){
+        //获取文本的行高，并获取文本的高度，假设我们规定的行数是五行，那么对超过行数的部分进行限制高度，并加上省略号
+        for(var i = 0; i < $('.more_hang_out').length; i++){
+            var thiss = $('.more_hang_out')[i];
+            var lineHeight = parseInt($(thiss).css("line-height"));
+            var height = parseInt($(thiss).height());
+            if((height / lineHeight) > 5 ){
+                // $(thiss).addClass("p-after")
+                $(thiss).css("height",4 * lineHeight + "px");
+            }
+        }
+        for(var i = 0; i < $('.more_hang_out2').length; i++){
+            var thiss = $('.more_hang_out2')[i];
+            var lineHeight = parseInt($(thiss).css("line-height"));
+            var height = parseInt($(thiss).height());
+            if((height / lineHeight) > 3 ){
+                // $(thiss).addClass("p-after")
+                $(thiss).css("height",2 * lineHeight + "px");
+            }
+        }
+        // $('.more_hang_out').each(function(i, obj){
+        //     var lineHeight = parseInt($(this).css("line-height"));
+        //     var height = parseInt($(this).height());
+        //     if((height / lineHeight) > 5 ){
+        //         $(this).addClass("p-after")
+        //         $(this).css("height",4 * lineHeight + "px");
+        //     }else{
+        //         // $(this).removeClass("p-after");
+        //     }
+        // });
+        // $('.more_hang_out2').each(function(i, obj){
+        //     var lineHeight = parseInt($(this).css("line-height"));
+        //     var height = parseInt($(this).height());
+        //     if((height / lineHeight) > 3 ){
+        //         $(this).addClass("p-after")
+        //         $(this).css("height",2 * lineHeight + "px");
+        //     }else{
+        //         // $(this).removeClass("p-after");
+        //     }
+        // });
+    })
+
+
+    $(document).on("click",".full_icon_search",function(){
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword="+keyword;
+    });
+
+</script>
+</body>
+
+</html>
+

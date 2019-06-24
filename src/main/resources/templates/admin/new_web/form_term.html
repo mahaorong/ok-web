@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单管理</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/form.css" th:href="@{/css/new_css/form.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="iziToast.min.css" th:href="@{/css/iziToast.min.css}">
+
+	<script src="../../../static/js/iziToast.min.js" th:src="@{/js/iziToast.min.js}"></script>
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/plugins/jQuery/jquery-2.2.3.min.js" th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+    <script src="../../../static/js/jquery-ui.js" th:src="@{/js/jquery-ui.js}"></script>
+	<script src="../../../static/js/admin/moveUpOrDown.js" th:src="@{/js/admin/moveUpOrDown.js}"></script>
+	<script src="../../../static/js/admin/moveUpOrDown.js" th:src="@{/js/admin/saveFormItem.js}"></script>
+
+</head>
+
+</head>
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="button" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="enroo_main p_r no_left_list">
+        <nav aria-label="breadcrumb" class="breadcrumb_nav">
+            <ol class="breadcrumb breadcrumb_ol">
+                <li class="breadcrumb-item">表单</li>
+                <li class="breadcrumb-item"><a th:href="@{/form/findPageForm(status=0,shape=3)}">表单模板</a></li>
+                <li class="breadcrumb-item active" aria-current="page">表单项</li>
+            </ol>
+        </nav>
+        <hr>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-default" th:href="@{/formItem/add(formId=${formId})}">添加</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#batchesAdd">批量添加</a>
+            <a class="btn btn-default" th:href="@{/formItem/saveRegular(formId=${formId})}">全为必填</a>
+            <a class="btn btn-default" th:href="@{/form/findPageForm(status=0,shape=3)}">返回</a>
+            <a class="btn btn-default" onclick="window.location.reload();">刷新</a>
+        </div>
+        <table class="table table-bordered article_review_table" id="sort">
+            <thead>
+                <tr>
+                    <th scope="col">序号</th>
+                    <th scope="col">表单项名称</th>
+                    <th scope="col">表单项类型</th>
+                    <th scope="col">校验规则</th>
+                    <th scope="col">备注</th>
+                    <th scope="col">内容</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="formItem,formStart:${formItemList}">
+                    <td class="index"a th:id="id+${formItem?.id}" th:text="${formStart.count}">序号</td>
+                    <th scope="row">
+                        <input type="text" class="form-control" th:id="|formItemName${formItem?.id}|" th:onclick="'javascript:checkName(\''+${formItem?.id}+'\',\'Name\');'" th:onblur="'javascript:saveName(\''+${formItem?.id}+'\',\'Name\');'" th:value="${formItem?.name}">
+                    </th>
+                    <td class="idClass" hidden="hidden" th:id="idFormItem+${formItem?.id}" th:text="${formItem?.id}">表单项id</td>
+                    <td>
+                        <select th:onclick="'javascript:saveType(\''+${formItem?.id}+'\');'" class="form-control" th:id="|options${formItem?.id}|">
+                            <option value="text" th:selected="${formItem?.type == 'text'}">文本类型</option>
+                            <option value="textarea" th:selected="${formItem?.type == 'textarea'}">文本域</option>
+                            <option value="select" th:selected="${formItem?.type == 'select'}">下拉列表</option>
+                            <option value="radio" th:selected="${formItem?.type == 'radio'}">单选框</option>
+                            <option value="checkbox" th:selected="${formItem?.type == 'checkbox'}">多选框</option>
+                        </select>
+                    </td>
+                    <td style="text-align: center">
+                        <span style="font-size: 15px;margin: 5px;">必填</span><input th:checked="${#lists.contains(formItem?.verify,ontNull)}" th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'0'+'\');'" th:id="|0${formItem?.id}|" value="0" type="checkbox" name="verify" >
+                        <span style="font-size: 15px;margin: 5px;">电话号码</span><input th:checked="${#lists.contains(formItem?.verify,phone)}" th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'1'+'\');'" th:id="|1${formItem?.id}|" value="1" type="checkbox" name="verify">
+                        <span style="font-size: 15px;margin: 5px;">邮箱</span><input th:checked="${#lists.contains(formItem?.verify,email)}"  th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'2'+'\');'" th:id="|2${formItem?.id}|" value="2" type="checkbox" name="verify">
+                        <span style="font-size: 15px;margin: 5px;">网址</span><input th:checked="${#lists.contains(formItem?.verify,url)}"  th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'3'+'\');'" th:id="|3${formItem?.id}|" value="3" type="checkbox" name="verify">
+                        <span style="font-size: 15px;margin: 5px;">日期</span><input th:checked="${#lists.contains(formItem?.verify,data)}"  th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'4'+'\');'" th:id="|4${formItem?.id}|" value="4" type="checkbox" name="verify">
+                        <span style="font-size: 15px;margin: 5px;">邮政编码</span><input th:checked="${#lists.contains(formItem?.verify,posta)}"  th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'5'+'\');'" th:id="|5${formItem?.id}|" value="5" type="checkbox" name="verify">
+                        <span style="font-size: 15px;margin: 5px;">数字</span><input th:checked="${#lists.contains(formItem?.verify,number)}"  th:onclick="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'6'+'\');'" th:id="|6${formItem?.id}|" value="6" type="checkbox" name="verify">
+                        <!--<span style="font-size: 15px;margin: 5px;">长度</span><input style="width: 30px;height: 23px;" maxlength="3" type="text" name="verify" th:onblur="'javascript:saveRegular(\''+${formItem?.id}+'\',\''+'4'+'\');'" th:id="|4${formItem?.id}|" oninput = "value=value.replace(/[^\d]/g,'')">-->
+                    </td>
+                    <th>
+                        <input type="text" class="form-control" th:id="|formItemRemarks${formItem?.id}|" th:onclick="'javascript:checkName(\''+${formItem?.id}+'\',\'Remarks\');'" th:onblur="'javascript:saveName(\''+${formItem?.id}+'\',\'Remarks\');'" th:value="${formItem?.remarks}">
+                    </th>
+                    <td class="table_fun">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" th:onclick="'javascript:findOption(\''+${formItem?.id}+'\');'" th:hidden="${formItem?.type != 'select' && formItem?.type != 'radio' && formItem?.type != 'checkbox'}">数据</button>
+                        <a class="btn btn-danger" th:href="@{/formItem/delete(formItemId=${formItem?.id},formId=${formId})}">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">内容</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" id="remove1">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-default" onclick="appendContent()">新增内容选项</button>
+                    <form action="/formItem/saveOption" method="post" id="saveOption">
+                        <table class="table table-bordered article_review_table" id="optionSort">
+                            <tbody>
+                            <input hidden="hidden" type="text" name="id" id="id" class="form-control" placeholder="请输入表单的名字">
+                            <tr hidden="hidden" id="NewContent"></tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="remove">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="document:saveOption.submit()">保存</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="modal fade" id="batchesAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">数量</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/formItem/add" method="get" id="add">
+                            <table class="table table-bordered article_review_table">
+                                <tbody>
+                                <input hidden="hidden" type="text" name="formId" th:value="${formId}" class="form-control" placeholder="请输入数量">
+                                <input type="text" name="number" class="form-control" placeholder="请输入数量">
+                                <input type="text" name="index" class="form-control" placeholder="请输入开始的位置">
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="document:add.submit()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            saveRegular = function (formItemId,RegularId) {
+                var data = null;
+                if ($("#" + RegularId + formItemId + "").prop('checked')) {
+                    data = {formItemId: formItemId, regular: RegularId, flag: "save"};
+                } else {
+                    data = {formItemId: formItemId, regular: RegularId, flag: "update"};
+                }
+                $.ajax({
+                    url: "/formItem/saveRegular",
+                    data: data,
+                    type: "POST",
+                    success: function (data) {
+                        if (data == "success") {
+                            iziToast.success({
+                                position: 'topRight',
+                                title: '操作成功',
+                                message: 'Successfully!',
+                            });
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+</html>

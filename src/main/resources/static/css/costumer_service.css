@@ -1,0 +1,25 @@
+.service_content{
+    margin-top: 13px;
+}
+.p_title_small{
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #333743;
+    font-weight: bold !important;
+    letter-spacing: .5px;
+}
+.p_title_small i{
+    margin-right: 3px;
+    font-size: 15px;
+}
+.service_content p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333743;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+.p_link{
+    font-size: 15px;
+}

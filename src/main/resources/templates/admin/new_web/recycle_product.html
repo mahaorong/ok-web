@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>产品回收站</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/recycle.css" th:href="@{/css/new_css/recycle.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="recycle_product">
+                    <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+
+        </div>
+        <div class="enroo_main p_r">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">回收站</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">产品</li>
+                </ol>
+            </nav>
+            <hr>
+            <a class="btn btn-default" onclick="window.location.reload();">刷新</a>
+            <a class="btn btn-default" data-restore>恢复勾选</a>
+            <a class="btn btn-default" data-delete>删除勾选</a>
+            <table class="table table-bordered article_review_table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="checkId"></th>
+                        <th scope="col">产品文件名称</th>
+                        <th scope="col">创建时间</th>
+                        <th scope="col">修改时间</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product:${workPage?.items}">
+                        <th><input type="checkbox" class="checkbox1" th:id="${product?.id}" data-class th:value="${product?.id}"></th>
+                        <th scope="row" th:text="${product?.fileName}"></th>
+                        <td th:text="${product?.createTime}"></td>
+                        <td th:text="${product?.updateTime}"></td>
+                        <td class="d_flex">
+                            <a class="table_btn btn btn-primary" th:href="@{/admin/findProductDetail(wid=${product?.id},flag='recovert')}">查看</a>
+                            <a class="table_btn btn btn-primary" th:href="@{/recovery/restore(type='recycle_product',id=${product?.id})}">恢复</a>
+                            <a class="table_btn btn btn-danger" id="delete" th:href="@{/recovery/delete(type='recycle_product',id=${product?.id})}">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&type=recycle_file&id=${id}|:|?page=1&type=recycle_file|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${workPage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.getPre()}&type=recycle_product&id=${id}|:|?page=${workPage?.getPre()}&type=recycle_product|)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page:${workPage?.getPages()}" th:class="${page == workPage?.getPage()}? 'page-item active' : 'page-item'"><a class="page-link" href="?page=1"
+                            th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&type=recycle_product&id=${id}|:|?page=${page}&type=recycle_product|)">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${workPage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.getNext()}&type=recycle_product&id=${id}|:|?page=${workPage?.getNext()}&type=recycle_product|)"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${workPage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${workPage?.pagecount}&type=recycle_product&id=${id}|:|?page=${workPage?.pagecount}&type=recycle_product|)">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${workPage?.page}]]/[[${workPage?.pagecount}]]页  共[[${workPage?.totalcount}]]条记录 每页[[${workPage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(function () {
+            var defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/recovery/findAll?type=recycle_product&id=" + data.id
+                },
+            });
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+        })
+        var workIds = [];
+        $("#checkId").click(function () {
+            if ($(this).prop("checked") == true){
+                workIds = [[${workIds}]];
+                $(".checkbox1").attr("checked", "true");
+            } else {
+                workIds = [];
+                $(".checkbox1").removeAttr("checked");
+            }
+            console.log(workIds);
+        });
+
+        $("[data-class]").on("click",function () {
+            var id = $(this).val();
+            if ($(this).prop("checked")){
+                workIds.push(id)
+            } else {
+                let new_arr = [];
+                for (var i in workIds) {
+                    if (workIds[i] != id) {
+                        new_arr.push(workIds[i]);
+                    }
+                }
+                workIds = new_arr;
+            }
+            console.log(workIds);
+        })
+
+        $("[data-delete]").on("click",function () {
+            $.get("/recovery/batchDelete?type=recycle_product&ids=" + workIds, function (data) {
+                if (data == "success"){
+                    window.location.reload();
+                }
+            });
+        })
+
+        $("[data-restore]").on("click",function () {
+            $.get("/recovery/batchRestore?type=recycle_product&ids=" + workIds, function (data) {
+                if (data == "success") {
+                    window.location.reload();
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

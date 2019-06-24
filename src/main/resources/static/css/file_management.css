@@ -1,0 +1,52 @@
+body {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+
+.file_mange>h3 {
+    font-size: 16px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    padding: 0 20px 8px;
+}
+
+.file_container {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.file_upload {
+    padding: 5px 20px;
+}
+
+.btn {
+    font-size: 14px;
+    letter-spacing: .5px;
+}
+
+.table_box {
+    margin-top: 20PX;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.table_box>table>thead {
+    background-color: #f3f3f3;
+}
+.table th{
+    font-weight: 500;
+}
+
+.d_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table_btn+.table_btn {
+    margin-left: 10px;
+}
+th:last-child{
+    text-align:center;
+}

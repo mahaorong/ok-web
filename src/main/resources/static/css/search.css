@@ -1,0 +1,14 @@
+.searchSelect{
+    height: 25px;
+}
+.searchInput{
+    width: 42%;
+    height: 25px;
+}
+.searchBut{
+    padding: 3px 8px;
+    margin: 12px 2px;
+    position: relative;
+    top: -2px;
+    height: 26px;
+}

@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" th:if="${id == null && keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id == null && keywords != ''}" th:content="${keywords}"
+          content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id == null && description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id == null && description != ''}" th:content="${description}"
+          content="英瑞恩科技有限公司" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords == ''}" content="HTML, CSS, JavaScript" />
+    <meta name="keywords" th:if="${id != null && blogDetail?.keywords != ''}" th:content="${blogDetail?.keywords}"
+          content="HTML, CSS, JavaScript" />
+    <meta name="description" th:if="${id != null && blogDetail?.description == ''}" content="英瑞恩科技有限公司" />
+    <meta name="description" th:if="${id != null && blogDetail?.description != ''}"
+          th:content="${blogDetail?.description}" content="英瑞恩科技有限公司" />
+    <title th:if="${id == null && title == null}" th:text="|${default_cate?.text}-${customer?.company}|">enroo-产品中心
+    </title>
+    <title th:if="${id == null && title != null}" th:text="|${default_cate?.text}-${customer?.company}-${title}|">
+    </title>
+    <title th:if="${id != null && title == null}" th:text="|${blog?.title}-${default_cate?.text}-${customer?.company}|">
+        enroo-产品中心</title>
+    <title th:if="${id != null && title != null}"
+           th:text="|${blog?.title}-${default_cate?.text}-${customer?.company}-${title}|"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/material-icons.css">
+    <link rel="stylesheet" href="/css/tab/new_style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/enroo_about_new.css">
+    <link rel="stylesheet" href="/css/about_left.css">
+    <!-- <link rel="stylesheet" href="/css/download.css"> -->
+    <link rel="stylesheet" href="/css/solution.css">
+    <link rel="stylesheet" href="/css/support.css">
+    <link rel="stylesheet" href="/css/enroo_about_culture.css">
+    <link rel="stylesheet" href="/dist/autocomplete.css">
+    <link rel="stylesheet" href="/css/download_new.css">
+    <!--<link rel="stylesheet" href="dist/style.css">-->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/profucts_details_new.css">
+
+    <link rel="stylesheet" href="/css/media.css">
+    <!-- <link rel="stylesheet" href="css/zy.css"> -->
+    <style>
+        .checkcode {
+            float: left;
+            margin-top: 10px;
+            width: 182px;
+            height: 42px;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            background: #fff;
+        }
+
+        .btn-code {
+            margin-top: 10px;
+            display: block;
+            float: left;
+            width: 95px;
+            height: 42px;
+            margin-left: 20px;
+            background: #008cff;
+            color: #fff;
+            border-radius: 3px;
+        }
+
+        .btn-no {
+            background: none;
+            border: 1px solid #008cff;
+            border-radius: 3px;
+            color: #008cff;
+        }
+
+        .checkcode input {
+            float: left;
+            text-align: center;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+            color: #000;
+        }
+
+        .checkcode canvas {
+            float: right;
+            width: 85px;
+            height: 36px;
+            padding: 3px;
+        }
+    </style>
+    <style>
+        .w_div {
+            width: 70%;
+            position: relative;
+            overflow: hidden;
+            left: 15%;
+        }
+
+        .b_div {
+            min-width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .b_div img {
+            width: 75px;
+            border: 1px #eaeaea solid;
+            float: left;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .left_btn {
+            left: 0px;
+            z-index: 2;
+            left: 10px;
+            position: absolute;
+        }
+
+        .right_btn {
+            right: 0px;
+            z-index: 2;
+            right: 10px;
+            position: absolute;
+        }
+
+        .w_div i {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            background: #eaeaea;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<section th:replace="/zh_CN/service::service"></section>
+<section class="enroo_p_f p_f_0 new_nav_inpage">
+    <section class="enroo_top">
+        <div class="container new_container">
+            <div class="row a-center flex_header">
+                <div class="d_f left_header">
+                    <div class="logo">
+                        <a href="#">
+                            <img src="/images/Enroologo(CDR)2.png" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="right_header">
+                    <div class="right_div_2">
+                        <div class="input_search">
+                            <div id="search-form"></div>
+                            <a href="#" class="full_icon_search">
+                                <i class="material-icons">search</i>
+                            </a>
+                        </div>
+                        <div class="call_me">
+                            <span>技术热线：</span>
+                            <span>4007-888-234</span>
+                        </div>
+                    </div>
+                    <div class="right_div_1">
+                        <div class="enroo_lan_div">
+                            <div>
+                                <a href="" th:href="@{/(lang='zh_CN')}">中文</a>
+                            </div>
+                            <div>
+                                <a href="" th:href="@{/(lang='en_US')}">English</a>
+                            </div>
+                        </div>
+                        <!-- <div class="enroo_keyword">
+                        <div>单片机集成方案全方位解决服务商</div>
+                        <div>优质智能电子产品"芯"方案提供商</div>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="/zh_CN/fragment::top"></section>
+</section>
+
+
+<section class="about_banner carousel_margin_top">
+    <div class="container">
+        <div class="banner_title">
+            <small>Products</small>
+            <h2>产品中心</h2>
+            <div class="about_banner_p">
+                <p>专业品质</p>
+                <div class="about_circle"></div>
+                <p>创立于2008年深圳</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_body p_t_30_80">
+    <div class="bread_bac">
+        <div class="new_Ipage_container">
+            <div class="row justify-content-end">
+                <div class="new_md_9">
+                    <div class="bread_df">
+                        <div class="bread_nav_title">
+                            <h4>产品中心</h4>
+                        </div>
+                        <div class="bread_nav">
+                            <ul class="bread_nav_ul">
+                                <li class="nav_link_bread">
+                                    <a href="#" class="go_home" th:href="@{/}"><i class="fa fa-home"></i></a>
+                                    <a href="#" th:href="@{/}">单片机</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a th:href="|@{/products_new/cpzx/category1}|" href="#"
+                                       class="bread_actie">产品中心</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a th:href="|@{/products_list_new/}${cateName}/${key1}|" class="bread_actie"
+                                       th:text="${default_cate?.text}">产品中心</a>
+                                </li>
+                                <li class="nav_link_bread">
+                                    <a href="#" class="bread_actie" th:text="${product?.name}">产品中心</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="new_Ipage_container">
+        <div class="row">
+            <div class="new_md_3 pa_191">
+                <aside>
+                    <section class="met_aside">
+                        <div class="new_about_tab_title ">
+                            <h2>产品<br>中心</h2>
+                            <div class="new_about_tab_small">
+                                <small>product center</small>
+                            </div>
+                        </div>
+                        <div id="content">
+                            <div class="menu">
+                                <ul class="">
+                                    <li th:each="category : ${category1_cate1}" th:if="${category?.tag == '-'}">
+                                        <a th:text="${category?.text}" th:if="${category?.tag == '-'}">EN全系列产品</a>
+                                        <ul>
+                                            <li class="change_active flex_box_space"
+                                                th:class="${default_cate?.id == cate2?.id}?'change_active flex_box_space menu_li_active':'change_active flex_box_space'"
+                                                th:each="cate2 : ${category?.nodes}" th:if="${cate2?.tag == '--'}">
+                                                <a th:text="${cate2?.text}"
+                                                   th:href="|@{/products_list_new/}${cate2?.initials(cate2?.text)}/${key1}|">EN系列微控制器</a>
+                                                <i class="fa fa-long-arrow-right"></i>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+
+                <div th:replace="zh_CN/new_left::left2"></div>
+                <div th:replace="zh_CN/new_left::left3"></div>
+            </div>
+            <!-- b_fff product_detail_border -->
+            <div class="about_content about_content_border about_main new_md_9">
+                <div class="support_detail_title">
+                    <h1 th:text="${blog?.title}">EN单片机芯片选型问题—深圳单片机开发方案公司</h1>
+                    <div class="display_f">
+                        <span th:text="|更新时间: ${#strings.substring(blog?.createTime,0,10)}|">更新时间: 2018-10-30</span>
+                    </div>
+                </div>
+                <div class="support_detail_body p_r_0">
+                    <div class="effect_title">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="square red_square"></div>
+                                <span class="span_effect">效果图展示</span>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <p th:text="${productJson?.name}">EN8F202</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="effect">
+                        <div class="row m_0">
+                            <div class="col-md-6">
+                                <div class="product_detail_img">
+                                    <img src="images/enheng.png" th:if="${!#lists.isEmpty(imgList)}" th:src="@{${imgList?.get(0)?.imageUrl}}"  alt="" class="img_100 img_border">
+                                    <img src="images/enheng.png" th:if="${#lists.isEmpty(imgList)}" th:src="@{/imagePath/18df8a62b04f46acb66d4d38fba98f703.png}"  alt="" class="img_100 img_border">
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <i class="fa fa-angle-left left_btn text-dark" onclick="enroo_slider.left_btn_fun()"></i>
+                                    <i class="fa fa-angle-right right_btn text-dark" onclick="enroo_slider.right_btn_fun()"></i>
+                                    <div class="w_div">
+                                        <div class="b_div" th:if="${#lists.isEmpty(imgList)}">
+                                            <img src="/imagePath/18df8a62b04f46acb66d4d38fba98f703.png" th:src="@{/imagePath/18df8a62b04f46acb66d4d38fba98f703.png}" alt="">
+                                        </div>
+                                        <div class="b_div" th:if="!${#lists.isEmpty(imgList)}">
+                                            <img src="/imagePath/18df8a62b04f46acb66d4d38fba98f703.png" th:src="@{${image?.imageUrl}}" alt="" th:each="image : ${imgList}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="product_title">
+                                    <div class="product_attribute" th:each="product:${productJson?.json}">
+                                        [[${product?.proauctName}]]： <span th:text="${product?.productMsg}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="list-group product_detail_list" id="list-tab" role="tablist">
+                        <a class="list_link active" id="list-home-list" data-toggle="list" href="#list-home" role="tab">产品特征</a>
+                        <a class="list_link" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab">文档下载</a>
+                        <a class="list_link" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab">研发工具</a>
+                        <a class="list_link" id="list-aaa-list" data-toggle="list" href="#list-aaa" role="tab">技术支持</a>
+                        <a class="list_link" id="list-bbb-list" data-toggle="list" href="#list-bbb" role="tab">方案开发</a>
+                        <a class="list_link" id="list-ccc-list" data-toggle="list" href="#list-ccc" role="tab">免费申样</a>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"
+                             th:utext="${blog?.htmlContent}">aasdasd.</div>
+                        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                            <table class="table">
+                                <thead class="thead-light table_back text-center">
+                                <tr>
+                                    <th scope="col">资源标题</th>
+                                    <th scope="col">资源大小</th>
+                                    <th scope="col">发布时间</th>
+                                    <th scope="col">点击下载</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="file:${fileDetail?.items}">
+                                    <td scope="row">
+                                        <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}" class="td_title" th:text="${file?.name}">EN8F14A</a>
+                                    </td>
+                                    <td class="text-center" th:text="${file?.formatSize(file?.size)}">1.4MB</td>
+                                    <td class="text-center" th:text="${#strings.substring(file?.createTime,0,10)}">2019-01-04</td>
+                                    <td class="text-center">
+                                        <a th:href="@{/file/fileDownload(fileUrl=${file?.downloadFileName},fileName=${file?.getRealName()})}">下载</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                            <div id="carouselExampleIndicators" class="carousel slide w-50 m-auto" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="0" th:data-slide-to="${devImgStat?.index}" th:each="devImg : ${devImgList}" th:class="${devImgStat?.index == 0} ? 'active' : ''"></li>
+                                    <!--    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item m-auto" th:each="devImg : ${devImgList}" th:classappend="${devImgStat?.count == 1} ? 'active' : ''">
+                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                            <!-- <span class="carousel-control-prev-icon text-black" aria-hidden="true"></span> -->
+                                            <i class="fa fa-angle-left text-black" aria-hidden="true"></i>
+                                            <span class="sr-only text-black">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                            <i class="fa fa-angle-right text-black" aria-hidden="true"></i>
+                                            <!-- <span class="carousel-control-next-icon text-black" aria-hidden="true"></span> -->
+                                            <span class="sr-only text-black">Next</span>
+                                        </a>
+                                        <img class="d-block w-100 mt-4 product-details-carousel-img" th:src="@{${devImg?.imageUrl}}" alt="First slide" th:alt="${devImg?.imageName}">
+                                        <div class="carousel-caption d-none d-md-block position-static mt-2 mb-5">
+                                            <h5 class="text-black font-size-1rem" th:text="${devImg?.imageName}">EN系列仿真器</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list-aaa" role="tabpanel" aria-labelledby="list-aaa-list">
+                            <div class="form_solution" >
+                                <p class="form_solution_p">技术支持服务</p>
+                                <form id="addForm2" action="/form/saveForm" method="post">
+                                    <input hidden="hidden" name="codeToUp" id="verify">
+                                    <input hidden="hidden" name="inputCode" id="inputCode">
+                                    <div th:if="${formId != null}">
+                                        <input th:if="${!#lists.contains(allType,'text')&&!#lists.contains(allType,'select')&&!#lists.contains(allType,'textarea')}"
+                                               hidden="hidden" name="result" value="666">
+                                        <input th:if="${!#lists.contains(allType,'radio')}" hidden="hidden" type="radio" name="radio[0]"
+                                               value="7777" checked>
+                                        <input th:if="${!#lists.contains(allType,'checkbox')}" hidden="hidden" type="checkbox"
+                                               name="checkbox[0]" value="8888" checked>
+                                    </div>
+
+                                    <div th:each="form,formStart:${form2}">
+                                        <input type="text" name="formId" th:value="${form?.form?.id}" hidden="hidden" th:if="${formStart.index==0}">
+                                        <div class="form-group row" th:if="${form?.type == 'text'}">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                                   th:text="${form?.name}">公司名称:</label>
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="result" id="staticEmail"
+                                                       placeholder="">
+                                                <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                                <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row df_center" th:if="${form?.type == 'textarea'}">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                                   th:text="${form?.name}">公司名称:</label>
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <div class="col-sm-10">
+                                                    <textarea type="text" class="form-control" name="result" id="staticEmail"
+                                                              placeholder=""></textarea>
+                                                <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                                <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" th:if="${form?.type == 'select'}">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                                   th:text="${form?.name}">公司名称:</label>
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <div class="col-sm-10">
+                                                <select class="select" th:id="result+${form?.id}" name="result" style="width: 100%;">
+                                                    <div th:if="${#lists.isEmpty(form?.option)}">
+                                                        <option th:text="无选项" th:value="无选项"></option>
+                                                    </div>
+                                                    <div th:if="${!#lists.isEmpty(form?.option)}">
+                                                        <option th:each="option:${form?.option}" th:text="${option}" th:value="${option}"></option>
+                                                    </div>
+                                                </select>
+                                                <br>
+                                                <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                                <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row df_center" th:if="${form?.type == 'radio'}">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                                   th:text="${form?.name}">公司名称:</label>
+                                            <input hidden="hidden" type="text" name="radioId" th:value="${form?.id}">
+                                            <div class="col-sm-10 form_solution_df">
+                                                <div class="form-check form-check-inline" th:each="option,optionStart:${form?.option}">
+                                                    <input class="form-check-input" type="radio" th:name="|radio[${form?.keyValue}]|"
+                                                           th:value="${option}" id="inlineCheckbox1" value="option1">
+                                                    <label th:text="${option}" class="form-check-label form_solution_label" for="inlineCheckbox1">制造</label>
+                                                </div>
+                                                <br>
+                                                <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                                <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row df_center" th:if="${form?.type == 'checkbox'}">
+                                            <label for="staticEmail" class="col-sm-2 col-form-label form_solution_label"
+                                                   th:text="${form?.name}">公司名称:</label>
+                                            <span class="checkb error" STYLE="color: red" th:id="checkb"></span>
+                                            <input hidden="hidden" type="text" name="ids" th:value="${form?.id}">
+                                            <div class="col-sm-10 form_solution_df">
+                                                <div class="form-check form-check-inline" th:each="option,optionStart:${form?.option}">
+                                                    <input class="form-check-input" type="checkbox" th:name="|checkbox[${form?.keyValue}]|"
+                                                           th:value="${option}" id="inlineCheckbox1" value="option1">
+                                                    <label th:text="${option}" class="form-check-label form_solution_label" for="inlineCheckbox1">制造</label>
+                                                </div>
+                                                <br>
+                                                <small th:if="${form?.remarks != ''}" th:text="${form?.remarks}"></small>
+                                                <small class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="form_soltution_btn">
+                                    <div class="ddetails-con form_soltution_btn">
+                                        <div class="J_before form_soltution_btn">
+                                            <input type="button" value="确认提交" class="btn btn-success btn J_download">
+                                        </div>
+                                        <div class="J_after form_soltution_btn" style="display:none;">
+                                            <div class="checkcode form_soltution_btn">
+                                                <input type="text" style="border: none;" id="J_codetext" placeholder="验证码"
+                                                       maxlength="4">
+                                                <canvas class="J_codeimg" id="myCanvas" onclick="createCode()">
+                                                    Your browser does not support the canvas element.
+                                                </canvas>
+                                            </div>
+                                            <input type="button" value="提交" class="btn btn-success btn-code updateFormItem"  data-form="addForm2">
+                                            <input type="button" value="返回" class="btn btn-success btn-code btn-no">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="list-bbb" role="tabpanel" aria-labelledby="list-bbb-list">
+                            <form id="addForm4" action="/form/saveForm" method="post">
+                                <input hidden="hidden" type="text" name="formId" th:value="${formId}">
+                                <input hidden="hidden"  name="codeToUp" id="verify1">
+                                <input hidden="hidden"  name="inputCode" id="inputCode1">
+                                <div th:if="${formId != null}">
+                                    <input th:if="${!#lists.contains(allType,'text')&&!#lists.contains(allType,'select')&&!#lists.contains(allType,'textarea')}"
+                                           hidden="hidden" name="result" value="666">
+                                    <input th:if="${!#lists.contains(allType,'radio')}" hidden="hidden" type="radio"
+                                           name="radio[0]" value="7777" checked>
+                                    <input th:if="${!#lists.contains(allType,'checkbox')}" hidden="hidden" type="checkbox"
+                                           name="checkbox[0]" value="8888" checked>
+                                </div>
+                                <div class="row input_div new_input_div">
+                                    <div th:class="${formStat.count <= 4}? 'col-md-6' : 'col-md-12'" th:each="form:${form4}">
+                                        <div th:if="${form?.type == 'text'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <input type="text" name="result" class="form-control">
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'textarea'}">
+                                            <label th:text="${form?.name}">公司名称：</label><span class="error" STYLE="color: red"
+                                                                                              th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <textarea name="result" class="form-control" cols="30" rows="3"></textarea>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'select'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <p>
+                                                <input hidden="hidden" type="text" th:id="value+${form?.keyValue}"
+                                                       th:value="${form?.name}">
+                                                <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                                <input hidden="hidden" type="text" th:id="name+${formStat.index}"
+                                                       th:value="${form?.name}">
+                                                <select class="select" th:id="result+${form?.id}" name="result" style="width: 100%;height: 34px;background: transparent;color: #888888;">
+                                                    <option></option>
+                                                    <div th:if="${#lists.isEmpty(form?.option)}">
+                                                        <option th:text="无选项" th:value="无选项"></option>
+                                                    </div>
+                                                    <div th:if="${!#lists.isEmpty(form?.option)}">
+                                                        <option th:each="option:${form?.option}" th:text="${option}"
+                                                                th:value="${option}"></option>
+                                                    </div>
+                                                </select>
+                                                <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'radio'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="radio error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" name="radioId" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <div class="checkbox_div">
+                                                <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                    <input type="radio" th:name="|radio[${form?.keyValue}]|" th:value="${option}">
+                                                    <span th:text="${option}">制造</span>
+                                                </div>
+                                            </div>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'checkbox'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="checkb error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" name="ids" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <div class="checkbox_div">
+                                                <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                    <input type="checkbox" th:name="|checkbox[${form?.keyValue}]|"
+                                                           th:value="${option}">
+                                                    <span th:text="${option}">制造</span>
+                                                </div>
+                                            </div>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 tab-pane-button-div">
+                                        <div class="ddetails-con">
+                                            <div class="J_before">
+                                                <input type="button" value="确认提交" class="btn btn-success btn J_download">
+                                            </div>
+                                            <div class="J_after" style="display:none;">
+                                                <div class="checkcode form_soltution_btn">
+                                                    <input type="text" style="border: none;" id="J_codetext1" placeholder="验证码"
+                                                           maxlength="4">
+                                                    <canvas class="J_codeimg" id="myCanvas1" onclick="createCode()">
+                                                        Your browser does not support the canvas element.
+                                                    </canvas>
+                                                </div>
+                                                <input type="button" value="提交" class="btn custome-color btn-code updateFormItem"  data-form="addForm4">
+                                                <input type="button" value="返回" class="btn custome-color btn-code btn-no">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="list-ccc" role="tabpanel" aria-labelledby="list-ccc-list">
+                            <form id="addForm3" action="/form/saveForm" method="post">
+                                <input hidden="hidden" type="text" name="formId" th:value="${formId}">
+                                <input hidden="hidden" name="codeToUp" id="verify2">
+                                <input hidden="hidden" name="inputCode" id="inputCode2">
+                                <div th:if="${formId != null}">
+                                    <input th:if="${!#lists.contains(allType,'text')&&!#lists.contains(allType,'select')&&!#lists.contains(allType,'textarea')}"
+                                           hidden="hidden" name="result" value="666">
+                                    <input th:if="${!#lists.contains(allType,'radio')}" hidden="hidden" type="radio"
+                                           name="radio[0]" value="7777" checked>
+                                    <input th:if="${!#lists.contains(allType,'checkbox')}" hidden="hidden" type="checkbox"
+                                           name="checkbox[0]" value="8888" checked>
+                                </div>
+                                <div class="row input_div new_input_div">
+                                    <div th:class="${formStat.count <= 4}? 'col-md-6' : 'col-md-12'" th:each="form:${form3}">
+                                        <div th:if="${form?.type == 'text'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <input type="text" name="result" class="form-control">
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'textarea'}">
+                                            <label th:text="${form?.name}">公司名称：</label><span class="error" STYLE="color: red"
+                                                                                              th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" th:id="value+${form?.keyValue}" th:value="${form?.name}">
+                                            <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <textarea name="result" class="form-control" cols="30" rows="3"></textarea>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'select'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <p>
+                                                <input hidden="hidden" type="text" th:id="value+${form?.keyValue}"
+                                                       th:value="${form?.name}">
+                                                <input hidden="hidden" type="text" name="id" th:value="${form?.id}">
+                                                <input hidden="hidden" type="text" th:id="name+${formStat.index}"
+                                                       th:value="${form?.name}">
+                                                <select class="select" th:id="result+${form?.id}" name="result" style="width: 100%;height: 34px;background: transparent;color: #888888;">
+                                                    <option></option>
+                                                    <div th:if="${#lists.isEmpty(form?.option)}">
+                                                        <option th:text="无选项" th:value="无选项"></option>
+                                                    </div>
+                                                    <div th:if="${!#lists.isEmpty(form?.option)}">
+                                                        <option th:each="option:${form?.option}" th:text="${option}"
+                                                                th:value="${option}"></option>
+                                                    </div>
+                                                </select>
+                                                <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'radio'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="radio error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" name="radioId" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <div class="checkbox_div">
+                                                <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                    <input type="radio" th:name="|radio[${form?.keyValue}]|" th:value="${option}">
+                                                    <span th:text="${option}">制造</span>
+                                                </div>
+                                            </div>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+
+                                        <div th:if="${form?.type == 'checkbox'}">
+                                            <label th:text="${form?.name}">公司名称：</label>
+                                            <span class="checkb error" STYLE="color: red" th:id="|checkData${form?.sort}|"></span>
+                                            <input hidden="hidden" type="text" name="ids" th:value="${form?.id}">
+                                            <input hidden="hidden" type="text" th:id="name+${formStat.index}" th:value="${form?.name}">
+                                            <div class="checkbox_div">
+                                                <div class="tab-pane-checkbox" th:each="option,optionStart:${form?.option}">
+                                                    <input type="checkbox" th:name="|checkbox[${form?.keyValue}]|"
+                                                           th:value="${option}">
+                                                    <span th:text="${option}">制造</span>
+                                                </div>
+                                            </div>
+                                            <small th:if="${fom?.remarks != ''}" style="color: #6c757d;" th:text="${form?.remarks}"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 tab-pane-button-div">
+                                        <div class="ddetails-con">
+                                            <div class="J_before">
+                                                <input type="button" value="确认提交" class="btn btn-success btn J_download">
+                                            </div>
+                                            <div class="J_after" style="display:none;">
+                                                <div class="checkcode form_soltution_btn">
+                                                    <input type="text" style="border: none;" id="J_codetext2" placeholder="验证码"
+                                                           maxlength="4">
+                                                    <canvas class="J_codeimg" id="myCanvas2" onclick="createCode()">
+                                                        Your browser does not support the canvas element.
+                                                    </canvas>
+                                                </div>
+                                                <input type="button" value="提交" class="btn custome-color btn-code updateFormItem" data-form="addForm3">
+                                                <input type="button" value="返回" class="btn custome-color btn-code btn-no">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div>
+                    <button class="btn btn-primary">下载PDF</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<footer th:replace="/zh_CN/footer::footer"></footer>
+
+<script src="/js/jquery-3.0.0.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/css/tab/jjs_jquery-1.10.2.min.js"></script>
+<script src="/css/tab/jjs_menu_min.js"></script>
+<script type="text/javascript" src="/dist/autocomplete.js"></script>
+<script src="/js/index.js"></script>
+<script src="js/saveUserFormData2.js" th:src="@{/js/saveUserFormData2.js}"></script>
+<script src="/js/verify.js" th:src="@{/js/verify.js}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".menu ul li").menu();
+    });
+</script>
+<script type="text/javascript">
+    var proposals = ['百度1', '百度2', '百度3', '百度4', '百度5', '百度6', '百度7', '呵呵呵呵呵呵呵', '百度', '新浪', 'a1', 'a2', 'a3', 'a4',
+        'b1', 'b2', 'b3', 'b4', '?????'
+    ];
+    $(document).ready(function () {
+        $('#search-form').autocomplete({
+            hints: proposals,
+            width: 300,
+            height: 30,
+            placeholder: "全站搜索 / 产品搜索"
+            // onSubmit: function (text) {
+            //     $('#message').html('Selected: <b>' + text + '</b>');
+            // }
+        });
+    });
+
+    $(document).on("click", ".full_icon_search", function () {
+        var keyword = $("input[name='query']").val();
+        console.log("keyword=" + keyword);
+        window.location.href = "/searchAll?keyword="+ keyword +"&type=all";
+    });
+
+    /*$(document).on("click", "#searchTop", function () {
+        var keyword = $("input[name='query']").val();
+        window.location.href = "/products_list?keyword=" + keyword;
+    });
+
+    $(document).on("click", "#searchPro", function () {
+        var keyword = $("input[name='keyword']").val();
+        window.location.href = "/products_list?keyword=" + keyword;
+    });*/
+</script>
+
+</body>
+
+</html>

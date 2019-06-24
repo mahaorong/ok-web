@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>未通过</title>
+    <!-- <link href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/css/icon_bootstrap.css" th:href="@{/bootstrap/css/icon_bootstrap.css}">
+    <link rel="stylesheet" href="../../../static/css/new_style.css" th:href="@{/css/new_style.css}">
+    <link rel="stylesheet" href="../../../static/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css" th:href="@{/bootstrap/bootstrapTreeview/css/bootstrap-treeview.css}">
+    <link rel="stylesheet" href="../../../static/css/material-icons.css" th:href="@{/css/material-icons.css}">
+    <link rel="stylesheet" href="../../../static/css/sort.css" th:href="@{/css/sort.css}">
+    <link rel="stylesheet" href="../../../static/css/new_css/article.css" th:href="@{/css/new_css/article.css}">
+
+    <script src="../../../static/bootstrap/js/jquery.slim.min.js" th:src="@{/bootstrap/js/jquery.slim.min.js}"></script>
+    <script src="../../../static/bootstrap/js/popper.min.js" th:src="@{/bootstrap/js/popper.min.js}"></script>
+    <script src="../../../static/bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="../../../static/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js" th:src="@{/bootstrap/bootstrapTreeview/js/bootstrap-treeview.js}"></script>
+</head>
+
+<body>
+<div th:replace="admin/new_web/navigation_bar::top2"></div>
+    <section class="p_f">
+        <nav class="navbar navbar-expand-lg navbar-light bg_style_back">
+            <div th:replace="admin/new_web/navigation_bar::top1"></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse m_r_1rem" id="navbarSupportedContent">
+                <div th:replace="admin/new_web/navigation_bar::top3"></div>
+                <form action="/search/searchAll" class="form-inline my-2 my-lg-0">
+                    <input hidden="hidden" type="text" name="type" value="article_refust">
+                    <input name="keyword" class="form-control mr-sm-2" th:value="${keyword}" type="search" placeholder="请输入..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light my-2 my-sm-0">搜索</button>
+                </form>
+            </div>
+            <button type="button" class="btn btn-outline-light my-2 my-sm-0" onclick="window.location.href='/logout'">注销</button>
+
+        </nav>
+    </section>
+    <div class="flex_box">
+        <div class="number_dir">
+            <div id="treeview3" class=""></div>
+        </div>
+        <div class="enroo_main p_r">
+            <nav aria-label="breadcrumb" class="breadcrumb_nav">
+                <ol class="breadcrumb breadcrumb_ol">
+                    <li class="breadcrumb-item">文章</li>
+                    <!--<li class="breadcrumb-item"><a href="#">Library</a></li>-->
+                    <li class="breadcrumb-item active" aria-current="page">未通过</li>
+                </ol>
+            </nav>
+            <hr>
+            <button class="btn btn-default" onclick="window.location.reload()">刷新</button>
+            <table class="table table-bordered article_review_table">
+                <thead>
+                    <tr>
+                        <th scope="col">文章标题</th>
+                        <th scope="col">作者</th>
+                        <th scope="col">发布时间</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="blog:${blogPage?.items}">
+                        <th scope="row" th:text="${blog?.title}">1</th>
+                        <td th:text="${blog?.user?.username}">Mark</td>
+                        <td th:text="${#strings.substring(blog?.createTime,0,19)}">Otto</td>
+                        <td class="table_fun">
+                            <a href="" th:href="@{/admin/delete/blog(blogId=${blog?.id},review=2)}">删除</a>
+                            <a href="" th:href="@{/admin/blog/detail(id=${blog?.id})}">修改</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=1&keyword=${keyword}&type=${type}|:(${id}?|?page=1&status=0&review=2&id=${id}|:|?page=1&status=0&review=2|)">首页</a></li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" th:href="${keyword}?|?page=${blogPage?.getPre()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${blogPage?.getPre()}&status=0&review=2&id=${id}|:|?page=${blogPage?.getPre()}&status=0&review=2|)"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:class="${page == blogPage?.getPage()}?'page-item active':'page-item'" th:each="page:${blogPage?.getPages()}"><a class="page-link" href="?page=1"
+                            th:href="${keyword}?|?page=${page}&keyword=${keyword}&type=${type}|:(${id}?|?page=${page}&status=0&review=2&id=${id}|:|?page=${page}&status=0&review=2|)">[[${page}]]</a></li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="${keyword}?|?page=${blogPage?.getNext()}&keyword=${keyword}&type=${type}|:(${id}?|?page=${blogPage?.getNext()}&status=0&review=2&id=${id}|:|?page=${blogPage?.getNext()}&status=0&review=2|)"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#" th:href="${keyword}?|?page=${blogPage?.pagecount}&keyword=${keyword}&type=${type}|:(${id}?|?page=${blogPage?.pagecount}&status=0&review=2&id=${id}|:|?page=${blogPage?.pagecount}&status=0&review=2|)">尾页</a></li>
+                </ul>
+                <span class="pageInfo">当前第[[${blogPage?.page}]]/[[${blogPage?.pagecount}]]页  共[[${blogPage?.totalcount}]]条记录 每页[[${blogPage?.pagesize}]]条</span>
+            </nav>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        $(function () {
+
+            var defaultData = [[${category?.cateitems}]];
+            $('#treeview3').treeview({
+                levels: 99,
+                data: defaultData,
+                onNodeSelected: function (event, data) {
+                    console.log(data.id);
+                    window.location.href = "/admin/findBlog?review=2&id=" + data.id
+                },
+            });
+            $('#treeview3').treeview('collapseAll', {
+                silent: true
+            });
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+.input_div label{
+    font-size: .8rem;
+}
+.form_solution{
+    border:none;
+    margin: 0;
+    padding:0;
+}
+.tab-pane-checkbox>span{
+    font-size: .8rem;    
+}

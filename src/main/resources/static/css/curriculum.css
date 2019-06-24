@@ -1,0 +1,177 @@
+/*----header-----*/
+.header-navbar{
+    position: relative;
+}
+.background_header{
+    background-image: url(../images/banner.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    opacity: 1;
+}
+.b-background-mask{
+    background-color: rgba(0, 0, 0, .5);
+    padding: 120px 0px;
+}
+.b-navbar{
+    background-color: transparent !important;
+}
+.b-title{
+    z-index: 3;
+    color: #fff;
+}
+nav a{
+    color: #fff !important;
+}
+.b-title-header{
+    color: #fff;
+}
+.b-title-h2{
+    text-transform: uppercase;
+    font-size: 42px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+}
+.b-title-header>ul{
+    padding-left: 0;
+}
+.b-title-header>ul>li{
+    display: inline-block;
+}
+.b-title-header>ul>li>a{
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+.b-title-header>ul>li>a:hover{
+    color: #999;
+}
+.b-title-header>ul>li>a:hover{
+    text-decoration: none;
+}
+.b-title-header>ul>li+li:before{
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+.active{
+    color: #999!important;
+}
+.b-nav-p{
+    position: relative;
+}
+@media (min-width: 768px){
+    .b-nav{
+        position: absolute;
+        right: 0;
+    }
+}
+.nav-c{
+    font-size: 17px;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+.navbar-default {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    transition: .5s;
+}
+.addClass_back{
+    background-color: #fff !important;
+    border-bottom: 1px solid #eee;
+}
+.addClass_back a{
+    color: #333743 !important;
+}
+/*-----end-----*/
+
+/*fa start*/
+.fa-qrcode:before,.fa-arrow-up:before{
+    position: relative;
+    right: -14px;
+    top: 4px;
+}
+.fa-chevron-circle-left:before,.fa-chevron-circle-right:before{
+    font-size: 18px;
+}
+.fa-html5:before,.fa-gg-circle:before,.fa-eercast:before,.fa-stack-overflow:before,.fa-ioxhost:before,.fa-android:before{
+    font-size: 36px;
+    color: #2196f3;
+}
+.fa-map-marker:before {
+    font-size: 18px;
+    color: #2196f3;
+    margin-right: 10px;
+}
+.fa-search:before {
+    font-size: 24px;
+}
+.fa-search{
+    margin-bottom: 30px;
+}
+.fa-map-pin{
+    margin-bottom: 16px;
+}
+.fa-map-pin:before{
+    font-size: 18px;
+    margin-right: 17px;
+}
+.fa-envelope-o:before{
+    font-size: 18px;
+    margin-right: 10px;
+
+}
+.fa-mobile-phone:before, .fa-mobile:before{
+    font-size: 28px;
+    margin-right: 17px;
+    position:  relative;
+    top: 3px;
+}
+.fa-mobile{
+    margin-top: 10px;
+}
+.fa-qrcode:hover, .fa-arrow-up:hover{
+    color: lavender;
+}
+/*fa send*/
+
+/* card start*/
+.cu-card-item {
+    padding: 45px 0 15px 0;
+}
+
+/*card end*/
+/* page start*/
+.pagination {
+    display: block;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin: 20px 10px;
+}
+.w-img{
+    height: 300px;
+}
+.w-content{
+    min-height: 333px;
+}
+.pagination {
+    display: block;
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin: 20px 10px;
+}
+li>a:hover{
+    color: #2196f3!important;
+    transition: .5s;
+}
+/*!
+ laypageÃ©Â»ËœÃ¨Â®Â¤Ã¦Â Â·Ã¥Â¼Â
+*/.laypage_main a,.laypage_main input,.laypage_main span{height:26px;line-height:26px}.laypage_main button,.laypage_main input,.laypageskin_default a{border:1px solid #ccc;background-color:#fff;}.laypage_main{font-size:0;clear:both;color:#666}.laypage_main *{display:inline-block;vertical-align:top;font-size:12px}.laypage_main a{text-decoration:none;}.laypage_main a,.laypage_main span{margin:0 3px 6px;padding:0 10px}.laypage_main input{width:40px;margin:0 5px;padding:0 5px}.laypage_main button{height:28px;line-height:28px;margin-left:5px;padding:0 10px;color:#666}.laypageskin_default span{height:28px;line-height:28px;color:#999}.laypageskin_default .laypage_curr{font-weight:700;color:#666}.laypageskin_molv a,.laypageskin_molv span{padding:0 12px;border-radius:2px}.laypageskin_molv a{background-color:#f1eff0}.laypageskin_molv .laypage_curr{background-color:#00AA91;color:#fff}.laypageskin_molv input{height:24px;line-height:24px}.laypageskin_molv button{height:26px;line-height:26px}.laypageskin_yahei{color:#333}.laypageskin_yahei a,.laypageskin_yahei span{padding:0 13px;border-radius:2px;color:#333}.laypageskin_yahei .laypage_curr{background-color:#333;color:#fff}.laypageskin_flow{text-align:center}.laypageskin_flow .page_nomore{color:#999}
+/* page end*/
